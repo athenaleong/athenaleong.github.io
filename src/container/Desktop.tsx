@@ -1,63 +1,144 @@
 import React, { Component, useState, useCallback } from 'react';
-import Folder, {FolderState} from '../component/Folder';
 import update from 'immutability-helper';
 import { useDrop, DropTargetMonitor } from 'react-dnd'
+import Folder from '../component/Folder';
 
 //TODO: move out
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
+import Tab from '../component/Tab';
+import AboutTab from './AboutTab';
 
 const Desktop = () => {
 
-    const [folders, setFolders] = useState<FolderState[]>([
-        { id: '1', imageSrc: './src/assets/react.svg', left: 100, top: 300},
-        { id: '2', imageSrc: './src/assets/react.svg', left: 200, top: 400 },
-        { id: '3', imageSrc: './src/assets/react.svg', left: 300, top: 500 },
-      ]);
+    const [folders, setFolders] = useState<{
+        [key: string]: {
+            top: number;
+            right: number;
+            imageSrc: string;
+            tabId: string;
+        }
+    }>({
+        '1': {imageSrc: './src/assets/react.svg', right: 100, top: 100, tabId: 'about'},
+        '2' : {imageSrc: './src/assets/react.svg', right: 100, top: 200, tabId: 'projects'},
+        '3' : {imageSrc: './src/assets/react.svg', right: 100, top: 300, tabId: 'contact' },
+    });
 
+    const [tabs, setTabs] = useState<TabType>({
+        'about': {right: 100, top: 100},
+    })
 
-    const moveFolder = useCallback(
-    (id: string, left: number, top: number) => {
-        setFolders(
-        update(folders, {
-            [id]: {
-            $merge: { left, top },
-            },
-        }),
-        )
+    /** Drag and Drop */
+
+    const moveItems = useCallback(
+    (id: string, right: number, top: number, type: 'folder'| 'tab') => {
+        switch (type) {
+            case 'folder': 
+                setFolders(update(folders, {
+                    [id]: {
+                    $merge: { right, top },
+                    },
+                }));
+                break;
+            case 'tab':
+                setTabs(update(tabs, {
+                    [id]: {
+                    $merge: { right, top },
+                    },
+                }));
+                break;
+        }
+        ;
     },
-    [folders, setFolders],
+    [folders, setFolders, tabs, setTabs],
     )
+
+
 
     const [, drop] = useDrop(
         () => ({
-            accept: 'folder',
-            drop(item: FolderState, monitor: any) {
+            accept: ['folder', 'tab'],
+            drop(item: any, monitor: any) {
+                console.log(item);
                 const delta = monitor.getDifferenceFromInitialOffset() as { x: number; y: number }
-                let left = Math.round(item.left + delta.x)
+                console.log(item.right, item.top, delta.x, delta.y)
+                let right = Math.round(item.right - delta.x)
                 let top = Math.round(item.top + delta.y)
-                moveFolder(item.id, left, top)
+                top = Math.max(0, top)
+                moveItems(item.id, right, top, item.type)
                 return undefined
             },
         }),
-        [moveFolder],
+        [moveItems],
     )
 
+    /** Tabs logic */ 
+
+    const removeTab = (id: string) => {
+        setTabs(update(tabs, {
+            $unset: [id],
+        }));
+    }
+
+    //TODO: Create Interface 
+    const TabRender = (id: string) => {
+        switch (id) {
+            case 'about':
+                return <AboutTab/>
+        }
+    }
+
+    const FolderOnClick = (tabId: string) => {
+        if (tabId in tabs) {
+            removeTab(tabId) //TODO- instead of remove, bring to top
+        } else {
+            const defaultProps = DefaultTabDict[tabId];
+            setTabs(update(tabs, {
+                [tabId]: {
+                    $set: defaultProps,
+                },
+            }))
+        }
+    }
 
     return (
-        <DndProvider backend={HTML5Backend}>
-            <div className="w-screen h-screen bg-yellow-300 flex flex-col fixed">
-                <div className='w-screen h-10 bg-orange-300'>
+        <div className="w-screen h-screen bg-yellow-300 flex flex-col fixed">
+            <div className='w-screen h-10 bg-orange-300'>
 
-                </div>
-                <div ref={drop} className='w-screen bg-blue-300 shrink h-screen relative'>
-                    <h1>Desktop</h1>
-                    {folders.map((folder) => (
-                        <Folder key={folder.id} imageSrc={folder.imageSrc} left={folder.left} top={folder.top} id={String(folder.id)}/>
-                    ))}
-                </div>
             </div>
-        </DndProvider>
+            <div ref={drop} className='w-screen bg-blue-300 shrink h-screen relative'>
+                <h1>Desktop</h1>
+                {Object.keys(folders).map((key) => {
+                    const { right, top, imageSrc, tabId} = folders[key] as {
+                        top: number
+                        right: number
+                        imageSrc: string
+                        tabId: string
+                      }
+                    return(
+                        <Folder 
+                            key={key} 
+                            id={key} 
+                            imageSrc={imageSrc} 
+                            right={right} 
+                            top={top}
+                            onClick={() => FolderOnClick(tabId)}
+                        />)
+                })}
+
+                {Object.keys(tabs).map((key) => {
+                    const { right, top } = tabs[key] as {
+                        top: number
+                        right: number
+                        }
+                    return(
+                        <Tab key={key} id={key} right={right} top={top} removeTab={removeTab}>
+                            {TabRender(key)}
+                        </Tab>
+                    )
+                })}
+            </div>
+        </div>
     );
 };
 
@@ -65,4 +146,19 @@ export default Desktop;
 
 interface DesktopProps {
 };
+
+interface TabType {
+        [key: string]: {
+            top: number;
+            right: number;
+}}
+
+//TODO: move out
+const DefaultTabDict: TabType = {
+    'about': {right: 400, top: 50},
+    'project': {right: 400, top: 400},
+    'contact': {right: 300, top: 400},
+}
+
+
 
