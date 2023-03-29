@@ -1,6 +1,6 @@
 import { useDrag } from 'react-dnd';
 
-const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab}) => {
+const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab, zIndex}) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'tab',
     item: { id, right, top, 'type': 'tab' },
@@ -13,8 +13,8 @@ const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab}) => {
         return (
         <div
         ref={drag}
-        className={`absolute min-w-[500px] min-h-[500px] bg-white flex flex-col`}
-        style={{right : `${right}px`, top : `${top}px`}}
+        className={`absolute max-w-[800px] max-h-[600px] bg-white flex flex-col border-solid border-2 border-black`}
+        style={{right : `${right}px`, top : `${top}px`, zIndex: zIndex}}
         >
             <div 
             className='w-full h-10 bg-gray-300 flex justify-end'
@@ -23,7 +23,7 @@ const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab}) => {
                     onClick={() => removeTab(id)}
                 >X</button>
             </div>
-            <div>
+            <div className='overflow-y-scroll'>
                 {children}
             </div>
         </div>
@@ -42,6 +42,7 @@ interface TabProps {
     top: number;
     children: React.ReactNode;
     removeTab: (id: string) => void;
+    zIndex?: number;
   }
   
 

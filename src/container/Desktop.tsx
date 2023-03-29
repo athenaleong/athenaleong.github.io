@@ -8,6 +8,8 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 import Tab from '../component/Tab';
 import AboutTab from './AboutTab';
+import ProjectTab from './ProjectTab';
+import ContactTab from './ContactTab';
 
 const Desktop = () => {
 
@@ -20,13 +22,13 @@ const Desktop = () => {
         }
     }>({
         '1': {imageSrc: './src/assets/react.svg', right: 100, top: 100, tabId: 'about'},
-        '2' : {imageSrc: './src/assets/react.svg', right: 100, top: 200, tabId: 'projects'},
+        '2' : {imageSrc: './src/assets/react.svg', right: 100, top: 200, tabId: 'project'},
         '3' : {imageSrc: './src/assets/react.svg', right: 100, top: 300, tabId: 'contact' },
     });
 
-    const [tabs, setTabs] = useState<TabType>({
-        'about': {right: 100, top: 100},
-    })
+    const [minZIndex, setMinZIndex] = useState<number>(1);
+
+    const [tabs, setTabs] = useState<TabType>({})
 
     /** Drag and Drop */
 
@@ -43,9 +45,10 @@ const Desktop = () => {
             case 'tab':
                 setTabs(update(tabs, {
                     [id]: {
-                    $merge: { right, top },
+                    $merge: { right, top, zIndex: minZIndex + 1},
                     },
                 }));
+                setMinZIndex(minZIndex + 1)
                 break;
         }
         ;
@@ -85,14 +88,25 @@ const Desktop = () => {
         switch (id) {
             case 'about':
                 return <AboutTab/>
+            case 'project':
+                return <ProjectTab/>
+            case 'contact':
+                return <ContactTab/>
         }
     }
 
     const FolderOnClick = (tabId: string) => {
         if (tabId in tabs) {
-            removeTab(tabId) //TODO- instead of remove, bring to top
+            setTabs(update(tabs, {
+                [tabId]: {
+                    $merge: { zIndex: minZIndex + 1},
+                },
+            }));
+            setMinZIndex(minZIndex + 1)
         } else {
-            const defaultProps = DefaultTabDict[tabId];
+            let defaultProps = DefaultTabDict[tabId];
+            defaultProps.zIndex = minZIndex + 1;
+            setMinZIndex(minZIndex + 1);
             setTabs(update(tabs, {
                 [tabId]: {
                     $set: defaultProps,
@@ -125,14 +139,14 @@ const Desktop = () => {
                             onClick={() => FolderOnClick(tabId)}
                         />)
                 })}
-
                 {Object.keys(tabs).map((key) => {
-                    const { right, top } = tabs[key] as {
+                    const { right, top, zIndex } = tabs[key] as {
                         top: number
                         right: number
-                        }
+                        zIndex?: number
+                    }
                     return(
-                        <Tab key={key} id={key} right={right} top={top} removeTab={removeTab}>
+                        <Tab key={key} id={key} right={right} top={top} removeTab={removeTab} zIndex={zIndex}>
                             {TabRender(key)}
                         </Tab>
                     )
@@ -151,13 +165,14 @@ interface TabType {
         [key: string]: {
             top: number;
             right: number;
+            zIndex?: number;
 }}
 
 //TODO: move out
 const DefaultTabDict: TabType = {
     'about': {right: 400, top: 50},
-    'project': {right: 400, top: 400},
-    'contact': {right: 300, top: 400},
+    'project': {right: 650, top: 150},
+    'contact': {right: 300, top: 100},
 }
 
 
