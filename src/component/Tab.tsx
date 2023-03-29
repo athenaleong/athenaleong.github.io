@@ -1,6 +1,6 @@
 import { useDrag } from 'react-dnd';
 
-const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab, zIndex}) => {
+const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab, zIndex, onClick}) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'tab',
     item: { id, right, top, 'type': 'tab' },
@@ -15,6 +15,7 @@ const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab, zIndex})
         ref={drag}
         className={`absolute max-w-[800px] max-h-[600px] bg-white flex flex-col border-solid border-2 border-black`}
         style={{right : `${right}px`, top : `${top}px`, zIndex: zIndex}}
+        onClick={onClick}
         >
             <div 
             className='w-full h-10 bg-gray-300 flex justify-end'
@@ -42,7 +43,9 @@ interface TabProps {
     top: number;
     children: React.ReactNode;
     removeTab: (id: string) => void;
+    onClick: () => void;
     zIndex?: number;
+
   }
   
 

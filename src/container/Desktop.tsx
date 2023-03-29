@@ -10,6 +10,12 @@ import Tab from '../component/Tab';
 import AboutTab from './AboutTab';
 import ProjectTab from './ProjectTab';
 import ContactTab from './ContactTab';
+import TabDict, { TabType } from '../type/tab';
+
+//redux
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../slices';
+import { popTab, addTab, updateTab, bringTabToFront } from '../slices/tab';
 
 const Desktop = () => {
 
@@ -28,7 +34,9 @@ const Desktop = () => {
 
     const [minZIndex, setMinZIndex] = useState<number>(1);
 
-    const [tabs, setTabs] = useState<TabType>({})
+    // const [tabs, setTabs] = useState<TabDict>({}) //Change to redux store
+    const dispatch = useDispatch();
+    const tabs = useSelector<RootState, TabDict>((state) => state.tab.tabs);
 
     /** Drag and Drop */
 
@@ -43,17 +51,12 @@ const Desktop = () => {
                 }));
                 break;
             case 'tab':
-                setTabs(update(tabs, {
-                    [id]: {
-                    $merge: { right, top, zIndex: minZIndex + 1},
-                    },
-                }));
-                setMinZIndex(minZIndex + 1)
+                dispatch(updateTab({id, props: {right, top}}))
                 break;
         }
         ;
     },
-    [folders, setFolders, tabs, setTabs],
+    [folders, setFolders, tabs],
     )
 
 
@@ -77,11 +80,9 @@ const Desktop = () => {
 
     /** Tabs logic */ 
 
-    const removeTab = (id: string) => {
-        setTabs(update(tabs, {
-            $unset: [id],
-        }));
-    }
+    const removeTab = useCallback((id: string) => {
+        dispatch(popTab({id}));
+    }, [dispatch])
 
     //TODO: Create Interface 
     const TabRender = (id: string) => {
@@ -95,25 +96,14 @@ const Desktop = () => {
         }
     }
 
-    const FolderOnClick = (tabId: string) => {
+    const FolderOnClick = useCallback((tabId: string) => {
         if (tabId in tabs) {
-            setTabs(update(tabs, {
-                [tabId]: {
-                    $merge: { zIndex: minZIndex + 1},
-                },
-            }));
-            setMinZIndex(minZIndex + 1)
+            dispatch(bringTabToFront({id: tabId}))
         } else {
             let defaultProps = DefaultTabDict[tabId];
-            defaultProps.zIndex = minZIndex + 1;
-            setMinZIndex(minZIndex + 1);
-            setTabs(update(tabs, {
-                [tabId]: {
-                    $set: defaultProps,
-                },
-            }))
+            dispatch(addTab({id: tabId, props: defaultProps}))
         }
-    }
+    }, [dispatch])
 
     return (
         <div className="w-screen h-screen bg-yellow-300 flex flex-col fixed">
@@ -146,7 +136,7 @@ const Desktop = () => {
                         zIndex?: number
                     }
                     return(
-                        <Tab key={key} id={key} right={right} top={top} removeTab={removeTab} zIndex={zIndex}>
+                        <Tab key={key} id={key} right={right} top={top} removeTab={removeTab} zIndex={zIndex} onClick={() => dispatch(bringTabToFront({id: key}))}>
                             {TabRender(key)}
                         </Tab>
                     )
@@ -161,15 +151,9 @@ export default Desktop;
 interface DesktopProps {
 };
 
-interface TabType {
-        [key: string]: {
-            top: number;
-            right: number;
-            zIndex?: number;
-}}
 
 //TODO: move out
-const DefaultTabDict: TabType = {
+const DefaultTabDict: TabDict = {
     'about': {right: 400, top: 50},
     'project': {right: 650, top: 150},
     'contact': {right: 300, top: 100},
