@@ -26,7 +26,8 @@ const tabSlice = createSlice({
             state.tabs[action.payload.id] = {...action.payload.props, zIndex: state.maxZIndex++};
         },
         clearTab(state) {
-            state = initialState;
+            state.tabs= {};
+            state.maxZIndex = 0;
         },
         bringTabToFront: (state, action: PayloadAction<{id: string}>) => {
             if (state.tabs[action.payload.id] && (state.tabs[action.payload.id].zIndex ?? 0) < state.maxZIndex) {

@@ -3,19 +3,18 @@ import update from 'immutability-helper';
 import { useDrop, DropTargetMonitor } from 'react-dnd'
 import Folder from '../component/Folder';
 
-//TODO: move out
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import { DndProvider } from 'react-dnd'
 import Tab from '../component/Tab';
 import AboutTab from './AboutTab';
 import ProjectTab from './ProjectTab';
 import ContactTab from './ContactTab';
+
+//type
 import TabDict, { TabType } from '../type/tab';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../slices';
-import { popTab, addTab, updateTab, bringTabToFront } from '../slices/tab';
+import { popTab, addTab, updateTab, bringTabToFront, clearTab } from '../slices/tab';
 
 const Desktop = () => {
 
@@ -32,9 +31,6 @@ const Desktop = () => {
         '3' : {imageSrc: './src/assets/react.svg', right: 100, top: 300, tabId: 'contact' },
     });
 
-    const [minZIndex, setMinZIndex] = useState<number>(1);
-
-    // const [tabs, setTabs] = useState<TabDict>({}) //Change to redux store
     const dispatch = useDispatch();
     const tabs = useSelector<RootState, TabDict>((state) => state.tab.tabs);
 
@@ -59,8 +55,6 @@ const Desktop = () => {
     [folders, setFolders, tabs],
     )
 
-
-
     const [, drop] = useDrop(
         () => ({
             accept: ['folder', 'tab'],
@@ -84,7 +78,6 @@ const Desktop = () => {
         dispatch(popTab({id}));
     }, [dispatch])
 
-    //TODO: Create Interface 
     const TabRender = (id: string) => {
         switch (id) {
             case 'about':
@@ -96,7 +89,7 @@ const Desktop = () => {
         }
     }
 
-    const FolderOnClick = useCallback((tabId: string) => {
+    const folderOnClick = useCallback((tabId: string) => {
         if (tabId in tabs) {
             dispatch(bringTabToFront({id: tabId}))
         } else {
@@ -105,13 +98,15 @@ const Desktop = () => {
         }
     }, [dispatch])
 
+    const resetOnClick = useCallback(() => {
+        dispatch(clearTab())
+    }, [dispatch])
+
     return (
         <div className="w-screen h-screen bg-yellow-300 flex flex-col fixed">
             <div className='w-screen h-10 bg-orange-300'>
-
             </div>
-            <div ref={drop} className='w-screen bg-blue-300 shrink h-screen relative'>
-                <h1>Desktop</h1>
+            <div ref={drop} className='w-screen bg-blue-300 shrink h-screen relative flex flex-col justify-end items-center'>
                 {Object.keys(folders).map((key) => {
                     const { right, top, imageSrc, tabId} = folders[key] as {
                         top: number
@@ -126,7 +121,8 @@ const Desktop = () => {
                             imageSrc={imageSrc} 
                             right={right} 
                             top={top}
-                            onClick={() => FolderOnClick(tabId)}
+                            onClick={() => folderOnClick
+                        (tabId)}
                         />)
                 })}
                 {Object.keys(tabs).map((key) => {
@@ -141,6 +137,20 @@ const Desktop = () => {
                         </Tab>
                     )
                 })}
+                <div className="w-fit h-14 bg-blue-400 m-10 flex flex-row justify-center space-x-10 px-14 z-max">
+                    <div 
+                        className='w-16 h-16 bg-red-300 relative bottom-8'
+                        onClick={resetOnClick}
+                    >
+                        Reset
+                    </div>
+                    <div className='w-16 h-16 bg-orange-300 relative bottom-8'>
+                    </div>
+                    <div className='w-16 h-16 bg-yellow-300 relative bottom-8'>
+                    </div>
+                    <div className='w-16 h-16 bg-green-300 relative bottom-8'>
+                    </div>
+                </div>
             </div>
         </div>
     );
