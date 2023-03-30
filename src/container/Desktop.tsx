@@ -26,11 +26,12 @@ const Desktop = () => {
             right: number;
             imageSrc: string;
             tabId: string;
+            hoverImageSrc?: string;
         }
     }>({
-        '1': {imageSrc: './src/assets/react.svg', right: 100, top: 100, tabId: 'about'},
-        '2' : {imageSrc: './src/assets/react.svg', right: 100, top: 200, tabId: 'project'},
-        '3' : {imageSrc: './src/assets/react.svg', right: 100, top: 300, tabId: 'contact' },
+        'About': {imageSrc: './src/assets/about.png', hoverImageSrc:'./src/assets/about-hover.png', right: 25, top: 25, tabId: 'about'},
+        'Project' : {imageSrc: './src/assets/react.svg', right: 50, top: 150, tabId: 'project'},
+        'Contact' : {imageSrc: './src/assets/react.svg', right: 100, top: 300, tabId: 'contact' },
     });
 
     const dispatch = useDispatch();
@@ -107,7 +108,7 @@ const Desktop = () => {
     return (
         <div className="w-screen h-screen flex flex-col fixed ">
             {/* livvic vs hanken */}
-            <div className='w-screen h-10 bg-green-300 flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold font-livicc'> 
+            <div className='w-screen h-10 bg-amber-300 flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold'> 
                 <div className='flex flex-row space-x-4 pl-6 items-center '>
                     <img src='./src/assets/slide-thick.png' className='w-10'/>
                     <p>AthenaOS  </p>
@@ -132,11 +133,12 @@ const Desktop = () => {
             </div>
             <div ref={drop} className='w-screen shrink h-screen relative flex flex-col justify-end items-center solid-border'>
                 {Object.keys(folders).map((key) => {
-                    const { right, top, imageSrc, tabId} = folders[key] as {
+                    const { right, top, imageSrc, tabId, hoverImageSrc} = folders[key] as {
                         top: number
                         right: number
                         imageSrc: string
                         tabId: string
+                        hoverImageSrc?: string
                       }
                     return(
                         <Folder 
@@ -145,8 +147,8 @@ const Desktop = () => {
                             imageSrc={imageSrc} 
                             right={right} 
                             top={top}
-                            onClick={() => folderOnClick
-                        (tabId)}
+                            onClick={() => folderOnClick(tabId)}
+                            hoverImageSrc={hoverImageSrc}
                         />)
                 })}
                 {Object.keys(tabs).map((key) => {

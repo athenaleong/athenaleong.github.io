@@ -8,9 +8,9 @@ module.exports = {
       },
       fontFamily: {
         'code': ['Fira Code', 'monospace'],
-        'sans': ['Fira Sans', 'sans-serif'],
+        'fira-sans': ['Fira Sans', 'sans-serif'],
         'hanken': ['Hanken Grotesk', 'sans-serif'],
-        'livvic': ['Livvic', 'sans-serif'],
+        'sans': ['Livvic', 'sans-serif'],
       },
     },
   },

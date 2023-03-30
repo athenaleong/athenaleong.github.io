@@ -1,30 +1,37 @@
+import React, { useState } from 'react';
 import { isEquals } from 'immutability-helper';
 import { useDrag } from 'react-dnd';
 
-const Folder: React.FC<FolderProps> = ({ imageSrc, id, right, top, onClick }) => {
-  const [{ isDragging }, drag] = useDrag(() => ({
+const Folder: React.FC<FolderProps> = ({ imageSrc, id, right, top, onClick, hoverImageSrc}) => {
+
+    const [hovered, setHoverd] = useState(false);
+
+    const [{ isDragging }, drag] = useDrag(() => ({
     type: 'folder',
     item: { id, right, top, 'type' : 'folder'},
     collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
+        isDragging: monitor.isDragging(),
     }),
-  }), [id, right, top]);
+    }), [id, right, top]);
 
-  if (!isDragging) {
+    if (!isDragging) {
     return (
         <div
         ref={drag}
-        className={`absolute w-10 h-10 bg-red-100 ${isDragging ? 'opacity-50' : ''}`}
-        style={{ backgroundImage: `url(${imageSrc})`, right : `${right}px`, top : `${top}px` }}
+        className={`flex flex-col items-center justify-center absolute w-28 h-28 ${isDragging ? 'opacity-50' : ''}`}
+        style={{right : `${right}px`, top : `${top}px` }}
         onClick={onClick}
+        onMouseOver={() => setHoverd(true)}
+        onMouseOut={() => setHoverd(false)}
         >
-            {top},{right}
+            <img className='w-[85%]' src={hovered? hoverImageSrc: imageSrc}/>
+            <p className=' font-bold'>{id}</p>
         </div>)
-  } else {
+    } else {
     return (
         <div ref={drag} />
     )
-  };
+    };
 };
 
 
@@ -34,6 +41,7 @@ interface FolderProps {
     right: number;
     top: number;
     onClick: () => void;
+    hoverImageSrc?: string;
   }
   
 

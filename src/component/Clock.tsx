@@ -18,7 +18,7 @@ const Clock = () => {
 
   const formattedTime = format(currentTime, 'MMM dd h:mma');
 
-  return <div className="text-lg font-bold">{formattedTime}</div>;
+  return <div className="   ">{formattedTime}</div>;
 };
 
 export default Clock;
