@@ -16,6 +16,7 @@ import TabDict, { TabType } from '../type/tab';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../slices';
 import { popTab, addTab, updateTab, bringTabToFront, clearTab } from '../slices/tab';
+import DockerWrapper from '../component/DockerWrapper';
 
 
 const Desktop = () => {
@@ -30,8 +31,8 @@ const Desktop = () => {
         }
     }>({
         'About': {imageSrc: './src/assets/about.png', hoverImageSrc:'./src/assets/about-hover.png', right: 25, top: 25, tabId: 'about'},
-        'Project' : {imageSrc: './src/assets/react.svg', right: 50, top: 150, tabId: 'project'},
-        'Contact' : {imageSrc: './src/assets/react.svg', right: 100, top: 300, tabId: 'contact' },
+        'Project' : {imageSrc: './src/assets/react.svg', right: 25, top: 150, tabId: 'project'},
+        // 'Contact' : {imageSrc: './src/assets/react.svg', right: 100, top: 300, tabId: 'contact' },
     });
 
     const dispatch = useDispatch();
@@ -108,7 +109,7 @@ const Desktop = () => {
     return (
         <div className="w-screen h-screen flex flex-col fixed ">
             {/* livvic vs hanken */}
-            <div className='w-screen h-10 bg-amber-300 flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold'> 
+            <div className='w-screen h-10 bg-figma-yellow flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold'> 
                 <div className='flex flex-row space-x-4 pl-6 items-center '>
                     <img src='./src/assets/slide-thick.png' className='w-10'/>
                     <p>AthenaOS  </p>
@@ -119,15 +120,18 @@ const Desktop = () => {
                     </div> */}
                 </div>
                 <div className='pr-6 flex flex-row space-x-4 items-center'>
-                        {/* <img src="./src/assets/location.png" className='w-5 h-5'/> */}
-                        <a href="https://github.com/athenaleong" target="_blank">
+                    <a href="mailto:athenaleong619@gmail.com">
+                    <img src='./src/assets/mail.png' className='w-5 h-5'/>
+                    </a>   
+                    <a href="https://github.com/athenaleong" target="_blank">
                         <img src='./src/assets/github.png' className='w-5 h-5'/>
                     </a>
                     <a href="https://twitter.com/thenabanana" target="_blank">
                         <img src='./src/assets/twitter.png' className='w-5 h-5'/>
                     </a>
-                        <p> Berkeley, CA</p>
-                  <Clock />
+                    {/* <img src="./src/assets/location.png" className='w-5 h-5'/> */}
+                    <p> Berkeley, CA</p>
+                    <Clock />
                   
                 </div>
             </div>
@@ -163,19 +167,23 @@ const Desktop = () => {
                         </Tab>
                     )
                 })}
-                <div className="w-fit h-14 bg-blue-400 m-10 flex flex-row justify-center space-x-10 px-14 z-max solid-border">
+                <div className="w-fit h-14 bg-figma-blue m-10 flex flex-row justify-center space-x-10 px-14 z-max solid-border rounded-xl">
+                    <DockerWrapper>
                     <div 
-                        className='w-16 h-16 bg-red-300 relative bottom-8 solid-border'
+                        className='w-16 h-16 bg-red-300 solid-border rounded-xl'
                         onClick={resetOnClick}
                     >
                         Reset
                     </div>
-                    <div className='w-16 h-16 bg-orange-300 relative bottom-8 solid-border'>
+                    </DockerWrapper>
+                    
+                    
+                    {/* <div className='w-16 h-16 bg-orange-300 relative bottom-8 solid-border'>
                     </div>
                     <div className='w-16 h-16 bg-yellow-300 relative bottom-8 solid-border'>
                     </div>
                     <div className='w-16 h-16 bg-green-300 relative bottom-8 solid-border'>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

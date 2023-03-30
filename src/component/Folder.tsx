@@ -18,7 +18,7 @@ const Folder: React.FC<FolderProps> = ({ imageSrc, id, right, top, onClick, hove
     return (
         <div
         ref={drag}
-        className={`flex flex-col items-center justify-center absolute w-28 h-28 ${isDragging ? 'opacity-50' : ''}`}
+        className={`flex flex-col items-center justify-center absolute w-28 h-28 cursor-pointer ${isDragging ? 'opacity-50' : ''}`}
         style={{right : `${right}px`, top : `${top}px` }}
         onClick={onClick}
         onMouseOver={() => setHoverd(true)}
