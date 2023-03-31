@@ -2,6 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Set the style for the scrollbar */
+::-webkit-scrollbar {
+  width: 18px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-left: 4px solid black;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #FFCDD2;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-left: 4px solid black;
+  border-bottom: 4px solid black;
+  border-top: 4px solid black;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #FF5C8D;
+}
+
+
+.sketch-border {
+  border-width: 5px;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 200px;
+  border-bottom-left-radius: 12px 240px;
+  border-bottom-right-radius: 200px 15px;
+  border-style: solid;
+  border-color: black;
+}
+
+.solid-border {
+  border: 4px solid black;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
