@@ -1,5 +1,9 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 
+/**
+     * Note: This feature was implemented by ChatGPT and clearly doesn't work.
+     * It currently can be used for Desktop background. TODO: Fix the game. 
+     */
 function ConnectTheDots() {
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState<any>(false);
@@ -84,12 +88,12 @@ function ConnectTheDots() {
     const width = canvas.width;
     const height = canvas.height;
     const dotSize = 2;
-    const dotColor = "#d1d5db";
+    const dotColor = "#9ca3af";
     // Clear the canvas
     ctx.clearRect(0, 0, width, height);
 
     // Draw dots
-    const dotSpacing = 30;
+    const dotSpacing = 36;
     const xCount = Math.ceil(width / dotSpacing);
     const yCount = Math.ceil(height / dotSpacing);
 
@@ -102,7 +106,7 @@ function ConnectTheDots() {
             ctx.arc(x * dotSpacing + dotSize, y * dotSpacing + dotSize, dotSize, 0, Math.PI * 2);
         }
         else {
-            ctx.arc(x * dotSpacing + dotSize + 15, y * dotSpacing + dotSize, dotSize, 0, Math.PI * 2);
+            ctx.arc(x * dotSpacing + dotSize + 18, y * dotSpacing + dotSize, dotSize, 0, Math.PI * 2);
         }
         ctx.fill();
       }
@@ -117,7 +121,7 @@ function ConnectTheDots() {
     //   onMouseMove={handleMouseMove}
     //   onMouseUp={handleMouseUp}
       style={{ width: "100%", height: "100%" }}
-      className="absolute -z-50"
+      className="absolute -z-50 bg-stone-200 dark:bg-zinc-900"
     />
     <div className="h-10 flex flex-row">
     {/* {points.map((point: any, index: any) => (
