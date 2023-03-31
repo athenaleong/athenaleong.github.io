@@ -5,6 +5,7 @@ function ConnectTheDots() {
   const [isDrawing, setIsDrawing] = useState<any>(false);
   const [points, setPoints] = useState<any>([]);
 
+  /** Handles resize */
   useEffect(() => {
     if (canvasRef.current == null) {
         return;
@@ -54,6 +55,7 @@ function ConnectTheDots() {
     setPoints([{ x, y }]);
   }, [canvasRef, setIsDrawing, setPoints]);
 
+
   const handleMouseMove = (event: any) => {
     if (!isDrawing) {
       return;
@@ -67,18 +69,64 @@ function ConnectTheDots() {
     setPoints((prevPoints: any) => [...prevPoints, { x, y }]);
   };
 
+
   const handleMouseUp = () => {
     setIsDrawing(false);
   };
 
+  useEffect(() => {
+    if (!canvasRef.current) return;
+
+    const canvas: any = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    if (!ctx) return;
+    const width = canvas.width;
+    const height = canvas.height;
+    const dotSize = 2;
+    const dotColor = "#d1d5db";
+    // Clear the canvas
+    ctx.clearRect(0, 0, width, height);
+
+    // Draw dots
+    const dotSpacing = 30;
+    const xCount = Math.ceil(width / dotSpacing);
+    const yCount = Math.ceil(height / dotSpacing);
+
+    ctx.fillStyle = dotColor;
+
+    for (let x = 0; x < xCount; x++) {
+      for (let y = 0; y < yCount; y++) {
+        ctx.beginPath();
+        if (y % 2 === 0) { 
+            ctx.arc(x * dotSpacing + dotSize, y * dotSpacing + dotSize, dotSize, 0, Math.PI * 2);
+        }
+        else {
+            ctx.arc(x * dotSpacing + dotSize + 15, y * dotSpacing + dotSize, dotSize, 0, Math.PI * 2);
+        }
+        ctx.fill();
+      }
+    }
+  }, [canvasRef]);
+
   return (
+    <>
     <canvas
       ref={canvasRef}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
+    //   onMouseDown={handleMouseDown}
+    //   onMouseMove={handleMouseMove}
+    //   onMouseUp={handleMouseUp}
       style={{ width: "100%", height: "100%" }}
+      className="absolute -z-50"
     />
+    <div className="h-10 flex flex-row">
+    {/* {points.map((point: any, index: any) => (
+        <p>
+        {point.x}, {point.y}
+        </p>
+    ))} */}
+    </div>
+    </>
   );
 }
 
