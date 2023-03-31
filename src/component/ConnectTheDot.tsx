@@ -121,7 +121,7 @@ function ConnectTheDots() {
     //   onMouseMove={handleMouseMove}
     //   onMouseUp={handleMouseUp}
       style={{ width: "100%", height: "100%" }}
-      className="absolute -z-50 bg-stone-200 dark:bg-zinc-900"
+      className="absolute -z-50 bg-stone-200 dark:bg-slate-800"
     />
     <div className="h-10 flex flex-row">
     {/* {points.map((point: any, index: any) => (

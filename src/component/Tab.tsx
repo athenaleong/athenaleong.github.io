@@ -18,14 +18,14 @@ const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab, zIndex, 
         onClick={onClick}
         >
             <div 
-            className='w-full bg-gray-200 h-10 flex justify-start border-black border-[4px] border-b-0 rounded-t-xl dark:border-stone-300 dark:bg-gray-800'
+            className='w-full bg-gray-200 h-10 flex justify-start border-black border-[4px] border-b-0 rounded-t-xl dark:border-slate-950 dark:bg-gray-700'
             >
                 <div
                     onClick={() => removeTab(id)}
-                    className="bg-figma-red border-r-4 h-10 border-black w-10 items-center align-middle flex justify-center rounded-tl-lg font-bold cursor-pointer dark:border-stone-300"
+                    className="bg-figma-red border-r-4 h-10 border-black w-10 items-center align-middle flex justify-center rounded-tl-lg font-bold cursor-pointer dark:border-slate-950"
                 >X</div>
             </div>
-            <div className='overflow-y-scroll solid-black-border rounded-b-xl dark:border-stone-300'>
+            <div className='overflow-y-scroll solid-black-border rounded-b-xl dark:border-slate-950'>
                 {children}
             </div>
         </div>

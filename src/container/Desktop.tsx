@@ -110,22 +110,13 @@ const Desktop = () => {
         dispatch(clearTab())
     }, [dispatch])
 
-    /** Light Dark theme toggle */
-
-    
-
-
-        // It's best to inline this in `head` to avoid FOUC (flash of unstyled content) when changing pages or themes
-   
-
     return (
         <div className="w-screen h-screen flex flex-col fixed text-black dark:text-stone-300">
             {/* livvic vs hanken */}
-            <div className='w-screen h-10 bg-figma-yellow flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold  dark:bg-figma-blue dark:border-stone-300'> 
+            <div className='w-screen h-10 bg-figma-yellow flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold  dark:bg-figma-blue dark:border-slate-950'> 
                 <div className='flex flex-row space-x-4 pl-6 items-center'>
                     <img src='./src/assets/slide-thick.png' className='w-10'/>
                     <p>AthenaOS  </p>
-                    <ThemeToggle />
                    
 
                     {/* <div className='flex flex-row'> 
@@ -133,6 +124,7 @@ const Desktop = () => {
                     </div> */}
                 </div>
                 <div className='pr-6 flex flex-row space-x-4 items-center'>
+
                     <a href="mailto:athenaleong619@gmail.com">
                     <img src='./src/assets/mail.png' className='w-5 h-5'/>
                     </a>   
@@ -143,12 +135,14 @@ const Desktop = () => {
                         <img src='./src/assets/twitter.png' className='w-5 h-5'/>
                     </a>
                     {/* <img src="./src/assets/location.png" className='w-5 h-5'/> */}
+                <ThemeToggle />
+
                     <p> Berkeley, CA</p>
                     <Clock />
                   
                 </div>
             </div>
-            <div ref={drop} className='w-screen shrink h-screen relative flex flex-col justify-end items-center solid-black-border dark:border-stone-300'>
+            <div ref={drop} className='w-screen shrink h-screen relative flex flex-col justify-end items-center solid-black-border dark:border-slate-950'>
                 {Object.keys(folders).map((key) => {
                     const { right, top, imageSrc, tabId, hoverImageSrc} = folders[key] as {
                         top: number
@@ -181,10 +175,10 @@ const Desktop = () => {
                     )
                 })}
                 <ConnectTheDots/>
-                <div className="w-fit h-14 bg-figma-blue m-10 flex flex-row justify-center space-x-10 px-14 z-max solid-black-border rounded-xl dark:bg-figma-yellow dark:border-stone-300">
+                <div className="w-fit h-14 bg-figma-blue m-10 flex flex-row justify-center space-x-10 px-14 z-max solid-black-border rounded-xl dark:bg-figma-yellow dark:border-slate-950">
                     <DockerWrapper>
                     <div 
-                        className='w-16 h-16 bg-red-300 solid-black-border rounded-xl dark:border-stone-300'
+                        className='w-16 h-16 bg-red-300 solid-black-border rounded-xl dark:border-slate-950'
                         onClick={resetOnClick}
                         style={{backgroundImage: `url('/src/assets/clear.png')`, backgroundSize: 'cover', backgroundPosition: 'center'}}
                     >

@@ -46,6 +46,9 @@ module.exports = {
           'pink': '#FD3259',
           'light-pink': '#FF5C8D',
         },
+        'figma-dark': {
+          'pink': '#CB1D40',
+        },
         'muted': {
           'blue': '#347CBC',
           'pink': '#EDD3C9',
