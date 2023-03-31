@@ -4,7 +4,7 @@ const DockerWrapper: React.FC<DockerWrapperProps> = ({children}) => {
 
     return (
         <div 
-            className='w-16 h-16 relative bottom-8 hover:animate-bounce'
+            className='w-16 h-16 relative bottom-8 hover:animate-bounce box'
         >
             {children}
         </div>

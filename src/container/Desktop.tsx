@@ -172,8 +172,8 @@ const Desktop = () => {
                     <div 
                         className='w-16 h-16 bg-red-300 solid-border rounded-xl'
                         onClick={resetOnClick}
+                        style={{backgroundImage: `url('/src/assets/clear.png')`, backgroundSize: 'cover', backgroundPosition: 'center'}}
                     >
-                        Reset
                     </div>
                     </DockerWrapper>
                     
