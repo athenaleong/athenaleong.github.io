@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../slices';
 import { popTab, addTab, updateTab, bringTabToFront, clearTab } from '../slices/tab';
 import DockerWrapper from '../component/DockerWrapper';
+import ConnectTheDots from '../component/ConnectTheDot';
 
 
 const Desktop = () => {
@@ -167,6 +168,7 @@ const Desktop = () => {
                         </Tab>
                     )
                 })}
+                <ConnectTheDots width={500} height={500} dotSize={10} dotColor={'#ffffff'}/>
                 <div className="w-fit h-14 bg-figma-blue m-10 flex flex-row justify-center space-x-10 px-14 z-max solid-border rounded-xl">
                     <DockerWrapper>
                     <div 
