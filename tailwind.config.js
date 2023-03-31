@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
@@ -44,6 +45,9 @@ module.exports = {
           'purple': '595BD4',
           'pink': '#FD3259',
           'light-pink': '#FF5C8D',
+        },
+        'figma-dark': {
+          'pink': '#CB1D40',
         },
         'muted': {
           'blue': '#347CBC',

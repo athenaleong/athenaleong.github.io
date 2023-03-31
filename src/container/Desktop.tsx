@@ -1,13 +1,17 @@
-import React, { Component, useState, useCallback } from 'react';
+import React, { Component, useState, useCallback, useLayoutEffect, useEffect } from 'react';
 import update from 'immutability-helper';
 import { useDrop, DropTargetMonitor } from 'react-dnd'
 import Folder from '../component/Folder';
 
+//components
 import Tab from '../component/Tab';
 import AboutTab from './AboutTab';
 import ProjectTab from './ProjectTab';
 import ContactTab from './ContactTab';
 import Clock from '../component/Clock';
+import DockerWrapper from '../component/DockerWrapper';
+import ConnectTheDots from '../component/ConnectTheDot';
+import ThemeToggle from '../component/ThemeToggle';
 
 //type
 import TabDict, { TabType } from '../type/tab';
@@ -16,8 +20,7 @@ import TabDict, { TabType } from '../type/tab';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../slices';
 import { popTab, addTab, updateTab, bringTabToFront, clearTab } from '../slices/tab';
-import DockerWrapper from '../component/DockerWrapper';
-import ConnectTheDots from '../component/ConnectTheDot';
+
 
 
 const Desktop = () => {
@@ -108,10 +111,10 @@ const Desktop = () => {
     }, [dispatch])
 
     return (
-        <div className="w-screen h-screen flex flex-col fixed ">
+        <div className="w-screen h-screen flex flex-col fixed text-black dark:text-stone-300">
             {/* livvic vs hanken */}
-            <div className='w-screen h-10 bg-figma-yellow flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold'> 
-                <div className='flex flex-row space-x-4 pl-6 items-center '>
+            <div className='w-screen h-10 bg-figma-yellow flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold  dark:bg-figma-blue dark:border-slate-950'> 
+                <div className='flex flex-row space-x-4 pl-6 items-center'>
                     <img src='./src/assets/slide-thick.png' className='w-10'/>
                     <p>AthenaOS  </p>
                    
@@ -121,6 +124,7 @@ const Desktop = () => {
                     </div> */}
                 </div>
                 <div className='pr-6 flex flex-row space-x-4 items-center'>
+
                     <a href="mailto:athenaleong619@gmail.com">
                     <img src='./src/assets/mail.png' className='w-5 h-5'/>
                     </a>   
@@ -131,12 +135,14 @@ const Desktop = () => {
                         <img src='./src/assets/twitter.png' className='w-5 h-5'/>
                     </a>
                     {/* <img src="./src/assets/location.png" className='w-5 h-5'/> */}
+                <ThemeToggle />
+
                     <p> Berkeley, CA</p>
                     <Clock />
                   
                 </div>
             </div>
-            <div ref={drop} className='w-screen shrink h-screen relative flex flex-col justify-end items-center solid-border'>
+            <div ref={drop} className='w-screen shrink h-screen relative flex flex-col justify-end items-center solid-black-border dark:border-slate-950'>
                 {Object.keys(folders).map((key) => {
                     const { right, top, imageSrc, tabId, hoverImageSrc} = folders[key] as {
                         top: number
@@ -168,11 +174,11 @@ const Desktop = () => {
                         </Tab>
                     )
                 })}
-                <ConnectTheDots width={500} height={500} dotSize={10} dotColor={'#ffffff'}/>
-                <div className="w-fit h-14 bg-figma-blue m-10 flex flex-row justify-center space-x-10 px-14 z-max solid-border rounded-xl">
+                <ConnectTheDots/>
+                <div className="w-fit h-14 bg-figma-blue m-10 flex flex-row justify-center space-x-10 px-14 z-max solid-black-border rounded-xl dark:bg-figma-yellow dark:border-slate-950">
                     <DockerWrapper>
                     <div 
-                        className='w-16 h-16 bg-red-300 solid-border rounded-xl'
+                        className='w-16 h-16 bg-red-300 solid-black-border rounded-xl dark:border-slate-950'
                         onClick={resetOnClick}
                         style={{backgroundImage: `url('/src/assets/clear.png')`, backgroundSize: 'cover', backgroundPosition: 'center'}}
                     >
@@ -180,11 +186,11 @@ const Desktop = () => {
                     </DockerWrapper>
                     
                     
-                    {/* <div className='w-16 h-16 bg-orange-300 relative bottom-8 solid-border'>
+                    {/* <div className='w-16 h-16 bg-orange-300 relative bottom-8 solid-black-border'>
                     </div>
-                    <div className='w-16 h-16 bg-yellow-300 relative bottom-8 solid-border'>
+                    <div className='w-16 h-16 bg-yellow-300 relative bottom-8 solid-black-border'>
                     </div>
-                    <div className='w-16 h-16 bg-green-300 relative bottom-8 solid-border'>
+                    <div className='w-16 h-16 bg-green-300 relative bottom-8 solid-black-border'>
                     </div> */}
                 </div>
             </div>
