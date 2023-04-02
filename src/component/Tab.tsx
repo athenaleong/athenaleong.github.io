@@ -24,7 +24,7 @@ const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab, zIndex, 
                     onClick={() => removeTab(id)}
                     className="bg-figma-red border-r-4 h-10 border-black w-10 items-center align-middle flex justify-center rounded-tl-lg font-bold cursor-pointer dark:border-slate-950"
                 >X</div>
-                <div className='grow flex items-center justify-center'>
+                <div className='grow flex items-center justify-center cursor-pointer'>
                     <p className='font-bold font-code'>
                         {id}
                     </p>

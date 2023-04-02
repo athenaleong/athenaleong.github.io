@@ -110,6 +110,28 @@ const Desktop = () => {
         dispatch(clearTab())
     }, [dispatch])
 
+    /** Drag and Drop Cursor */
+    useEffect(() => {
+
+        window.addEventListener('drag', () => {
+       document.body.style.cursor = 'grabbing';
+       }, true)
+
+       window.addEventListener('dragend', () => {
+           document.body.style.cursor = '';
+       }, true)
+
+       return () => {
+           window.removeEventListener('drag', () => {
+               document.body.style.cursor = 'grabbing';
+               }, true)
+               
+           window.removeEventListener('dragend', () => {
+               document.body.style.cursor = '';
+           }, true)
+       }
+   }, [])
+
     return (
         <div className="w-screen h-screen flex flex-col fixed text-black dark:text-stone-300">
             {/* livvic vs hanken */}
