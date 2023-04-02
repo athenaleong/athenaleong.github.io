@@ -7,7 +7,7 @@ import Folder from '../component/Folder';
 import Tab from '../component/Tab';
 import AboutTab from './AboutTab';
 import ProjectTab from './ProjectTab';
-import ContactTab from './ContactTab';
+import WhatTab from './WhatTab';
 import Clock from '../component/Clock';
 import DockerWrapper from '../component/DockerWrapper';
 import ConnectTheDots from '../component/ConnectTheDot';
@@ -35,8 +35,8 @@ const Desktop = () => {
         }
     }>({
         'About': {imageSrc: './src/assets/about.png', hoverImageSrc:'./src/assets/about-hover.png', right: 25, top: 25, tabId: 'about'},
-        'Project' : {imageSrc: './src/assets/react.svg', right: 25, top: 150, tabId: 'project'},
-        // 'Contact' : {imageSrc: './src/assets/react.svg', right: 100, top: 300, tabId: 'contact' },
+        'Project' : {imageSrc: './src/assets/project.png', hoverImageSrc: './src/assets/project-hover.png', right: 25, top: 275, tabId: 'project'},
+        'What & Why' : {imageSrc: './src/assets/anglerfish.png', hoverImageSrc: './src/assets/anglerfish-hover.png', right: 25, top: 150, tabId: 'what & why' },
     });
 
     const dispatch = useDispatch();
@@ -92,8 +92,8 @@ const Desktop = () => {
                 return <AboutTab/>
             case 'project':
                 return <ProjectTab/>
-            case 'contact':
-                return <ContactTab/>
+            case 'what & why':
+                return <WhatTab/>
         }
     }
 
@@ -113,7 +113,7 @@ const Desktop = () => {
     return (
         <div className="w-screen h-screen flex flex-col fixed text-black dark:text-stone-300">
             {/* livvic vs hanken */}
-            <div className='w-screen h-10 bg-figma-yellow flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold  dark:bg-figma-blue dark:border-slate-950'> 
+            <div className='w-screen h-10 bg-figma-yellow flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold font-code dark:bg-figma-blue dark:border-slate-950'> 
                 <div className='flex flex-row space-x-4 pl-6 items-center'>
                     <img src='./src/assets/slide-thick.png' className='w-10'/>
                     <p>AthenaOS  </p>
@@ -183,9 +183,7 @@ const Desktop = () => {
                         style={{backgroundImage: `url('/src/assets/clear.png')`, backgroundSize: 'cover', backgroundPosition: 'center'}}
                     >
                     </div>
-                    </DockerWrapper>
-                    
-                    
+                    </DockerWrapper>   
                     {/* <div className='w-16 h-16 bg-orange-300 relative bottom-8 solid-black-border'>
                     </div>
                     <div className='w-16 h-16 bg-yellow-300 relative bottom-8 solid-black-border'>
@@ -208,7 +206,7 @@ interface DesktopProps {
 const DefaultTabDict: TabDict = {
     'about': {right: 400, top: 50},
     'project': {right: 650, top: 150},
-    'contact': {right: 300, top: 100},
+    'what & why': {right: 300, top: 50},
 }
 
 

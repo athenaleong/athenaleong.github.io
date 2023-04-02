@@ -92,6 +92,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+
+  cursor: url("./src/assets/cursor.svg"), auto !important;
 }
 
 h1 {
