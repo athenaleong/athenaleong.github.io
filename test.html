@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .blob-container {
+        width: 300px;
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+      }
+      .blob-svg {
+        position: absolute;
+        top: -50px;
+        left: -50px;
+        width: 400px;
+        height: 300px;
+        fill: #ff69b4;
+        stroke: #000000;
+        stroke-width: 3px;
+        filter: url(#blob-filter);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="blob-container">
+      <svg class="blob-svg" viewBox="0 0 400 300">
+        <defs>
+          <filter id="blob-filter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="5" />
+            <feDisplacementMap in="SourceGraphic" scale="20" />
+          </filter>
+        </defs>
+        <path d="M303.9,121.3c0,0,3.7,31.8-21.3,47.3c-25,15.5-41.2-12.4-56-6.7
+	c-14.8,5.7-30.2,38.6-58.8,27.1c-28.7-11.5,13.7-71.5,13.7-71.5s1.7-29.2,23.7-40.2c22-11,55.1,1.9,70.1-14.3
+	C260.3,31.7,303.9,121.3,303.9,121.3z"/>
+      </svg>
+    </div>
+  </body>
+</html>

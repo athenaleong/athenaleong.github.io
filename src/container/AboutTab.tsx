@@ -5,20 +5,40 @@ const AboutTab: React.FC<any> = () => {
         // <div className='w-[600px] h-[600px] bg-yellow-300'>
         //     <h1>About</h1>
         // </div>
-        <div className="p-8 bg-gray-200 rounded-lg shadow-md flex flex-col items-center max-w-screen-md mx-auto dark:bg-gray-800">
-  <img className="w-24 h-24 rounded-full mb-4 bg-gray-300 dark:bg-gray-700" alt="Profile Picture"/>
-  <h2 className="text-2xl font-bold mb-2">John Doe</h2>
-  <p className="text-lg mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod eu dolor et bibendum. Mauris pharetra urna quis libero. Nunc euismod malesuada sapien, ac commodo enim molestie sit amet. Proin pretium, velit in varius feugiat, risus metus commodo justo, at maximus sapien risus et libero. Vivamus commodo pharetra commodo. Nullam sagittis lorem eget nibh lobortis, nec facilisis risus bibendum. Duis suscipit varius nisi sed gravida.</p>
-  <div className="flex flex-row justify-between w-full">
-    <div className="w-1/3 h-12 bg-gray-300 rounded-lg dark:bg-gray-700"></div>
-    <div className="w-1/3 h-12 bg-gray-300 rounded-lg dark:bg-gray-700"></div>
-    <div className="w-1/3 h-12 bg-gray-300 rounded-lg dark:bg-gray-700"></div>
-  </div>
-  <div className="mt-4 w-500">
-    <img className="w-full h-64 rounded-lg bg-gray-300 dark:bg-gray-700" alt="Post Image"/>
-    <h3 className="text-xl font-bold mt-4">Post Title</h3>
-    <p className="text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod eu dolor et bibendum. Mauris pharetra urna quis libero. Nunc euismod malesuada sapien, ac commodo enim molestie sit amet. Proin pretium, velit in varius feugiat, risus metus commodo justo, at maximus sapien risus et libero. Vivamus commodo pharetra commodo. Nullam sagittis lorem eget nibh lobortis, nec facilisis risus bibendum. Duis suscipit varius nisi sed gravida.</p>
-  </div>
+    <div className="text-xl bg-gray-200 rounded-lg flex flex-col items-center pt-[64px] px-[100px] pb-[96px] font-hanken  dark:bg-gray-800">
+    
+    <img />
+    <p className="mb-6 leading-loose font-bold">
+        Hi! Looks like you have stumbled upon my little playground on the internet. Welcome in! 
+    </p>
+    {/* TODO Fix weird bug where there's extra space */}
+    <p className="mb-3 leading-loose">
+        I am Athena. I am curious about a lot of things. I am most interested in reimagining childhood with tech. Whether that is designing better ways of learning, simplifying parenthood, or helping every child find their champion.
+    </p>
+    ‍<p className="mb-6 leading-loose">
+        When I am not beep booping at 
+        <a href='https://www.cs.berkeley.edu/' target="_blank">
+            &nbsp; UC Berkeley
+        </a>
+    , I am a research assistant at  
+    <a href='http://www.gopniklab.berkeley.edu/' target="_blank">
+    &nbsp;Gopnik Lab&nbsp;
+    </a>
+    where I study how kids explore. I am also building Amigu, an adventure game to facilitate better conversations between parent and child. You may also find me at hacking away at noisebridge, taste-testing intriguing groceries or playing at an actual playground!
+    </p>
+    <p className=" mb-6 leading-loose">
+    Previously, I taught ML with
+    <a href='https://ml.berkeley.edu/' target="_blank">
+    &nbsp;Machine Learning @ Berkeley&nbsp;
+    </a>
+     and worked on many ML projects. Back in Singapore, I started makerspaces, built communities for technical people and made silly youtube videos about Lego!
+  </p>
+  <p className=" mb-6 leading-loose">
+    I love thinking and exploring with people. If you think we should be friends, please let me know - There are 7.7 billion people on this planet, how cool is it that you found me!
+  </p>
+    <p className=" mb-6 leading-loose">
+        I built this playground just for adventurers like you! Go forth, I hope you have lots of fun here!
+    </p>
 </div>
 
 
