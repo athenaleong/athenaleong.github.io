@@ -9,12 +9,12 @@ const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab, zIndex, 
     }),
   }), [id, right, top]);
 
-  if (!isDragging) {
-        return (
+ 
+    return (
         <div
         ref={drag}
-        className={`absolute max-w-[800px] w-auto max-h-[600px] flex flex-col text-black dark:text-stone-300 `}
-        style={{right : `${right}px`, top : `${top}px`, zIndex: zIndex}}
+        className={`absolute max-w-[800px] w-auto max-h-[600px] flex flex-col text-black dark:text-stone-300`}
+        style={{right : `${right}px`, top : `${top}px`, zIndex: zIndex, opacity: isDragging ? 0 : 1}}
         onClick={onClick}
         >
             <div 
@@ -24,7 +24,7 @@ const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab, zIndex, 
                     onClick={() => removeTab(id)}
                     className="bg-figma-red border-r-4 h-10 border-black w-10 items-center align-middle flex justify-center rounded-tl-lg font-bold cursor-pointer dark:border-slate-950"
                 >X</div>
-                <div className='grow flex items-center justify-center cursor-pointer'>
+                <div className='grow flex items-center justify-center cursor-move'>
                     <p className='font-bold font-code'>
                         {id}
                     </p>
@@ -35,11 +35,7 @@ const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab, zIndex, 
             </div>
         </div>
     );
-    } else {
-        return (
-            <div ref={drag} />
-        )
-    };
+
 };
 
 

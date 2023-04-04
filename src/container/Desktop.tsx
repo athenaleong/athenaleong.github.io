@@ -19,7 +19,7 @@ import TabDict, { TabType } from '../type/tab';
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../slices';
-import { popTab, addTab, updateTab, bringTabToFront, clearTab } from '../slices/tab';
+import tab, { popTab, addTab, updateTab, bringTabToFront, clearTab } from '../slices/tab';
 
 
 
@@ -35,8 +35,10 @@ const Desktop = () => {
         }
     }>({
         'About': {imageSrc: './src/assets/about.png', hoverImageSrc:'./src/assets/about-hover.png', right: 25, top: 25, tabId: 'about'},
-        'Project' : {imageSrc: './src/assets/project.png', hoverImageSrc: './src/assets/project-hover.png', right: 25, top: 275, tabId: 'project'},
+        'Projects' : {imageSrc: './src/assets/project.png', hoverImageSrc: './src/assets/project-hover.png', right: 150, top: 25, tabId: 'projects'},
         'What & Why' : {imageSrc: './src/assets/anglerfish.png', hoverImageSrc: './src/assets/anglerfish-hover.png', right: 25, top: 150, tabId: 'what & why' },
+        'Thought Garden' : {imageSrc: './src/assets/garden.png', hoverImageSrc: './src/assets/garden-hover.png', right: 25, top: 275, tabId: 'garden' },
+
     });
 
     const dispatch = useDispatch();
@@ -90,7 +92,7 @@ const Desktop = () => {
         switch (id) {
             case 'about':
                 return <AboutTab/>
-            case 'project':
+            case 'projects':
                 return <ProjectTab/>
             case 'what & why':
                 return <WhatTab/>
@@ -98,7 +100,10 @@ const Desktop = () => {
     }
 
     const folderOnClick = useCallback((tabId: string) => {
-        if (tabId in tabs) {
+        if (tabId == "garden") {
+            window.open("https://garden.athenaleong.com", "_blank")
+        }
+        else if (tabId in tabs) {
             dispatch(bringTabToFront({id: tabId}))
         } else {
             let defaultProps = DefaultTabDict[tabId];
@@ -111,29 +116,29 @@ const Desktop = () => {
     }, [dispatch])
 
     /** Drag and Drop Cursor */
-    useEffect(() => {
+//     useEffect(() => {
 
-        window.addEventListener('drag', () => {
-       document.body.style.cursor = 'grabbing';
-       }, true)
+//         window.addEventListener('drag', () => {
+//        document.body.style.cursor = 'grabbing';
+//        }, true)
 
-       window.addEventListener('dragend', () => {
-           document.body.style.cursor = '';
-       }, true)
+//        window.addEventListener('dragend', () => {
+//            document.body.style.cursor = '';
+//        }, true)
 
-       return () => {
-           window.removeEventListener('drag', () => {
-               document.body.style.cursor = 'grabbing';
-               }, true)
+//        return () => {
+//            window.removeEventListener('drag', () => {
+//                document.body.style.cursor = 'grabbing !important';
+//                }, true)
                
-           window.removeEventListener('dragend', () => {
-               document.body.style.cursor = '';
-           }, true)
-       }
-   }, [])
+//            window.removeEventListener('dragend', () => {
+//                document.body.style.cursor = '';
+//            }, true)
+//        }
+//    }, [])
 
     return (
-        <div className="w-screen h-screen flex flex-col fixed text-black dark:text-stone-300">
+        <div className="cursor-default w-screen h-screen flex flex-col fixed text-black dark:text-stone-300">
             {/* livvic vs hanken */}
             <div className='w-screen h-10 bg-figma-yellow flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold font-code dark:bg-figma-blue dark:border-slate-950'> 
                 <div className='flex flex-row space-x-4 pl-6 items-center'>
@@ -227,8 +232,9 @@ interface DesktopProps {
 //TODO: move out
 const DefaultTabDict: TabDict = {
     'about': {right: 400, top: 50},
-    'project': {right: 650, top: 150},
+    'projects': {right: 650, top: 150},
     'what & why': {right: 300, top: 50},
+    'garden': {right: 500, top: 50},
 }
 
 
