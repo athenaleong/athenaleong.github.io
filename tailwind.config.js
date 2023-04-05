@@ -4,8 +4,13 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      cursor : {
+        'default': "url('./assets/default.svg'), default",
+        'pointer': "url('assets/pointer.png'), pointer", 
+  
+      },
       zIndex: {
-        'max': '2147483647',
+        'max': 's2147483647',
       },
       fontFamily: {
         'code': ['Fira Code', 'monospace'],

@@ -18,14 +18,14 @@ const Folder: React.FC<FolderProps> = ({ imageSrc, id, right, top, onClick, hove
     return (
         <div
         ref={drag}
-        className={`flex flex-col items-center justify-center absolute w-28 h-28 cursor-pointer ${isDragging ? 'opacity-50' : ''}`}
+        className={`flex flex-col items-center justify-center absolute w-28 h-28 ${isDragging ? 'cursor-move' : 'cursor-pointer'}`}
         style={{right : `${right}px`, top : `${top}px` }}
         onClick={onClick}
         onMouseOver={() => setHoverd(true)}
         onMouseOut={() => setHoverd(false)}
         >
             <img className='w-[85%]' src={hovered? hoverImageSrc: imageSrc}/>
-            <p className=' font-bold'>{id}</p>
+            <p className=' font-bold text-center'>{id}</p>
         </div>)
     } else {
     return (
