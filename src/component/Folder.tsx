@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { isEquals } from 'immutability-helper';
 import { DragPreviewImage, useDrag } from 'react-dnd';
-import { Preview, Context, usePreview, PreviewState, usePreviewState } from 'react-dnd-preview'
+import { Preview } from 'react-dnd-preview'
 
 const Folder: React.FC<FolderProps> = ({ imageSrc, id, right, top, onClick, hoverImageSrc}) => {
 
