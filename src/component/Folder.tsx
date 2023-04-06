@@ -3,7 +3,7 @@ import { isEquals } from 'immutability-helper';
 import { DragPreviewImage, useDrag } from 'react-dnd';
 import { Preview } from 'react-dnd-preview'
 
-const Folder: React.FC<FolderProps> = ({ imageSrc, id, right, top, onClick, hoverImageSrc}) => {
+const Folder: React.FC<FolderProps> = ({ imageSrc, id, right, top, onClick, hoverImageSrc, isTouchDevice}) => {
 
     const [hovered, setHoverd] = useState(false);
 
@@ -57,7 +57,7 @@ const Folder: React.FC<FolderProps> = ({ imageSrc, id, right, top, onClick, hove
                 <p className='text-center font-bold'>{id}</p>
 
             </div>
-            <Preview generator={generatePreview} /> 
+            {isTouchDevice && <Preview generator={generatePreview} /> }
             
         </>
         )
@@ -70,6 +70,7 @@ interface FolderProps {
     right: number;
     top: number;
     onClick: () => void;
+    isTouchDevice: boolean;
     hoverImageSrc?: string;
   }
   

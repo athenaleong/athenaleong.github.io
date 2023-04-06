@@ -1,8 +1,12 @@
 import { useDrag } from 'react-dnd';
 import React, {useCallback, useState} from 'react';
-import { Preview } from 'react-dnd-preview'
 
-const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab, zIndex, onClick}) => {
+//Tablet Preview Setting
+import { Preview } from 'react-dnd-preview'
+import { useMediaQuery } from "react-responsive";
+
+
+const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab, zIndex, onClick, isTouchDevice}) => {
 
   const [isOverContent, setIsOverContent] = useState(false);
 
@@ -45,27 +49,28 @@ const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab, zIndex, 
         className='w-full bg-gray-300 h-10 flex justify-start border-black border-[4px] border-b-0 rounded-t-xl dark:border-slate-950 dark:bg-gray-700'
         >
             <div
+                onClick={() => removeTab(id)}
                 className="bg-figma-red border-r-4 h-10 border-black w-10 items-center align-middle flex justify-center rounded-tl-lg font-bold cursor-pointer dark:border-slate-950"
             >X</div>
             
             <div className='grow flex items-center justify-center cursor-move'>
                 <p className='font-bold font-code'>
-                    {id} 
+                    {id}
                 </p>
             </div>
         </div>)
 
   /* Preview for tablet view*/
-  const generatePreview =({itemType, item, style}: any) => {
+  const generatePreview =({style, item}: any) => {
         console.log('item', item.id, id)
         if (id === item.id) {
             return(
             <div
-                className={`opacity-100 absolute max-w-[800px] w-auto max-h-[600px] flex flex-col text-black dark:text-stone-300`}
-                style={style}
-            >
+                className={`absolute max-w-[800px] w-auto max-h-[600px] flex flex-col text-black dark:text-stone-300`}
+                style={{...style,  zIndex: zIndex}}
+            > 
             <TabBar/>
-            <InnerChild />
+            {InnerChild()}
         </div>
         )
         }
@@ -97,7 +102,7 @@ const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab, zIndex, 
             </div>
             {InnerChild()}
         </div>
-        <Preview generator={generatePreview} />
+        {isTouchDevice && <Preview generator={generatePreview} />}
         </>
     );
 
@@ -111,6 +116,7 @@ interface TabProps {
     children: React.ReactNode;
     removeTab: (id: string) => void;
     onClick: () => void;
+    isTouchDevice: boolean;
     zIndex?: number;
 
   }

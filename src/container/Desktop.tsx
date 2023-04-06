@@ -115,50 +115,19 @@ const Desktop = () => {
         dispatch(clearTab())
     }, [dispatch])
 
-    /** Drag and Drop Cursor */
-//     useEffect(() => {
 
-//         window.addEventListener('drag', () => {
-//        document.body.style.cursor = 'grabbing';
-//        }, true)
+    /** Hack to understand which backend device until issue is fixed */
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
 
-//        window.addEventListener('dragend', () => {
-//            document.body.style.cursor = '';
-//        }, true)
-
-//        return () => {
-//            window.removeEventListener('drag', () => {
-//                document.body.style.cursor = 'grabbing !important';
-//                }, true)
-               
-//            window.removeEventListener('dragend', () => {
-//                document.body.style.cursor = '';
-//            }, true)
-//        }
-//    }, [])
-
-const [containerHeight, setContainerHeight] = useState(0);
-
-  useEffect(() => {
-    // Update the height of the container element whenever the window is resized
-    const updateContainerHeight = () => {
-      const height = document.documentElement.clientHeight;
-      console.log(height)
-      setContainerHeight(height);
-    };
-    window.addEventListener('resize', updateContainerHeight);
-    updateContainerHeight();
-
-    // Remove the event listener when the component is unmounted
-    return () => {
-      window.removeEventListener('resize', updateContainerHeight);
-    };
-  }, []);
+    useEffect(() => {
+        const handleTouchStart = () => setIsTouchDevice(true);
+        document.addEventListener('touchstart', handleTouchStart);
+        return () => document.removeEventListener('touchstart', handleTouchStart);
+    }, []);
 
     return (
         <div 
             className="cursor-default w-full h-full flex flex-col fixed text-black dark:text-stone-300"
-            style={{height: `${containerHeight}px`}}
         >
             {/* livvic vs hanken */}
             <div className='w-screen h-10 bg-figma-yellow flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold font-code dark:bg-figma-blue dark:border-slate-950'> 
@@ -208,6 +177,7 @@ const [containerHeight, setContainerHeight] = useState(0);
                             top={top}
                             onClick={() => folderOnClick(tabId)}
                             hoverImageSrc={hoverImageSrc}
+                            isTouchDevice={isTouchDevice}
                         />)
                 })}
                 {Object.keys(tabs).map((key) => {
@@ -217,7 +187,7 @@ const [containerHeight, setContainerHeight] = useState(0);
                         zIndex?: number
                     }
                     return(
-                        <Tab key={key} id={key} right={right} top={top} removeTab={removeTab} zIndex={zIndex} onClick={() => dispatch(bringTabToFront({id: key}))}>
+                        <Tab key={key} id={key} right={right} top={top} removeTab={removeTab} zIndex={zIndex} onClick={() => dispatch(bringTabToFront({id: key}))} isTouchDevice={isTouchDevice}>
                             {TabRender(key)}
                         </Tab>
                     )
