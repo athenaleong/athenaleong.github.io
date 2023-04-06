@@ -69,9 +69,9 @@ const Desktop = () => {
         () => ({
             accept: ['folder', 'tab'],
             drop(item: any, monitor: any) {
-                console.log(item);
+                // console.log(item);
                 const delta = monitor.getDifferenceFromInitialOffset() as { x: number; y: number }
-                console.log(item.right, item.top, delta.x, delta.y)
+                // console.log(item.right, item.top, delta.x, delta.y)
                 let right = Math.round(item.right - delta.x)
                 let top = Math.round(item.top + delta.y)
                 top = Math.max(0, top)
@@ -137,8 +137,29 @@ const Desktop = () => {
 //        }
 //    }, [])
 
+const [containerHeight, setContainerHeight] = useState(0);
+
+  useEffect(() => {
+    // Update the height of the container element whenever the window is resized
+    const updateContainerHeight = () => {
+      const height = document.documentElement.clientHeight;
+      console.log(height)
+      setContainerHeight(height);
+    };
+    window.addEventListener('resize', updateContainerHeight);
+    updateContainerHeight();
+
+    // Remove the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener('resize', updateContainerHeight);
+    };
+  }, []);
+
     return (
-        <div className="cursor-default w-screen h-screen flex flex-col fixed text-black dark:text-stone-300">
+        <div 
+            className="cursor-default w-full h-full flex flex-col fixed text-black dark:text-stone-300"
+            style={{height: `${containerHeight}px`}}
+        >
             {/* livvic vs hanken */}
             <div className='w-screen h-10 bg-figma-yellow flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold font-code dark:bg-figma-blue dark:border-slate-950'> 
                 <div className='flex flex-row space-x-4 pl-6 items-center'>
