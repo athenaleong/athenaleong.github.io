@@ -14,24 +14,18 @@ const Folder: React.FC<FolderProps> = ({ imageSrc, id, right, top, onClick, hove
     }),
     }), [id, right, top]);
 
-    if (!isDragging) {
     return (
         <div
         ref={drag}
-        className={`flex flex-col items-center justify-center absolute w-28 h-28 ${isDragging ? 'cursor-move' : 'cursor-pointer'}`}
-        style={{right : `${right}px`, top : `${top}px` }}
+        className={`flex flex-col items-center justify-center absolute w-28 h-28 cursor-pointer`}
+        style={{right : `${right}px`, top : `${top}px`, opacity: isDragging ? 0 : 1}}
         onClick={onClick}
         onMouseOver={() => setHoverd(true)}
         onMouseOut={() => setHoverd(false)}
         >
             <img className='w-[85%]' src={hovered? hoverImageSrc: imageSrc}/>
-            <p className=' font-bold text-center'>{id}</p>
+            <p className=' font-bold'>{id}</p>
         </div>)
-    } else {
-    return (
-        <div ref={drag} />
-    )
-    };
 };
 
 

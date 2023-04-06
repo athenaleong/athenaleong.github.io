@@ -1,13 +1,22 @@
 import { useDrag } from 'react-dnd';
+import React, {useState} from 'react';
 
 const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab, zIndex, onClick}) => {
+
+  const [isOverContent, setIsOverContent] = useState(false);
+
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'tab',
     item: { id, right, top, 'type': 'tab' },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
-  }), [id, right, top]);
+    canDrag: (monitor) => {
+        return !isOverContent;
+    }
+
+  }), [id, right, top, isOverContent]);
+
 
  
     return (
@@ -24,13 +33,28 @@ const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab, zIndex, 
                     onClick={() => removeTab(id)}
                     className="bg-figma-red border-r-4 h-10 border-black w-10 items-center align-middle flex justify-center rounded-tl-lg font-bold cursor-pointer dark:border-slate-950"
                 >X</div>
+                
                 <div className='grow flex items-center justify-center cursor-move'>
                     <p className='font-bold font-code'>
-                        {id}
+                        {id} {isOverContent ? 'is over content' : ''}
                     </p>
                 </div>
             </div>
-            <div className='overflow-y-scroll solid-black-border rounded-b-xl dark:border-slate-950'>
+            <div 
+                className='overflow-y-scroll solid-black-border rounded-b-xl dark:border-slate-950'
+                onMouseEnter={(e: any) => {
+                    setIsOverContent(true);
+                }}
+                onTouchStart={(e: any) => {
+                    setIsOverContent(true);
+                }}
+                onMouseLeave={(e: any) => {
+                    setIsOverContent(false);
+                }}
+                onTouchEnd={(e: any) => {
+                    setIsOverContent(false);
+                }}
+            >
                 {children}
             </div>
         </div>
