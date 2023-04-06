@@ -14,7 +14,7 @@ import ConnectTheDots from '../component/ConnectTheDot';
 import ThemeToggle from '../component/ThemeToggle';
 
 //type
-import TabDict, { TabType } from '../type/tab';
+import DesktopTabDict, { DesktopTabType } from '../type/tab';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -42,7 +42,7 @@ const Desktop = () => {
     });
 
     const dispatch = useDispatch();
-    const tabs = useSelector<RootState, TabDict>((state) => state.tab.tabs);
+    const tabs = useSelector<RootState, DesktopTabDict>((state) => state.tab.tabs);
 
     /** Drag and Drop */
 
@@ -106,7 +106,7 @@ const Desktop = () => {
         else if (tabId in tabs) {
             dispatch(bringTabToFront({id: tabId}))
         } else {
-            let defaultProps = DefaultTabDict[tabId];
+            let defaultProps = DefaultDesktopTabDict[tabId];
             dispatch(addTab({id: tabId, props: defaultProps}))
         }
     }, [dispatch])
@@ -221,7 +221,7 @@ interface DesktopProps {
 
 
 //TODO: move out
-const DefaultTabDict: TabDict = {
+const DefaultDesktopTabDict: DesktopTabDict = {
     'about': {right: 400, top: 50},
     'projects': {right: 650, top: 150},
     'what & why': {right: 300, top: 50},

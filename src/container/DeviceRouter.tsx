@@ -4,6 +4,7 @@ import Desktop from './Desktop';
 import { DndProvider } from 'react-dnd'
 import { MultiBackend } from 'react-dnd-multi-backend'
 import { HTML5toTouch } from 'rdndmb-html5-to-touch' 
+import Mobile from './Mobile';
 
 const DeviceRouter: React.FC<any> = () => {
 
@@ -13,7 +14,7 @@ const DeviceRouter: React.FC<any> = () => {
 
     return (
         <DndProvider backend={MultiBackend} options={HTML5toTouch}>
-            {isMobile && <div>Mobile</div>}
+            {isMobile && <Mobile />}
             {isTablet && <Desktop />}
             {isLaptop && <Desktop />}
         </DndProvider>

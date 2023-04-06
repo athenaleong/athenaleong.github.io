@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 
-const Clock = () => {
+const Clock = ({includeDate = true} : {
+    includeDate?: boolean;
+}) => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -16,8 +18,9 @@ const Clock = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const formattedTime = format(currentTime, 'MMM dd h:mma');
-
+  const formattedTime = includeDate ? 
+                        format(currentTime, 'MMM dd h:mma') : 
+                        format(currentTime, 'h:mma');
   return <div>{formattedTime}</div>;
 };
 
