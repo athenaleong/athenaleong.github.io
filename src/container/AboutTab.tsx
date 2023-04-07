@@ -1,11 +1,16 @@
 import React, { Component, useState, useCallback } from 'react';
 
-const AboutTab: React.FC<any> = () => {
+const AboutTab: React.FC<any> = ({isMobile = false}:{
+    isMobile: boolean;
+}) => {
     return (
         // <div className='w-[600px] h-[600px] bg-yellow-300'>
         //     <h1>About</h1>
         // </div>
-    <div className="text-xl bg-gray-200 rounded-lg flex flex-col items-center pt-[64px] px-[100px] pb-[96px] font-hanken  dark:bg-gray-800">
+    <div 
+        className="text-xl bg-gray-200 flex flex-col items-center pt-[64px] pb-[96px] font-hanken  dark:bg-gray-800"
+        style = {{paddingLeft : isMobile ? '2.5rem' : '6rem', paddingRight: isMobile ? '2.5rem' : '6rem', borderRadius: isMobile ? '0rem' : '0.5rem'}}
+    >
     
     <img />
     <p className="mb-6 leading-loose font-bold">

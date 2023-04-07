@@ -1,14 +1,31 @@
 import Clock from "../component/Clock"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { MobileTabDict } from "../type/tab"
-import Tab from "@/component/Tab"
+import AboutTab from "./AboutTab"
+import ProjectTab from "./ProjectTab"
+import WhatTab from "./WhatTab"
+import { render } from "react-dom"
+import { id } from "date-fns/locale"
 
-type Tabs = 'About' | 'Projects' | 'Why' | 'More'
+type MobileTabs = 'About' | 'Projects' | 'Why' | 'More'
+
 
 const Mobile = () => {
 
-    const [activeTab, setActiveTab] = useState<Tabs>('About')
+    const [activeTab, setActiveTab] = useState<string>('About')
 
+    const renderView = useCallback(() => {
+        switch (activeTab) {
+            case 'About':
+                return (<AboutTab isMobile={true}/>)
+            case 'Projects':
+                return (<ProjectTab />)
+            case 'Why':
+                return (<WhatTab isMobile={true}/>)
+            
+        }
+
+    }, [activeTab])
     const Tabs: MobileTabDict = {
         'About': {
             imageSrc:'./src/assets/about.png',
@@ -22,40 +39,51 @@ const Mobile = () => {
             className='w-screen h-screen flex flex-col'
         >
             <div
-                className='flex flex-row justify-between w-screen h-10 bg-figma-blue dark:bg-figma-yellow fixed top-0'
+                className='flex flex-row justify-between w-screen h-10 bg-slate-800 solid-black-border font-bold font-code text-white fixed top-0 border-b-0 border-black dark:bg-figma-blue
+                '
             >
                 <div
-                    className='flex flex-row items-center justify-center space-x-4 pl-6'
+                    className='flex flex-row items-center justify-center space-x-3 pl-6'
                 >
                     <img src='./src/assets/slide-thick.png' className='w-10 h-fit'/>
                     <Clock includeDate={false} />
                 </div>
-                <div className='pr-6 flex flex-row space-x-4 items-center'>
+                <div className='pr-6 flex flex-row space-x-3 items-center'>
                 <p>AthenaOS  </p>
                 </div>
              
             </div>
             <div
-                className='w-screen grow bg-figma-pink dark:bg-figma-pink'
+                className='w-screen h-[100%] mt-10 mb-[6rem] border-[4px] border-black border-t-0 border-b-0 overflow-scroll'
             >
-                View
+                { renderView()}
             </div>
             <div
-                className='flex flex-row justify-around w-screen h-28 bg-figma-light-blue dark:bg-figma-purple fixed bottom-0'
+                className='flex flex-row items-center justify-around w-screen h-28 bg-figma-yellow solid-black-border dark:bg-slate-700 fixed bottom-0'
             >
-
-
                 {Object.keys(Tabs).map((key : string) => {
                     const {imageSrc, hoverImageSrc}: any = Tabs[key];
+                    const isActiveTab: Boolean = activeTab == key;
                     return (
-                    <div
-                    className='flex flex-col items-center w-16 h-16 bg-white rounded-xl'
-                    >
-                        <img 
-                            src={activeTab == key? hoverImageSrc : imageSrc}
-                        />
-                        <p> {key} </p>
-                    </div>
+                    <div className="flex flex-col">
+                        <div className="w-16 h-16 relative ">
+                            <div 
+                                className="absolute w-14 h-14 flex bg-black rounded-xl"
+                                style={{left: isActiveTab? '0.25rem' : '0.25rem', top: isActiveTab? '0.25rem' : '0.25rem'}}
+                            >
+                            </div>
+                            <div
+                                className='flex flex-col items-center w-14 h-14 rounded-xl z-10 relative bg-white border-black border-[3px]'
+                                style={{left: isActiveTab? '0.25rem' : '0rem', top: isActiveTab? '0.25rem' : '0rem'}}
+                                onClick= {() => {setActiveTab(key)}}
+                            >
+                                <img 
+                                    src={isActiveTab? hoverImageSrc : imageSrc}
+                                />
+                            </div>
+                        </div>
+                        <div className="flex text-center items-center justify-center font-bold">{key}</div>
+                     </div>
                     )
                 })}
             </div>

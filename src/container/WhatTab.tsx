@@ -1,8 +1,14 @@
 import React, { Component, useState, useCallback } from 'react';
 
-const WhatTab: React.FC<any> = () => {
+const WhatTab: React.FC<any> = ({isMobile = false}: {
+    isMobile?: boolean
+}) => {
     return (
-    <div className="text-xl font-normal bg-gray-200 text-left rounded-lg flex flex-col items-center pt-[64px] px-[100px] pb-[96px] font-hanken  dark:bg-gray-800">
+    <div 
+        className="text-xl font-normal bg-gray-200 text-left flex flex-col items-center pt-[64px] px-[100px] pb-[96px] font-hanken  dark:bg-gray-800"
+        style = {{paddingLeft : isMobile ? '2.5rem' : '6rem', paddingRight: isMobile ? '2.5rem' : '6rem', borderRadius: isMobile ? '0rem' : '0.5rem'}}
+
+    >
     
     <img src='/src/assets/play.png' className='w-[70%] mb-10'/>
     <p className="mb-6 leading-loose w-[100%] font-bold">
