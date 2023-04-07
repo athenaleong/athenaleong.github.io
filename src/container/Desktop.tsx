@@ -142,7 +142,7 @@ const Desktop = () => {
                 </div>
                 <div className='pr-6 flex flex-row space-x-4 items-center'>
 
-                    <a href="mailto:athenaleong619@gmail.com">
+                    <a href="mailto:athenaleong619&#64;gmail&#46;com">
                     <img src='./src/assets/mail.png' className='w-5 h-5'/>
                     </a>   
                     <a href="https://github.com/athenaleong" target="_blank">

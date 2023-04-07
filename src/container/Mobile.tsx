@@ -6,8 +6,9 @@ import ProjectTab from "./ProjectTab"
 import WhatTab from "./WhatTab"
 import { render } from "react-dom"
 import { id } from "date-fns/locale"
+import SettingTab from "./SettingTab"
 
-type MobileTabs = 'About' | 'Projects' | 'Why' | 'More'
+type MobileTabs = 'About' | 'Projects' | 'Why' | 'Setting'
 
 
 const Mobile = () => {
@@ -22,6 +23,8 @@ const Mobile = () => {
                 return (<ProjectTab />)
             case 'Why':
                 return (<WhatTab isMobile={true}/>)
+            case 'Setting':
+                return (<SettingTab />)
             
         }
 
@@ -33,14 +36,14 @@ const Mobile = () => {
         },
         'Projects' : {imageSrc: './src/assets/project.png', hoverImageSrc: './src/assets/project-hover.png'},
         'Why' : {imageSrc: './src/assets/anglerfish.png', hoverImageSrc: './src/assets/anglerfish-hover.png'},
+        'Setting' : {imageSrc: './src/assets/anglerfish.png', hoverImageSrc: './src/assets/anglerfish-hover.png'}
     }
     return (
         <div
-            className='w-screen h-screen flex flex-col'
+            className='w-screen h-screen flex flex-col text-black dark:text-white'
         >
             <div
-                className='flex flex-row justify-between w-screen h-10 bg-slate-800 solid-black-border font-bold font-code text-white fixed top-0 border-b-0 border-black dark:bg-figma-blue
-                '
+                className='flex flex-row justify-between w-screen h-10 bg-slate-700 solid-black-border font-bold font-code fixed top-0 border-b-0 border-black text-white dark:bg-figma-blue'
             >
                 <div
                     className='flex flex-row items-center justify-center space-x-3 pl-6'
