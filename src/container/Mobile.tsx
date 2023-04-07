@@ -8,7 +8,7 @@ import { render } from "react-dom"
 import { id } from "date-fns/locale"
 import SettingTab from "./SettingTab"
 
-type MobileTabs = 'About' | 'Projects' | 'Why' | 'Setting'
+type MobileTabs = 'About' | 'Projects' | '???' | 'Setting'
 
 
 const Mobile = () => {
@@ -21,7 +21,7 @@ const Mobile = () => {
                 return (<AboutTab isMobile={true}/>)
             case 'Projects':
                 return (<ProjectTab />)
-            case 'Why':
+            case '???':
                 return (<WhatTab isMobile={true}/>)
             case 'Setting':
                 return (<SettingTab />)
@@ -35,7 +35,7 @@ const Mobile = () => {
             hoverImageSrc: './src/assets/about-hover.png'
         },
         'Projects' : {imageSrc: './src/assets/project.png', hoverImageSrc: './src/assets/project-hover.png'},
-        'Why' : {imageSrc: './src/assets/anglerfish.png', hoverImageSrc: './src/assets/anglerfish-hover.png'},
+        '???' : {imageSrc: './src/assets/anglerfish.png', hoverImageSrc: './src/assets/anglerfish-hover.png'},
         'Setting' : {imageSrc: './src/assets/anglerfish.png', hoverImageSrc: './src/assets/anglerfish-hover.png'}
     }
     return (

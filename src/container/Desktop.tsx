@@ -36,7 +36,7 @@ const Desktop = () => {
     }>({
         'About': {imageSrc: './src/assets/about.png', hoverImageSrc:'./src/assets/about-hover.png', right: 25, top: 25, tabId: 'about'},
         'Projects' : {imageSrc: './src/assets/project.png', hoverImageSrc: './src/assets/project-hover.png', right: 150, top: 25, tabId: 'projects'},
-        'What & Why' : {imageSrc: './src/assets/anglerfish.png', hoverImageSrc: './src/assets/anglerfish-hover.png', right: 25, top: 150, tabId: 'what & why' },
+        '???' : {imageSrc: './src/assets/anglerfish.png', hoverImageSrc: './src/assets/anglerfish-hover.png', right: 25, top: 150, tabId: '???' },
         'Thought Garden' : {imageSrc: './src/assets/garden.png', hoverImageSrc: './src/assets/garden-hover.png', right: 25, top: 275, tabId: 'garden' },
 
     });
@@ -94,7 +94,7 @@ const Desktop = () => {
                 return <AboutTab/>
             case 'projects':
                 return <ProjectTab/>
-            case 'what & why':
+            case '???':
                 return <WhatTab/>
         }
     }
@@ -224,7 +224,7 @@ interface DesktopProps {
 const DefaultDesktopTabDict: DesktopTabDict = {
     'about': {right: 400, top: 50},
     'projects': {right: 650, top: 150},
-    'what & why': {right: 300, top: 50},
+    '???': {right: 300, top: 50},
     'garden': {right: 500, top: 50},
 }
 
