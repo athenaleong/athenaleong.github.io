@@ -18,20 +18,21 @@ const DeviceRouter: React.FC<any> = () => {
     useEffect(() => {
 
     const images = [
-        '/src/assets/experiences.png',
-        '/src/assets/about.png',
-        '/src/assets/about-hover.png',
-        '/src/assets/project.png',
-        '/src/assets/project-hover.png',
-        '/src/assets/anglerfish.png',
-        '/src/assets/anglerfish-hover.png',
-        '/src/assets/garden.png',
-        '/src/assets/garden-hover.png',
-        '/src/assets/play.png',
-        '/src/assets/github.png',
-        '/src/assets/twitter.png',
-        '/src/assets/mail.png',
-        '/src/assets/more.png'
+        '/experiences.png',
+        '/about.png',
+        '/about-hover.png',
+        '/project.png',
+        '/project-hover.png',
+        '/anglerfish.png',
+        '/anglerfish-hover.png',
+        '/garden.png',
+        '/garden-hover.png',
+        '/play.png',
+        '/github.png',
+        '/twitter.png',
+        '/mail.png',
+        '/more.png',
+        '/slide-thick.png'
     ]
 
     const promises = images.map((src) => {

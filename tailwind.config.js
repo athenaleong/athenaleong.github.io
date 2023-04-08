@@ -5,8 +5,8 @@ module.exports = {
   theme: {
     extend: {
       cursor : {
-        'default': "url('./assets/default.svg'), default",
-        'pointer': "url('assets/pointer.png'), pointer", 
+        'default': "url('/default.svg'), default",
+        'pointer': "url('/pointer.png'), pointer", 
   
       },
       zIndex: {

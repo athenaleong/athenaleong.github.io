@@ -23,7 +23,7 @@ const SettingTab = () => {
                 <a 
                 className="flex flex-row justify-start items-center w-full space-x-8"
                 href="https://github.com/athenaleong" target="_blank">
-                        <img src='./src/assets/github.png' className='w-10 h-10 bg-white p-2 rounded-xl'/>
+                        <img src='/github.png' className='w-10 h-10 bg-white p-2 rounded-xl'/>
                         <p>@athenaleong</p>
                 </a>
             </div>
@@ -33,7 +33,7 @@ const SettingTab = () => {
                 <a 
                 className="flex flex-row justify-start items-center w-full space-x-8"
                 href="https://twitter.com/thenabanana" target="_blank">
-                        <img src='./src/assets/twitter.png' className='w-10 h-10 bg-white p-2 rounded-xl'/>
+                        <img src='/twitter.png' className='w-10 h-10 bg-white p-2 rounded-xl'/>
                         <p>@thenabanana</p>
                 </a>
             </div>
@@ -44,7 +44,7 @@ const SettingTab = () => {
                     className="flex flex-row justify-start items-center w-full space-x-8" 
                     href="mailto:athenaleong619&#64;gmail&#46;com"
                 >
-                    <img src='./src/assets/mail.png' className='w-10 h-10 bg-white p-2 rounded-xl'/>
+                    <img src='/mail.png' className='w-10 h-10 bg-white p-2 rounded-xl'/>
                     <p>Email</p>
                 </a>  
             </div>

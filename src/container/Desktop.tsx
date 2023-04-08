@@ -34,10 +34,10 @@ const Desktop = () => {
             hoverImageSrc?: string;
         }
     }>({
-        'About': {imageSrc: './src/assets/about.png', hoverImageSrc:'./src/assets/about-hover.png', right: 25, top: 25, tabId: 'about'},
-        'Projects' : {imageSrc: './src/assets/project.png', hoverImageSrc: './src/assets/project-hover.png', right: 150, top: 25, tabId: 'projects'},
-        '???' : {imageSrc: './src/assets/anglerfish.png', hoverImageSrc: './src/assets/anglerfish-hover.png', right: 25, top: 150, tabId: '???' },
-        'Thought Garden' : {imageSrc: './src/assets/garden.png', hoverImageSrc: './src/assets/garden-hover.png', right: 25, top: 275, tabId: 'garden' },
+        'About': {imageSrc: '/about.png', hoverImageSrc:'/about-hover.png', right: 25, top: 25, tabId: 'about'},
+        'Projects' : {imageSrc: '/project.png', hoverImageSrc: '/project-hover.png', right: 150, top: 25, tabId: 'projects'},
+        '???' : {imageSrc: '/anglerfish.png', hoverImageSrc: '/anglerfish-hover.png', right: 25, top: 150, tabId: '???' },
+        'Thought Garden' : {imageSrc: '/garden.png', hoverImageSrc: '/garden-hover.png', right: 25, top: 275, tabId: 'garden' },
 
     });
 
@@ -132,7 +132,7 @@ const Desktop = () => {
             {/* livvic vs hanken */}
             <div className='w-screen h-10 bg-figma-yellow flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold font-code dark:bg-figma-blue dark:border-slate-950'> 
                 <div className='flex flex-row space-x-4 pl-6 items-center'>
-                    <img src='./src/assets/slide-thick.png' className='w-10'/>
+                    <img src='/slide-thick.png' className='w-10'/>
                     <p>AthenaOS  </p>
                    
 
@@ -143,15 +143,15 @@ const Desktop = () => {
                 <div className='pr-6 flex flex-row space-x-4 items-center'>
 
                     <a href="mailto:athenaleong619&#64;gmail&#46;com">
-                    <img src='./src/assets/mail.png' className='w-5 h-5'/>
+                    <img src='/mail.png' className='w-5 h-5'/>
                     </a>   
                     <a href="https://github.com/athenaleong" target="_blank">
-                        <img src='./src/assets/github.png' className='w-5 h-5'/>
+                        <img src='/github.png' className='w-5 h-5'/>
                     </a>
                     <a href="https://twitter.com/thenabanana" target="_blank">
-                        <img src='./src/assets/twitter.png' className='w-5 h-5'/>
+                        <img src='/twitter.png' className='w-5 h-5'/>
                     </a>
-                    {/* <img src="./src/assets/location.png" className='w-5 h-5'/> */}
+                    {/* <img src="/location.png" className='w-5 h-5'/> */}
                 <ThemeToggle />
 
                     <p> Berkeley, CA</p>
@@ -198,7 +198,7 @@ const Desktop = () => {
                     <div 
                         className='w-16 h-16 bg-red-300 solid-black-border rounded-xl dark:border-slate-950'
                         onClick={resetOnClick}
-                        style={{backgroundImage: `url('/src/assets/clear.png')`, backgroundSize: 'cover', backgroundPosition: 'center'}}
+                        style={{backgroundImage: `url('/clear.png')`, backgroundSize: 'cover', backgroundPosition: 'center'}}
                     >
                     </div>
                     </DockerWrapper>   

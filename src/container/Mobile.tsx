@@ -31,12 +31,12 @@ const Mobile = () => {
     }, [activeTab])
     const Tabs: MobileTabDict = {
         'About': {
-            imageSrc:'./src/assets/about.png',
-            hoverImageSrc: './src/assets/about-hover.png'
+            imageSrc:'/about.png',
+            hoverImageSrc: '/about-hover.png'
         },
-        'Projects' : {imageSrc: './src/assets/project.png', hoverImageSrc: './src/assets/project-hover.png'},
-        '???' : {imageSrc: './src/assets/anglerfish.png', hoverImageSrc: './src/assets/anglerfish-hover.png'},
-        'Setting' : {imageSrc: './src/assets/more.png', hoverImageSrc: './src/assets/more.png'}
+        'Projects' : {imageSrc: '/project.png', hoverImageSrc: '/project-hover.png'},
+        '???' : {imageSrc: '/anglerfish.png', hoverImageSrc: '/anglerfish-hover.png'},
+        'Setting' : {imageSrc: '/more.png', hoverImageSrc: '/more.png'}
     }
     return (
         <div
@@ -48,7 +48,7 @@ const Mobile = () => {
                 <div
                     className='flex flex-row items-center justify-center space-x-3 pl-6'
                 >
-                    <img src='./src/assets/slide-thick.png' className='w-10 h-fit'/>
+                    <img src='/slide-thick.png' className='w-10 h-fit'/>
                     <Clock includeDate={false} />
                 </div>
                 <div className='pr-6 flex flex-row space-x-3 items-center'>
