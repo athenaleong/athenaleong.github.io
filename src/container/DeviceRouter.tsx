@@ -13,41 +13,41 @@ const DeviceRouter: React.FC<any> = () => {
     const isTablet = useMediaQuery({ query: "(min-width: 768px) and (max-width: 991px)" });
     const isLaptop = useMediaQuery({ query: "(min-width: 992px)" });
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
+//     useEffect(() => {
 
-    const images = [
-        '/experiences.png',
-        '/about.png',
-        '/about-hover.png',
-        '/project.png',
-        '/project-hover.png',
-        '/anglerfish.png',
-        '/anglerfish-hover.png',
-        '/garden.png',
-        '/garden-hover.png',
-        '/play.png',
-        '/github.png',
-        '/twitter.png',
-        '/mail.png',
-        '/more.png',
-        '/slide-thick.png'
-    ]
+//     const images = [
+//         '/experiences.png',
+//         '/about.png',
+//         '/about-hover.png',
+//         '/project.png',
+//         '/project-hover.png',
+//         '/anglerfish.png',
+//         '/anglerfish-hover.png',
+//         '/garden.png',
+//         '/garden-hover.png',
+//         '/play.png',
+//         '/github.png',
+//         '/twitter.png',
+//         '/mail.png',
+//         '/more.png',
+//         '/slide-thick.png'
+//     ]
 
-    const promises = images.map((src) => {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.src = src;
-        img.onload = resolve;
-        img.onerror = reject;
-      });
-    });
+//     const promises = images.map((src) => {
+//       return new Promise((resolve, reject) => {
+//         const img = new Image();
+//         img.src = src;
+//         img.onload = resolve;
+//         img.onerror = reject;
+//       });
+//     });
 
-    Promise.all(promises)
-      .then(() => setLoading(false))
-      .catch((err) => console.error(err));
-  }, []);
+//     Promise.all(promises)
+//       .then(() => setLoading(false))
+//       .catch((err) => console.error(err));
+//   }, []);
 
     return (
         <DndProvider backend={MultiBackend} options={HTML5toTouch}>
