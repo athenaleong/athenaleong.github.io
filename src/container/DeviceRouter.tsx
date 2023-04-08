@@ -13,7 +13,7 @@ const DeviceRouter: React.FC<any> = () => {
     const isTablet = useMediaQuery({ query: "(min-width: 768px) and (max-width: 991px)" });
     const isLaptop = useMediaQuery({ query: "(min-width: 992px)" });
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
