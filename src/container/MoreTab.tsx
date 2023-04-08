@@ -1,6 +1,6 @@
 import ThemeToggle from "../component/ThemeToggle";
 
-const SettingTab = () => {
+const MoreTab = () => {
 
     return (
         <div 
@@ -17,6 +17,16 @@ const SettingTab = () => {
             > 
                 Find me here: 
             </p>
+            <div
+            className="flex flex-row justify-between items-center w-full"
+            > 
+                <a 
+                className="flex flex-row justify-start items-center w-full space-x-8"
+                href="https://garden.athenaleong.com" target="_blank">
+                        <img src='/garden.png' className='w-10 h-10 bg-white p-2 rounded-xl'/>
+                        <p>I have a digital garden!</p>
+                </a>
+            </div>
             <div
             className="flex flex-row justify-between items-center w-full"
             > 
@@ -52,4 +62,4 @@ const SettingTab = () => {
     )
 };
 
-export default SettingTab;
+export default MoreTab;

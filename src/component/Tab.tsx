@@ -1,7 +1,7 @@
 import { useDrag } from 'react-dnd';
 import React, {useCallback, useState} from 'react';
 
-//Tablet Preview Setting
+//Tablet Preview More
 import { Preview } from 'react-dnd-preview'
 import { useMediaQuery } from "react-responsive";
 

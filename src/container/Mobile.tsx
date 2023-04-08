@@ -6,9 +6,9 @@ import ProjectTab from "./ProjectTab"
 import WhatTab from "./WhatTab"
 import { render } from "react-dom"
 import { id } from "date-fns/locale"
-import SettingTab from "./SettingTab"
+import MoreTab from "./MoreTab"
 
-type MobileTabs = 'About' | 'Projects' | '???' | 'Setting'
+type MobileTabs = 'About' | 'Projects' | '???' | 'More'
 
 
 const Mobile = () => {
@@ -23,8 +23,8 @@ const Mobile = () => {
                 return (<ProjectTab isMobile={true}/>)
             case '???':
                 return (<WhatTab isMobile={true}/>)
-            case 'Setting':
-                return (<SettingTab />)
+            case 'More':
+                return (<MoreTab />)
             
         }
 
@@ -36,7 +36,7 @@ const Mobile = () => {
         },
         'Projects' : {imageSrc: '/project.png', hoverImageSrc: '/project-hover.png'},
         '???' : {imageSrc: '/anglerfish.png', hoverImageSrc: '/anglerfish-hover.png'},
-        'Setting' : {imageSrc: '/more.png', hoverImageSrc: '/more.png'}
+        'More' : {imageSrc: '/more.png', hoverImageSrc: '/more.png'}
     }
     return (
         <div
