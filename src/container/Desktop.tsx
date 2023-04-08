@@ -21,21 +21,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../slices';
 import tab, { popTab, addTab, updateTab, bringTabToFront, clearTab } from '../slices/tab';
 
-//image
-import about from '../assets/about.png';
-import project from '../assets/project.png';
-import anglerfish from '../assets/anglerfish.png';
-import garden from '../assets/garden.png';
-import aboutHover from '../assets/about-hover.png';
-import projectHover from '../assets/project-hover.png';
-import anglerfishHover from '../assets/anglerfish-hover.png';
-import gardenHover from '../assets/garden-hover.png';
-import github from '../assets/github.png';
-import twitter from '../assets/twitter.png';
-import mail from '../assets/mail.png';
-import slide from '../assets/slide-thick.png';
-import clear from '../assets/clear.png';
-
 
 const Desktop = () => {
 
@@ -48,10 +33,10 @@ const Desktop = () => {
             hoverImageSrc?: string;
         }
     }>({
-        'About': {imageSrc: about, hoverImageSrc: aboutHover, right: 25, top: 25, tabId: 'about'},
-        'Projects' : {imageSrc: project, hoverImageSrc: projectHover, right: 150, top: 25, tabId: 'projects'},
-        '???' : {imageSrc: anglerfish, hoverImageSrc: anglerfishHover, right: 25, top: 150, tabId: '???' },
-        'Thought Garden' : {imageSrc: garden, hoverImageSrc: gardenHover, right: 25, top: 275, tabId: 'garden' },
+        'About': {imageSrc: '/about.png', hoverImageSrc: '/about-hover.png', right: 25, top: 25, tabId: 'about'},
+        'Projects' : {imageSrc: '/project.png', hoverImageSrc: '/project-hover.png', right: 150, top: 25, tabId: 'projects'},
+        '???' : {imageSrc: '/anglerfish.png', hoverImageSrc: '/anglerfish-hover.png', right: 25, top: 150, tabId: '???' },
+        'Thought Garden' : {imageSrc: '/garden.png', hoverImageSrc: '/garden-hover.png', right: 25, top: 275, tabId: 'garden' },
 
     });
 
@@ -146,7 +131,7 @@ const Desktop = () => {
             {/* livvic vs hanken */}
             <div className='w-screen h-10 bg-figma-yellow flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold font-code dark:bg-figma-blue dark:border-slate-950'> 
                 <div className='flex flex-row space-x-4 pl-6 items-center'>
-                    <img src={slide} className='w-10'/>
+                    <img src={'/slide.png'} className='w-10'/>
                     <p>AthenaOS  </p>
                    
 
@@ -157,13 +142,13 @@ const Desktop = () => {
                 <div className='pr-6 flex flex-row space-x-4 items-center'>
 
                     <a href="mailto:athenaleong619&#64;gmail&#46;com">
-                    <img src={mail} className='w-5 h-5'/>
+                    <img src={'/mail.png'} className='w-5 h-5'/>
                     </a>   
                     <a href="https://github.com/athenaleong" target="_blank">
-                        <img src={github} className='w-5 h-5'/>
+                        <img src={'/github.png'} className='w-5 h-5'/>
                     </a>
                     <a href="https://twitter.com/thenabanana" target="_blank">
-                        <img src={twitter} className='w-5 h-5'/>
+                        <img src={'/twitter.png'} className='w-5 h-5'/>
                     </a>
                     {/* <img src="/location.png" className='w-5 h-5'/> */}
                 <ThemeToggle />
