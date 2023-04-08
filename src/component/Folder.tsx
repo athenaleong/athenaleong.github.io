@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { isEquals } from 'immutability-helper';
-import { useDrag } from 'react-dnd';
+import { DragPreviewImage, useDrag } from 'react-dnd';
+import { Preview } from 'react-dnd-preview'
 
-const Folder: React.FC<FolderProps> = ({ imageSrc, id, right, top, onClick, hoverImageSrc}) => {
+const Folder: React.FC<FolderProps> = ({ imageSrc, id, right, top, onClick, hoverImageSrc, isTouchDevice}) => {
 
     const [hovered, setHoverd] = useState(false);
 
@@ -14,24 +15,52 @@ const Folder: React.FC<FolderProps> = ({ imageSrc, id, right, top, onClick, hove
     }),
     }), [id, right, top]);
 
-    if (!isDragging) {
+    // const MyPreview = () => {
+    // const preview:usePreviewState = usePreview()
+    // if (!preview.display) {
+    //     return null
+    // }
+    // const {itemType, item, style} = preview;
+    // if (itemType !== 'folder' && id !== "Projects") {
+    //     console.log('not me')
+    //     return <></>
+    // }
+    // return <><img className='w-[85%]' src={hovered? hoverImageSrc: imageSrc}/>
+    // <p className='text-center font-bold'>{id}</p></>
+    // }
+    const generatePreview =({itemType, item, style}: any) => {
+        console.log('item', item.id, id)
+        if (id === item.id) {
+            return(
+            <div 
+                className={`flex flex-col items-center justify-center absolute w-28 h-28 cursor-pointer`}
+                style={style}
+            >
+                <img className='w-[85%]' src={hoverImageSrc!}/>
+                <p className='text-center font-bold'>{id}</p>
+            </div>)
+        }
+        return <></>
+    }
+            
     return (
-        <div
-        ref={drag}
-        className={`flex flex-col items-center justify-center absolute w-28 h-28 ${isDragging ? 'cursor-move' : 'cursor-pointer'}`}
-        style={{right : `${right}px`, top : `${top}px` }}
-        onClick={onClick}
-        onMouseOver={() => setHoverd(true)}
-        onMouseOut={() => setHoverd(false)}
-        >
-            <img className='w-[85%]' src={hovered? hoverImageSrc: imageSrc}/>
-            <p className=' font-bold text-center'>{id}</p>
-        </div>)
-    } else {
-    return (
-        <div ref={drag} />
-    )
-    };
+        <>
+            <div
+            ref={drag}
+            className={`flex flex-col items-center justify-center absolute w-28 h-28 cursor-pointer`}
+            style={{right : `${right}px`, top : `${top}px`, opacity: isDragging ? 0 : 1}}
+            onClick={onClick}
+            onMouseOver={() => setHoverd(true)}
+            onMouseOut={() => setHoverd(false)}
+            >
+                <img className='w-[85%]' src={hovered? hoverImageSrc: imageSrc}/>
+                <p className='text-center font-bold'>{id}</p>
+
+            </div>
+            {isTouchDevice && <Preview generator={generatePreview} /> }
+            
+        </>
+        )
 };
 
 
@@ -41,6 +70,7 @@ interface FolderProps {
     right: number;
     top: number;
     onClick: () => void;
+    isTouchDevice: boolean;
     hoverImageSrc?: string;
   }
   

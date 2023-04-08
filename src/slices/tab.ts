@@ -1,8 +1,8 @@
-import TabDict,{ TabType }  from '../type/tab';
+import DesktopTabDict,{ DesktopTabType }  from '../type/tab';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: {
-    tabs: TabDict,
+    tabs: DesktopTabDict,
     maxZIndex: number
 } = {
     tabs: {},
@@ -15,14 +15,14 @@ const tabSlice = createSlice({
     name: 'tab',
     initialState: initialState,
     reducers: {
-        addTab: (state, action: PayloadAction<{id: string, props:TabType}>) => {
+        addTab: (state, action: PayloadAction<{id: string, props:DesktopTabType}>) => {
             state.tabs[action.payload.id] = {...action.payload.props, zIndex: state.maxZIndex++};
         },
         popTab: (state, action: PayloadAction<{id: string}>) => {
             if (state.tabs[action.payload.id])
                 delete state.tabs[action.payload.id];
         },
-        updateTab: (state, action: PayloadAction<{id: string, props:TabType}>) => {
+        updateTab: (state, action: PayloadAction<{id: string, props:DesktopTabType}>) => {
             state.tabs[action.payload.id] = {...action.payload.props, zIndex: state.maxZIndex++};
         },
         clearTab(state) {

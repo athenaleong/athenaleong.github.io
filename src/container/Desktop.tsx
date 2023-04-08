@@ -14,7 +14,7 @@ import ConnectTheDots from '../component/ConnectTheDot';
 import ThemeToggle from '../component/ThemeToggle';
 
 //type
-import TabDict, { TabType } from '../type/tab';
+import DesktopTabDict, { DesktopTabType } from '../type/tab';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,13 +36,13 @@ const Desktop = () => {
     }>({
         'About': {imageSrc: './src/assets/about.png', hoverImageSrc:'./src/assets/about-hover.png', right: 25, top: 25, tabId: 'about'},
         'Projects' : {imageSrc: './src/assets/project.png', hoverImageSrc: './src/assets/project-hover.png', right: 150, top: 25, tabId: 'projects'},
-        'What & Why' : {imageSrc: './src/assets/anglerfish.png', hoverImageSrc: './src/assets/anglerfish-hover.png', right: 25, top: 150, tabId: 'what & why' },
+        '???' : {imageSrc: './src/assets/anglerfish.png', hoverImageSrc: './src/assets/anglerfish-hover.png', right: 25, top: 150, tabId: '???' },
         'Thought Garden' : {imageSrc: './src/assets/garden.png', hoverImageSrc: './src/assets/garden-hover.png', right: 25, top: 275, tabId: 'garden' },
 
     });
 
     const dispatch = useDispatch();
-    const tabs = useSelector<RootState, TabDict>((state) => state.tab.tabs);
+    const tabs = useSelector<RootState, DesktopTabDict>((state) => state.tab.tabs);
 
     /** Drag and Drop */
 
@@ -69,9 +69,9 @@ const Desktop = () => {
         () => ({
             accept: ['folder', 'tab'],
             drop(item: any, monitor: any) {
-                console.log(item);
+                // console.log(item);
                 const delta = monitor.getDifferenceFromInitialOffset() as { x: number; y: number }
-                console.log(item.right, item.top, delta.x, delta.y)
+                // console.log(item.right, item.top, delta.x, delta.y)
                 let right = Math.round(item.right - delta.x)
                 let top = Math.round(item.top + delta.y)
                 top = Math.max(0, top)
@@ -94,7 +94,7 @@ const Desktop = () => {
                 return <AboutTab/>
             case 'projects':
                 return <ProjectTab/>
-            case 'what & why':
+            case '???':
                 return <WhatTab/>
         }
     }
@@ -106,7 +106,7 @@ const Desktop = () => {
         else if (tabId in tabs) {
             dispatch(bringTabToFront({id: tabId}))
         } else {
-            let defaultProps = DefaultTabDict[tabId];
+            let defaultProps = DefaultDesktopTabDict[tabId];
             dispatch(addTab({id: tabId, props: defaultProps}))
         }
     }, [dispatch])
@@ -115,30 +115,20 @@ const Desktop = () => {
         dispatch(clearTab())
     }, [dispatch])
 
-    /** Drag and Drop Cursor */
-//     useEffect(() => {
 
-//         window.addEventListener('drag', () => {
-//        document.body.style.cursor = 'grabbing';
-//        }, true)
+    /** Hack to understand which backend device until issue is fixed */
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
 
-//        window.addEventListener('dragend', () => {
-//            document.body.style.cursor = '';
-//        }, true)
-
-//        return () => {
-//            window.removeEventListener('drag', () => {
-//                document.body.style.cursor = 'grabbing !important';
-//                }, true)
-               
-//            window.removeEventListener('dragend', () => {
-//                document.body.style.cursor = '';
-//            }, true)
-//        }
-//    }, [])
+    useEffect(() => {
+        const handleTouchStart = () => setIsTouchDevice(true);
+        document.addEventListener('touchstart', handleTouchStart);
+        return () => document.removeEventListener('touchstart', handleTouchStart);
+    }, []);
 
     return (
-        <div className="cursor-default w-screen h-screen flex flex-col fixed text-black dark:text-stone-300">
+        <div 
+            className="cursor-default w-full h-full flex flex-col fixed text-black dark:text-stone-300"
+        >
             {/* livvic vs hanken */}
             <div className='w-screen h-10 bg-figma-yellow flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold font-code dark:bg-figma-blue dark:border-slate-950'> 
                 <div className='flex flex-row space-x-4 pl-6 items-center'>
@@ -152,7 +142,7 @@ const Desktop = () => {
                 </div>
                 <div className='pr-6 flex flex-row space-x-4 items-center'>
 
-                    <a href="mailto:athenaleong619@gmail.com">
+                    <a href="mailto:athenaleong619&#64;gmail&#46;com">
                     <img src='./src/assets/mail.png' className='w-5 h-5'/>
                     </a>   
                     <a href="https://github.com/athenaleong" target="_blank">
@@ -187,6 +177,7 @@ const Desktop = () => {
                             top={top}
                             onClick={() => folderOnClick(tabId)}
                             hoverImageSrc={hoverImageSrc}
+                            isTouchDevice={isTouchDevice}
                         />)
                 })}
                 {Object.keys(tabs).map((key) => {
@@ -196,13 +187,13 @@ const Desktop = () => {
                         zIndex?: number
                     }
                     return(
-                        <Tab key={key} id={key} right={right} top={top} removeTab={removeTab} zIndex={zIndex} onClick={() => dispatch(bringTabToFront({id: key}))}>
+                        <Tab key={key} id={key} right={right} top={top} removeTab={removeTab} zIndex={zIndex} onClick={() => dispatch(bringTabToFront({id: key}))} isTouchDevice={isTouchDevice}>
                             {TabRender(key)}
                         </Tab>
                     )
                 })}
                 <ConnectTheDots/>
-                <div className="w-fit h-14 bg-figma-blue m-10 flex flex-row justify-center space-x-10 px-14 z-max solid-black-border rounded-xl dark:bg-figma-yellow dark:border-slate-950">
+                <div className="fixed bottom-2 w-fit h-14 bg-figma-blue m-10 flex flex-row justify-center space-x-10 px-14 z-max solid-black-border rounded-xl dark:bg-figma-yellow dark:border-slate-950">
                     <DockerWrapper>
                     <div 
                         className='w-16 h-16 bg-red-300 solid-black-border rounded-xl dark:border-slate-950'
@@ -230,10 +221,10 @@ interface DesktopProps {
 
 
 //TODO: move out
-const DefaultTabDict: TabDict = {
+const DefaultDesktopTabDict: DesktopTabDict = {
     'about': {right: 400, top: 50},
-    'projects': {right: 650, top: 150},
-    'what & why': {right: 300, top: 50},
+    'projects': {right: 250, top: 150},
+    '???': {right: 300, top: 50},
     'garden': {right: 500, top: 50},
 }
 
