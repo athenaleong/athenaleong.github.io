@@ -131,7 +131,7 @@ const Desktop = () => {
             {/* livvic vs hanken */}
             <div className='w-screen h-10 bg-figma-yellow flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold font-code dark:bg-figma-blue dark:border-slate-950'> 
                 <div className='flex flex-row space-x-4 pl-6 items-center'>
-                    <img src={'/slide.png'} className='w-10'/>
+                    <img src={'/slide-thick.png'} className='w-10'/>
                     <p>AthenaOS  </p>
                    
 
