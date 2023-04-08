@@ -193,7 +193,7 @@ const Desktop = () => {
                     )
                 })}
                 <ConnectTheDots/>
-                <div className="w-fit h-14 bg-figma-blue m-10 flex flex-row justify-center space-x-10 px-14 z-max solid-black-border rounded-xl dark:bg-figma-yellow dark:border-slate-950">
+                <div className="fixed bottom-2 w-fit h-14 bg-figma-blue m-10 flex flex-row justify-center space-x-10 px-14 z-max solid-black-border rounded-xl dark:bg-figma-yellow dark:border-slate-950">
                     <DockerWrapper>
                     <div 
                         className='w-16 h-16 bg-red-300 solid-black-border rounded-xl dark:border-slate-950'
