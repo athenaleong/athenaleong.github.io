@@ -30,6 +30,8 @@ const DeviceRouter: React.FC<any> = () => {
         '/src/assets/play.png',
         '/src/assets/github.png',
         '/src/assets/twitter.png',
+        '/src/assets/mail.png',
+        '/src/assets/more.png'
     ]
 
     const promises = images.map((src) => {

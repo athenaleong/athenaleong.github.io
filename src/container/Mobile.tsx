@@ -20,7 +20,7 @@ const Mobile = () => {
             case 'About':
                 return (<AboutTab isMobile={true}/>)
             case 'Projects':
-                return (<ProjectTab />)
+                return (<ProjectTab isMobile={true}/>)
             case '???':
                 return (<WhatTab isMobile={true}/>)
             case 'Setting':
@@ -36,7 +36,7 @@ const Mobile = () => {
         },
         'Projects' : {imageSrc: './src/assets/project.png', hoverImageSrc: './src/assets/project-hover.png'},
         '???' : {imageSrc: './src/assets/anglerfish.png', hoverImageSrc: './src/assets/anglerfish-hover.png'},
-        'Setting' : {imageSrc: './src/assets/anglerfish.png', hoverImageSrc: './src/assets/anglerfish-hover.png'}
+        'Setting' : {imageSrc: './src/assets/more.png', hoverImageSrc: './src/assets/more.png'}
     }
     return (
         <div

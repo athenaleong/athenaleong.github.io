@@ -223,7 +223,7 @@ interface DesktopProps {
 //TODO: move out
 const DefaultDesktopTabDict: DesktopTabDict = {
     'about': {right: 400, top: 50},
-    'projects': {right: 650, top: 150},
+    'projects': {right: 250, top: 150},
     '???': {right: 300, top: 50},
     'garden': {right: 500, top: 50},
 }
