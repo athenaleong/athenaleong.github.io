@@ -48,7 +48,7 @@ const Mobile = () => {
                 <div
                     className='flex flex-row items-center justify-center space-x-3 pl-6'
                 >
-                    <img src='/slide-thick.png' className='w-10 h-fit'/>
+                    <img src='/slide-thick.png' className='w-10 h-auto'/>
                     <Clock includeDate={false} />
                 </div>
                 <div className='pr-6 flex flex-row space-x-3 items-center'>
