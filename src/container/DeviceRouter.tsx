@@ -6,12 +6,14 @@ import { MultiBackend } from 'react-dnd-multi-backend'
 import { HTML5toTouch } from 'rdndmb-html5-to-touch' 
 import Mobile from './Mobile';
 import Loading from './Loading';
+import RotateScreen from '../component/RotateScreen';
 
 const DeviceRouter: React.FC<any> = () => {
 
     const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
     const isTablet = useMediaQuery({ query: "(min-width: 768px) and (max-width: 991px)" });
     const isLaptop = useMediaQuery({ query: "(min-width: 992px)" });
+    const isPortrait = useMediaQuery({ query: '(orientation: portrait)' })
 
     const [loading, setLoading] = useState(true);
 
@@ -52,7 +54,8 @@ const DeviceRouter: React.FC<any> = () => {
     return (
         <DndProvider backend={MultiBackend} options={HTML5toTouch}>
             {loading && <Loading/>}
-            {!loading && isMobile && <Mobile />}
+            {!loading && isMobile && isPortrait && <Mobile />}
+            {!loading && isMobile && !isPortrait && <RotateScreen />}
             {!loading && isTablet && <Desktop />}
             {!loading && isLaptop && <Desktop />}
         </DndProvider>
