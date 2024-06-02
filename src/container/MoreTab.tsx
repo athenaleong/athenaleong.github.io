@@ -50,6 +50,16 @@ const MoreTab = () => {
             <div
             className="flex flex-row justify-between items-center w-full"
             > 
+                <a 
+                className="flex flex-row justify-start items-center w-full space-x-8"
+                href="https://twitter.com/thenabanana" target="_blank">
+                        <img src='/tiktok.png' className='w-10 h-10 bg-white p-2 rounded-xl'/>
+                        <p>@athena.banana</p>
+                </a>
+            </div>
+            <div
+            className="flex flex-row justify-between items-center w-full"
+            > 
                 <a
                     className="flex flex-row justify-start items-center w-full space-x-8" 
                     href="mailto:athenaleong619&#64;gmail&#46;com"

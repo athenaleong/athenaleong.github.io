@@ -153,7 +153,7 @@ const Desktop = () => {
                     {/* <img src="/location.png" className='w-5 h-5'/> */}
                 <ThemeToggle />
 
-                    <p> Berkeley, CA</p>
+                    <p> San Francisco, CA</p>
                     <Clock />
                   
                 </div>

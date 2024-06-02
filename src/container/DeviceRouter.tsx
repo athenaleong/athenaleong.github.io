@@ -34,7 +34,8 @@ const DeviceRouter: React.FC<any> = () => {
         '/twitter.png',
         '/mail.png',
         '/more.png',
-        '/slide-thick.png'
+        '/slide-thick.png',
+        '/tiktok.png'
     ]
 
     const promises = images.map((src) => {

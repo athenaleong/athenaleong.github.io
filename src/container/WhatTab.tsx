@@ -21,7 +21,7 @@ const WhatTab: React.FC<any> = ({isMobile = false}: {
         I had a rather unconventional childhood. I started boarding school when I was 6 and grew up fiercely independent. I fell in love with science and coding when I was 13. I spent all of my teen wrangling the Singapore education system so I could do more of what I love. This resulted in many breaks spent hacking in the restroom and holidays spent in the science lab. 
     </p>
     <p className="mb-6 leading-loose">
-        For the last 2 years, I have devoted my craft to building digital experiences for children. It brings me immense joy and fulfillment, and I have loved nothing else more. I have an insatiable thirst to understand things deeply and use those insights to create meaningful work that makes a difference. This yearn for knowledge has led me down many fascinating rabbit holes - I spent much of last summer observing at a Montessori preschool and recently came back from a 3-month trip where I shadowed educators around Europe.
+        For the last 3 years, I have devoted my craft to building digital experiences for children. It brings me immense joy and fulfillment, and I have loved nothing else more. I have an insatiable thirst to understand things deeply and use those insights to create meaningful work that makes a difference. This yearn for knowledge has led me down many fascinating rabbit holes - I have spent a lot of my free time observing in schools and recently came back from a 3-month trip where I shadowed educators around Scandinavia.
     </p>
     <div className='mb-10 flex justify-center'>
         <img src={'/experiences.png'} className='w-[70%]'/>
