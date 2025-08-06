@@ -147,8 +147,11 @@ const Desktop = () => {
                     <a href="https://github.com/athenaleong" target="_blank">
                         <img src={'/github.png'} className='w-5 h-5'/>
                     </a>
-                    <a href="https://twitter.com/thenabanana" target="_blank">
+                    <a href="https://x.com/athenamakes" target="_blank">
                         <img src={'/twitter.png'} className='w-5 h-5'/>
+                    </a>
+                    <a href="https://www.tiktok.com/@athena.makes" target="_blank">
+                        <img src={'/tiktok.png'} className='w-5 h-5'/>
                     </a>
                     {/* <img src="/location.png" className='w-5 h-5'/> */}
                 <ThemeToggle />

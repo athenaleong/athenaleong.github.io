@@ -19,7 +19,7 @@ const AboutTab: React.FC<any> = ({isMobile = false}:{
     </p>
     <p className="leading-loose">
         I love whimsical things and getting into shenanigans with friends. Sometimes, I document them on my 
-        <a href='https://www.tiktok.com/@athena.banana' target="_blank">
+        <a href='https://www.tiktok.com/@athena.makes' target="_blank">
         &nbsp;Tiktok
         </a>
         .
