@@ -9,7 +9,7 @@ const ProjectTab: React.FC<any> = ({isMobile=false}:
         className="font-bold space-y-7 px-10 h-fit text-xl bg-gray-200 flex flex-col items-center pt-[64px] pb-[96px] font-hanken  dark:bg-gray-800"
         style = {{paddingLeft : isMobile ? '2.5rem' : '6rem', paddingRight: isMobile ? '2.5rem' : '6rem', borderRadius: isMobile ? '0rem' : '0.5rem'}}
         >
-            <p className='text-center'>I love playing with different ideas and hack a lot <br/> there are way too many to list <br/> but here some adventures </p>
+            <p className='text-center'>I hack a lot and love tinkering with different ideas. <br/> There are way too many to list, <br/> but here are some adventures.</p>
             <div className="w-[100%] flex flex-col space-y-7">
                 <div className='space-y-7 flex flex-col'>
                     {/* Pursuit */}
