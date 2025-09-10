@@ -15,7 +15,7 @@ const AboutTab: React.FC<any> = ({isMobile = false}:{
     </p>
     {/* TODO Fix weird bug where there's extra space */}
     <p className="mb-6 leading-loose">
-        I am Athena. I am curious about a lot of things. I am most interested in designing childhood experiences with tech. This could look like designing better interfaces for learning, or helping every child find their champion.
+        I am Athena. I am curious about a lot of things. I am most interested in creating playful experiences with tech. I deeply value agency, curiosity and kindness.
     </p>
     <p className="leading-loose">
         I love whimsical things and getting into shenanigans with friends. Sometimes, I document them on my 
