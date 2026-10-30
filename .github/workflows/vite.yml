@@ -41,6 +41,8 @@ jobs:
         run: npm run build
       - name: Check indexable HTML
         run: npm run test:seo
+      - name: Check desktop windows
+        run: npm run test:windows
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact

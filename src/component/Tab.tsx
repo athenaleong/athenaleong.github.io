@@ -1,125 +1,96 @@
 import { useDrag } from 'react-dnd';
-import React, {useCallback, useState} from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
+import { Preview } from 'react-dnd-preview';
 
-//Tablet Preview More
-import { Preview } from 'react-dnd-preview'
-import { useMediaQuery } from "react-responsive";
+const Tab = ({ id, label, right, top, children, removeTab, minimizeTab, zIndex, active, minimized, onFocus, onMove, isTouchDevice }: TabProps) => {
+    const windowRef = useRef<HTMLElement | null>(null);
+    const [{ isDragging }, drag, preview] = useDrag(() => ({
+        type: 'tab',
+        item: () => {
+            onFocus();
+            return { id, right, top, type: 'tab' };
+        },
+        collect: monitor => ({ isDragging: monitor.isDragging() }),
+    }), [id, right, top, onFocus]);
 
-
-const Tab: React.FC<TabProps> = ({ id, right, top, children, removeTab, zIndex, onClick, isTouchDevice}) => {
-
-  const [isOverContent, setIsOverContent] = useState(false);
-
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: 'tab',
-    item: { id, right, top, 'type': 'tab' },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-    canDrag: (monitor) => {
-        return !isOverContent;
-    }
-
-  }), [id, right, top, isOverContent]);
-
-  const InnerChild = useCallback(() => {
-    return (
-        <div 
-                className='overflow-y-scroll solid-black-border rounded-b-xl dark:border-slate-950'
-                onMouseEnter={(e: any) => {
-                    setIsOverContent(true);
-                }}
-                onTouchStart={(e: any) => {
-                    setIsOverContent(true);
-                }}
-                onMouseLeave={(e: any) => {
-                    setIsOverContent(false);
-                }}
-                onTouchEnd={(e: any) => {
-                    setIsOverContent(false);
-                }}
-            >
-                {children}
-            </div>
-    )
-    }, [setIsOverContent, children])
-
-    const TabBar = () =>
-     (<div 
-        className='w-full bg-gray-300 h-10 flex justify-start border-black border-[4px] border-b-0 rounded-t-xl dark:border-slate-950 dark:bg-gray-700'
-        >
-            <div
-                onClick={() => removeTab(id)}
-                className="bg-figma-red border-r-4 h-10 border-black w-10 items-center align-middle flex justify-center rounded-tl-lg font-bold cursor-pointer dark:border-slate-950"
-            >X</div>
-            
-            <div className='grow flex items-center justify-center cursor-move'>
-                <p className='font-bold font-code'>
-                    {id}
-                </p>
-            </div>
-        </div>)
-
-  /* Preview for tablet view*/
-  const generatePreview =({style, item}: any) => {
-        console.log('item', item.id, id)
-        if (id === item.id) {
-            return(
-            <div
-                className={`absolute max-w-[800px] w-auto max-h-[600px] flex flex-col text-black dark:text-stone-300`}
-                style={{...style,  zIndex: zIndex}}
-            > 
-            <TabBar/>
-            {InnerChild()}
-        </div>
-        )
+    useEffect(() => {
+        if (active && !minimized && !windowRef.current?.contains(document.activeElement)) {
+            windowRef.current?.focus({ preventScroll: true });
         }
-        return <></>
-    }
+    }, [active, minimized]);
 
- 
     return (
         <>
-        <div
-        ref={drag}
-        className={ `absolute max-w-[800px] w-auto max-h-[600px] flex flex-col text-black dark:text-stone-300`}
-        style={{right : `${right}px`, top : `${top}px`, zIndex: zIndex, opacity: isDragging ? 0 : 1}}
-        onClick={onClick}
-        >
-            <div 
-            className='w-full bg-gray-300 h-10 flex justify-start border-black border-[4px] border-b-0 rounded-t-xl dark:border-slate-950 dark:bg-gray-700'
+            <section
+                ref={node => { windowRef.current = node; preview(node); }}
+                aria-label={`${label} window`}
+                tabIndex={-1}
+                hidden={minimized}
+                className="desktop-window text-black dark:text-stone-300"
+                data-active={active}
+                style={{ right, top, zIndex, opacity: isDragging ? 0 : 1 }}
+                onPointerDownCapture={onFocus}
+                onFocusCapture={onFocus}
             >
-                <div
-                    onClick={() => removeTab(id)}
-                    className="bg-figma-red border-r-4 h-10 border-black w-10 items-center align-middle flex justify-center rounded-tl-lg font-bold cursor-pointer dark:border-slate-950"
-                >X</div>
-                
-                <div className='grow flex items-center justify-center cursor-move'>
-                    <p className='font-bold font-code'>
-                        {id}
-                    </p>
+                <div className="desktop-window-bar bg-gray-300 dark:bg-gray-700 dark:border-slate-950">
+                    <button
+                        type="button"
+                        aria-label={`Close ${label}`}
+                        className="window-control window-close dark:border-slate-950"
+                        onClick={() => removeTab(id)}
+                    >×</button>
+                    <button
+                        ref={drag}
+                        type="button"
+                        className="window-title font-bold font-code"
+                        aria-label={`Move ${label} window`}
+                        aria-describedby="window-move-help"
+                        onKeyDown={event => {
+                            const step = event.shiftKey ? 40 : 10;
+                            const moves: Record<string, [number, number]> = {
+                                ArrowLeft: [step, 0], ArrowRight: [-step, 0],
+                                ArrowUp: [0, -step], ArrowDown: [0, step],
+                            };
+                            const delta = moves[event.key];
+                            if (!delta) return;
+                            event.preventDefault();
+                            onMove(right + delta[0], top + delta[1]);
+                        }}
+                    >{label}</button>
+                    <button
+                        type="button"
+                        aria-label={`Minimize ${label}`}
+                        className="window-control window-minimize dark:border-slate-950"
+                        onClick={() => minimizeTab(id)}
+                    >−</button>
                 </div>
-            </div>
-            {InnerChild()}
-        </div>
-        {isTouchDevice && <Preview generator={generatePreview} />}
+                <div className="desktop-window-content solid-black-border rounded-b-xl dark:border-slate-950">
+                    {children}
+                </div>
+            </section>
+            {isTouchDevice && <Preview generator={({ item, style }: any) => item.id === id ? (
+                <div style={style} className="pointer-events-none bg-figma-yellow solid-black-border rounded-lg p-3 font-code font-bold" aria-hidden="true">
+                    {label}
+                </div>
+            ) : <></>} />}
         </>
     );
-
 };
-
 
 interface TabProps {
     id: string;
+    label: string;
     right: number;
     top: number;
-    children: React.ReactNode;
+    children: ReactNode;
     removeTab: (id: string) => void;
-    onClick: () => void;
+    minimizeTab: (id: string) => void;
+    onFocus: () => void;
+    onMove: (right: number, top: number) => void;
     isTouchDevice: boolean;
+    active: boolean;
+    minimized?: boolean;
     zIndex?: number;
-
-  }
-  
+}
 
 export default Tab;

@@ -1,6 +1,5 @@
-import React, { Component, useState, useCallback, useLayoutEffect, useEffect } from 'react';
-import update from 'immutability-helper';
-import { useDrop, DropTargetMonitor } from 'react-dnd'
+import { useState, useCallback, useLayoutEffect, useEffect, useRef } from 'react';
+import { useDrop } from 'react-dnd'
 import Folder from '../component/Folder';
 
 //components
@@ -9,18 +8,20 @@ import AboutTab from './AboutTab';
 import ProjectTab from './ProjectTab';
 import WhatTab from './WhatTab';
 import Clock from '../component/Clock';
-import DockerWrapper from '../component/DockerWrapper';
 import ConnectTheDots from '../component/ConnectTheDot';
 import ThemeToggle from '../component/ThemeToggle';
 import { tabLinks } from '../site';
+import { clampWindowPosition, initialWindowPosition } from '../windowGeometry';
 
 //type
-import DesktopTabDict, { DesktopTabType } from '../type/tab';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../slices';
-import tab, { popTab, addTab, updateTab, bringTabToFront, clearTab } from '../slices/tab';
+import { popTab, addTab, updateTab, bringTabToFront, clearTab, minimizeTab } from '../slices/tab';
+
+const windowLabels: Record<string, string> = { about: 'About', projects: 'Projects', '???': 'My story' };
+const windowIcons: Record<string, string> = { about: '/about.png', projects: '/project.png', '???': '/anglerfish.png' };
 
 
 const Desktop = () => {
@@ -42,36 +43,59 @@ const Desktop = () => {
     });
 
     const dispatch = useDispatch();
-    const tabs = useSelector<RootState, DesktopTabDict>((state) => state.tab.tabs);
+    const { tabs, activeId } = useSelector((state: RootState) => state.tab);
+    const workspaceRef = useRef<HTMLDivElement | null>(null);
+    const [workspaceSize, setWorkspaceSize] = useState({ width: 0, height: 0 });
+    const lastActiveId = useRef<string | null>(null);
+
+    useEffect(() => {
+        // Return keyboard focus to the dock when the last visible window closes.
+        if (!activeId && lastActiveId.current &&
+            (document.activeElement === document.body || document.activeElement?.closest('[hidden]'))) {
+            workspaceRef.current?.querySelector<HTMLAnchorElement>(`.desktop-dock a[href="${tabLinks[lastActiveId.current]}"]`)?.focus();
+        }
+        lastActiveId.current = activeId;
+    }, [activeId]);
+
+    useLayoutEffect(() => {
+        const workspace = workspaceRef.current;
+        if (!workspace) return;
+        const observer = new ResizeObserver(() => setWorkspaceSize({ width: workspace.clientWidth, height: workspace.clientHeight }));
+        observer.observe(workspace);
+        return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+        if (!workspaceSize.width) return;
+        for (const [id, window] of Object.entries(tabs)) {
+            const props = clampWindowPosition(window.right, window.top, workspaceSize.width, workspaceSize.height);
+            if (props.right !== window.right || props.top !== window.top) dispatch(updateTab({ id, props }));
+        }
+    }, [workspaceSize, tabs, dispatch]);
 
     /** Drag and Drop */
 
     const moveItems = useCallback(
     (id: string, right: number, top: number, type: 'folder'| 'tab') => {
         switch (type) {
-            case 'folder': 
-                setFolders(update(folders, {
-                    [id]: {
-                    $merge: { right, top },
-                    },
-                }));
+            case 'folder':
+                setFolders(previous => ({ ...previous, [id]: { ...previous[id], right, top } }));
                 break;
             case 'tab':
-                dispatch(updateTab({id, props: {right, top}}))
+                dispatch(updateTab({id, props: clampWindowPosition(right, top, workspaceSize.width, workspaceSize.height)}))
                 break;
         }
         ;
     },
-    [folders, setFolders, tabs],
+    [dispatch, workspaceSize],
     )
 
     const [, drop] = useDrop(
         () => ({
             accept: ['folder', 'tab'],
             drop(item: any, monitor: any) {
-                // console.log(item);
                 const delta = monitor.getDifferenceFromInitialOffset() as { x: number; y: number }
-                // console.log(item.right, item.top, delta.x, delta.y)
+                if (!delta) return;
                 let right = Math.round(item.right - delta.x)
                 let top = Math.round(item.top + delta.y)
                 top = Math.max(0, top)
@@ -82,7 +106,7 @@ const Desktop = () => {
         [moveItems],
     )
 
-    /** Tabs logic */ 
+    /** Tabs logic */
 
     const removeTab = useCallback((id: string) => {
         dispatch(popTab({id}));
@@ -106,10 +130,9 @@ const Desktop = () => {
         else if (tabId in tabs) {
             dispatch(bringTabToFront({id: tabId}))
         } else {
-            let defaultProps = DefaultDesktopTabDict[tabId];
-            dispatch(addTab({id: tabId, props: defaultProps}))
+            dispatch(addTab({id: tabId, props: initialWindowPosition(Object.keys(tabs).length, workspaceSize.width, workspaceSize.height)}))
         }
-    }, [dispatch, tabs])
+    }, [dispatch, tabs, workspaceSize])
 
     const resetOnClick = useCallback(() => {
         dispatch(clearTab())
@@ -126,19 +149,20 @@ const Desktop = () => {
     }, []);
 
     return (
-        <div 
+        <div
             className="cursor-default w-full h-full flex flex-col fixed text-black dark:text-stone-300"
         >
             <h1 className="sr-only">Athena Leong's Playground</h1>
+            <p id="window-move-help" className="sr-only">Drag the title bar to move a window, or focus it and use the arrow keys. Hold Shift to move farther.</p>
             {/* livvic vs hanken */}
-            <div className='w-screen h-10 bg-figma-yellow flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold font-code dark:bg-figma-blue dark:border-slate-950'> 
+            <div className='w-screen h-10 shrink-0 bg-figma-yellow flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold font-code dark:bg-figma-blue dark:border-slate-950'>
                 <div className='flex flex-row space-x-4 pl-6 items-center'>
                     <img src={'/slide-thick.png'} className='w-10'/>
                     <p>AthenaOS  </p>
-                   
 
-                    {/* <div className='flex flex-row'> 
-                        
+
+                    {/* <div className='flex flex-row'>
+
                     </div> */}
                 </div>
                 <div className='pr-6 flex flex-row space-x-4 items-center'>
@@ -146,7 +170,7 @@ const Desktop = () => {
 
                     <a href="mailto:athenaleong619&#64;gmail&#46;com">
                     <img src={'/mail.png'} className='w-5 h-5'/>
-                    </a>   
+                    </a>
                     <a href="https://github.com/athenaleong" target="_blank">
                         <img src={'/github.png'} className='w-5 h-5'/>
                     </a>
@@ -161,10 +185,10 @@ const Desktop = () => {
 
                     <p> San Francisco, CA</p>
                     <Clock />
-                  
+
                 </div>
             </div>
-            <div ref={drop} className='w-screen shrink h-screen relative flex flex-col justify-end items-center solid-black-border dark:border-slate-950'>
+            <div ref={node => { workspaceRef.current = node; drop(node); }} className='desktop-workspace w-full flex-1 min-h-0 relative flex flex-col justify-end items-center solid-black-border dark:border-slate-950'>
                 {Object.keys(folders).map((key) => {
                     const { right, top, imageSrc, tabId, hoverImageSrc} = folders[key] as {
                         top: number
@@ -174,11 +198,11 @@ const Desktop = () => {
                         hoverImageSrc?: string
                       }
                     return(
-                        <Folder 
-                            key={key} 
-                            id={key} 
-                            imageSrc={imageSrc} 
-                            right={right} 
+                        <Folder
+                            key={key}
+                            id={key}
+                            imageSrc={imageSrc}
+                            right={right}
                             top={top}
                             onClick={() => folderOnClick(tabId)}
                             href={tabLinks[tabId]}
@@ -186,48 +210,44 @@ const Desktop = () => {
                             isTouchDevice={isTouchDevice}
                         />)
                 })}
+                <div className="desktop-windows">
                 {Object.keys(tabs).map((key) => {
-                    const { right, top, zIndex } = tabs[key] as {
-                        top: number
-                        right: number
-                        zIndex?: number
-                    }
+                    const { right, top, zIndex, minimized } = tabs[key];
                     return(
-                        <Tab key={key} id={key} right={right} top={top} removeTab={removeTab} zIndex={zIndex} onClick={() => dispatch(bringTabToFront({id: key}))} isTouchDevice={isTouchDevice}>
+                        <Tab key={key} id={key} label={windowLabels[key]} right={right} top={top} removeTab={removeTab} zIndex={zIndex} active={key === activeId} minimized={minimized} minimizeTab={id => dispatch(minimizeTab({id}))} onFocus={() => dispatch(bringTabToFront({id: key}))} onMove={(right, top) => moveItems(key, right, top, 'tab')} isTouchDevice={isTouchDevice}>
                             {TabRender(key)}
                         </Tab>
                     )
                 })}
-                <ConnectTheDots/>
-                <div className="fixed bottom-2 w-fit h-14 bg-figma-blue m-10 flex flex-row justify-center space-x-10 px-14 z-max solid-black-border rounded-xl dark:bg-figma-yellow dark:border-slate-950">
-                    <DockerWrapper>
-                    <div 
-                        className='w-16 h-16 bg-red-300 solid-black-border rounded-xl dark:border-slate-950'
-                        onClick={resetOnClick}
-                        style={{backgroundImage: `url('/clear.png')`, backgroundSize: 'cover', backgroundPosition: 'center'}}
-                    >
-                    </div>
-                    </DockerWrapper>   
-
                 </div>
+                <ConnectTheDots/>
+                <nav aria-label="Desktop dock" className="desktop-dock bg-figma-blue solid-black-border rounded-xl dark:bg-figma-yellow dark:border-slate-950">
+                    {Object.keys(windowLabels).map(id => (
+                        <a
+                            key={id}
+                            href={tabLinks[id]}
+                            className="dock-launcher"
+                            aria-label={windowLabels[id]}
+                            aria-current={activeId === id ? 'true' : undefined}
+                            data-open={Boolean(tabs[id])}
+                            title={`${tabs[id]?.minimized ? 'Restore' : tabs[id] ? 'Switch to' : 'Open'} ${windowLabels[id]}`}
+                            onClick={event => {
+                                if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
+                                event.preventDefault();
+                                folderOnClick(id);
+                            }}
+                        >
+                            <img src={windowIcons[id]} alt="" />
+                            <span className="dock-dot" aria-hidden="true" />
+                        </a>
+                    ))}
+                    <button type="button" aria-label="Close all windows" title="Close all windows" className="dock-reset" onClick={resetOnClick}>
+                        <img src="/clear.png" alt="" />
+                    </button>
+                </nav>
             </div>
         </div>
     );
 };
 
 export default Desktop;
-
-interface DesktopProps {
-};
-
-
-//TODO: move out
-const DefaultDesktopTabDict: DesktopTabDict = {
-    'about': {right: 400, top: 50},
-    'projects': {right: 250, top: 150},
-    '???': {right: 300, top: 50},
-    'garden': {right: 500, top: 50},
-}
-
-
-

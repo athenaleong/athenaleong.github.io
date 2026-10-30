@@ -238,3 +238,71 @@ button:focus-visible {
 }
 
 
+
+/* Desktop windows live in their own stack, below the always-reachable dock. */
+.desktop-workspace { isolation: isolate; }
+.desktop-windows { position: absolute; inset: 0; z-index: 10; pointer-events: none; }
+.desktop-window {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: min(800px, calc(100% - 32px));
+  max-height: min(600px, calc(100% - 192px));
+  pointer-events: auto;
+  border-radius: 12px;
+  box-shadow: 5px 5px 0 rgb(0 0 0 / 20%);
+  outline: none;
+}
+.desktop-window[hidden] { display: none; }
+.desktop-window-bar {
+  display: flex;
+  height: 40px;
+  flex-shrink: 0;
+  border: 4px solid black;
+  border-bottom: 0;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+}
+.desktop-window[data-active='true'] > .desktop-window-bar { background: #ffcb2f; }
+.dark .desktop-window[data-active='true'] > .desktop-window-bar { background: #167ffc; }
+.desktop-window-content { min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.window-control, .window-title, .dock-reset {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: inherit;
+  background: transparent;
+}
+.window-control { width: 36px; flex-shrink: 0; font-weight: 700; font-size: 22px; }
+.window-close { background: #fd3d39; border-right: 4px solid black; color: black; }
+.window-minimize { border-left: 4px solid black; }
+.window-title { flex: 1; cursor: move; touch-action: none; font-weight: 700; }
+.window-control:hover { background: #fe9526; border-color: black; }
+.window-title:focus-visible, .window-control:focus-visible { outline: 3px solid currentColor; outline-offset: -4px; }
+.desktop-dock {
+  position: absolute;
+  bottom: 20px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 56px;
+  padding: 0 24px;
+}
+.dock-launcher, .dock-reset {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  transform: translateY(-14px);
+}
+.dock-launcher img { width: 56px; height: 56px; object-fit: contain; }
+.dock-launcher:hover, .dock-reset:hover { transform: translateY(-18px); }
+.dock-launcher:focus-visible, .dock-reset:focus-visible { outline: 3px solid black; outline-offset: 4px; border-radius: 8px; }
+.dock-dot { position: absolute; bottom: -10px; width: 7px; height: 7px; border-radius: 50%; background: black; opacity: 0; }
+.dock-launcher[data-open='true'] .dock-dot { opacity: 1; }
+.dock-launcher[aria-current='true'] .dock-dot { background: white; outline: 2px solid black; }
+.dock-reset { margin-left: 4px; border: 4px solid black; border-radius: 12px; background: white; }
+.dock-reset img { width: 100%; height: 100%; object-fit: cover; }

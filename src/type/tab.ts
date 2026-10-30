@@ -10,6 +10,7 @@ export interface DesktopTabType {
     top: number;
     right: number;
     zIndex?: number;
+    minimized?: boolean;
 }    
 
 

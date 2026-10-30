@@ -6,6 +6,14 @@ Folder clicks still open AthenaOS windows; opening their links in a new tab open
 the reading pages. The **Reading view** link is available in the desktop menu,
 and **Read** is available in the mobile header.
 
+On desktop, About, Projects, and My story can stay open together. Click a window
+or its dock icon to bring it forward; use **−** to minimize it and the dock to
+restore it. Each window keeps its scroll position while switching or minimizing.
+Drag a title bar to move a window, or focus it and use arrow keys (Shift moves
+farther). **×** closes one window; the reset icon closes all windows.
+The folder and dock icons remain real links to the static pages, including for
+Command/Ctrl-click and opening in a new browser tab.
+
 ## Development
 
 Use Node.js 22 and the checked-in lockfile:
@@ -20,6 +28,7 @@ npm run dev
 ```sh
 npm run build
 npm run test:seo
+npm run test:windows
 npm run preview
 ```
 
