@@ -10,6 +10,7 @@ import WhatTab from './WhatTab';
 import Clock from '../component/Clock';
 import ConnectTheDots from '../component/ConnectTheDot';
 import ThemeToggle from '../component/ThemeToggle';
+import RecordPlayer from '../component/RecordPlayer';
 import { tabLinks } from '../site';
 import { clampWindowPosition, initialWindowPosition } from '../windowGeometry';
 
@@ -189,6 +190,7 @@ const Desktop = () => {
                 </div>
             </div>
             <div ref={node => { workspaceRef.current = node; drop(node); }} className='desktop-workspace w-full flex-1 min-h-0 relative flex flex-col justify-end items-center solid-black-border dark:border-slate-950'>
+                <RecordPlayer />
                 {Object.keys(folders).map((key) => {
                     const { right, top, imageSrc, tabId, hoverImageSrc} = folders[key] as {
                         top: number

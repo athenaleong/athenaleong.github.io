@@ -14,6 +14,18 @@ farther). **×** closes one window; the reset icon closes all windows.
 The folder and dock icons remain real links to the static pages, including for
 Command/Ctrl-click and opening in a new browser tab.
 
+The desktop has a record player in the upper-left corner; it is absent from the
+phone view. Set the public Spotify playlist URL in `src/content/music.ts`.
+An empty URL shows the turntable without loading Spotify. **Listen along** loads
+the official 80px single-item embed on demand; its playback events move the tonearm and
+spin the illustrated record. **Put record away** stops playback and unloads the
+embed. Reduced-motion preferences disable the spinning animation. Spotify keeps
+its own controls and playback rules; the embed API does not expose shuffle.
+The **Open playlist in Spotify** link provides access to Spotify's full player.
+The embed retains Spotify's encrypted-media permission. Spotify decides whether
+each browser/session can play full tracks or previews; the site cannot force it.
+Reading pages remain independent of Spotify and contain no third-party player.
+
 ## Development
 
 Use Node.js 22 and the checked-in lockfile:
