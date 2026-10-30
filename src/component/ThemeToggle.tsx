@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
 const ThemeToggle = () => {
-    const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('theme') === 'dark');
+    const [isDarkMode, setIsDarkMode] = useState(() => document.documentElement.classList.contains('dark'));
 
     const onToggle = () => {
         if (!isDarkMode) {
             document.documentElement.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
+            try { localStorage.setItem('theme', 'dark'); } catch (_) { /* Theme still works without storage. */ }
             setIsDarkMode(true);
         } else {
             document.documentElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
+            try { localStorage.setItem('theme', 'light'); } catch (_) { /* Theme still works without storage. */ }
             setIsDarkMode(false);
 
         }

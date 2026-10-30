@@ -12,6 +12,7 @@ import Clock from '../component/Clock';
 import DockerWrapper from '../component/DockerWrapper';
 import ConnectTheDots from '../component/ConnectTheDot';
 import ThemeToggle from '../component/ThemeToggle';
+import { tabLinks } from '../site';
 
 //type
 import DesktopTabDict, { DesktopTabType } from '../type/tab';
@@ -108,7 +109,7 @@ const Desktop = () => {
             let defaultProps = DefaultDesktopTabDict[tabId];
             dispatch(addTab({id: tabId, props: defaultProps}))
         }
-    }, [dispatch])
+    }, [dispatch, tabs])
 
     const resetOnClick = useCallback(() => {
         dispatch(clearTab())
@@ -128,6 +129,7 @@ const Desktop = () => {
         <div 
             className="cursor-default w-full h-full flex flex-col fixed text-black dark:text-stone-300"
         >
+            <h1 className="sr-only">Athena Leong's Playground</h1>
             {/* livvic vs hanken */}
             <div className='w-screen h-10 bg-figma-yellow flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold font-code dark:bg-figma-blue dark:border-slate-950'> 
                 <div className='flex flex-row space-x-4 pl-6 items-center'>
@@ -140,6 +142,7 @@ const Desktop = () => {
                     </div> */}
                 </div>
                 <div className='pr-6 flex flex-row space-x-4 items-center'>
+                    <a className="reading-view-link" href="/about/">Reading view</a>
 
                     <a href="mailto:athenaleong619&#64;gmail&#46;com">
                     <img src={'/mail.png'} className='w-5 h-5'/>
@@ -178,6 +181,7 @@ const Desktop = () => {
                             right={right} 
                             top={top}
                             onClick={() => folderOnClick(tabId)}
+                            href={tabLinks[tabId]}
                             hoverImageSrc={hoverImageSrc}
                             isTouchDevice={isTouchDevice}
                         />)

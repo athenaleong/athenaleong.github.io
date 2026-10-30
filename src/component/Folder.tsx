@@ -3,7 +3,7 @@ import { isEquals } from 'immutability-helper';
 import { DragPreviewImage, useDrag } from 'react-dnd';
 import { Preview } from 'react-dnd-preview'
 
-const Folder: React.FC<FolderProps> = ({ imageSrc, id, right, top, onClick, hoverImageSrc, isTouchDevice}) => {
+const Folder: React.FC<FolderProps> = ({ imageSrc, id, right, top, onClick, href, hoverImageSrc, isTouchDevice}) => {
 
     const [hovered, setHoverd] = useState(false);
 
@@ -45,18 +45,27 @@ const Folder: React.FC<FolderProps> = ({ imageSrc, id, right, top, onClick, hove
             
     return (
         <>
-            <div
+            <a
             ref={drag}
-            className={`flex flex-col items-center justify-center absolute w-28 h-28 cursor-pointer`}
+            href={href}
+            target={href.startsWith('https://') ? '_blank' : undefined}
+            rel={href.startsWith('https://') ? 'noopener noreferrer' : undefined}
+            aria-label={id === '???' ? 'My story' : id}
+            className={`desktop-folder flex flex-col items-center justify-center absolute w-28 h-28 cursor-pointer`}
             style={{right : `${right}px`, top : `${top}px`, opacity: isDragging ? 0 : 1}}
-            onClick={onClick}
+            onClick={(event) => {
+              // Keep normal browser navigation for modified clicks and external links.
+              if (href.startsWith('https://') || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
+              event.preventDefault();
+              onClick();
+            }}
             onMouseOver={() => setHoverd(true)}
             onMouseOut={() => setHoverd(false)}
             >
-                <img className='w-[85%]' src={hovered? hoverImageSrc: imageSrc}/>
+                <img className='w-[85%]' src={hovered? hoverImageSrc: imageSrc} alt=""/>
                 <p className='text-center font-bold'>{id}</p>
 
-            </div>
+            </a>
             {isTouchDevice && <Preview generator={generatePreview} /> }
             
         </>
@@ -70,6 +79,7 @@ interface FolderProps {
     right: number;
     top: number;
     onClick: () => void;
+    href: string;
     isTouchDevice: boolean;
     hoverImageSrc?: string;
   }

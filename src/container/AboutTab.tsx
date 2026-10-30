@@ -9,7 +9,6 @@ const AboutTab: React.FC<any> = ({isMobile = false}:{
         style = {{paddingLeft : isMobile ? '2.5rem' : '6rem', paddingRight: isMobile ? '2.5rem' : '6rem', borderRadius: isMobile ? '0rem' : '0.5rem'}}
     >
     
-    <img />
     <p className="mb-6 leading-loose font-bold">
         Hi! Looks like you have stumbled upon my little playground on the internet. Welcome in! 
     </p>

@@ -38,19 +38,33 @@ const DeviceRouter: React.FC<any> = () => {
         '/tiktok.png'
     ]
 
+    let cancelled = false;
+    const finishLoading = () => { if (!cancelled) setLoading(false); };
+    // A missing or slow decorative icon must never block access to the site.
+    const timeout = window.setTimeout(finishLoading, 2500);
     const promises = images.map((src) => {
       return new Promise((resolve, reject) => {
         const img = new Image();
-        img.src = src;
         img.onload = resolve;
         img.onerror = reject;
+        img.src = src;
       });
     });
 
-    Promise.all(promises)
-      .then(() => setLoading(false))
-      .catch((err) => console.error(err));
+    Promise.allSettled(promises).then(() => {
+      window.clearTimeout(timeout);
+      finishLoading();
+    });
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timeout);
+    };
   }, []);
+
+    useEffect(() => {
+      if (!loading) document.body.classList.add('playground-ready');
+      return () => document.body.classList.remove('playground-ready');
+    }, [loading]);
 
     return (
         <DndProvider backend={MultiBackend} options={HTML5toTouch}>

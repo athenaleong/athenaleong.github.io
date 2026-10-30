@@ -18,13 +18,15 @@ const ProjectTab: React.FC<any> = ({isMobile=false}:
                             <div className="w-8 h-8 bg-rainbow-blue rounded-full flex items-center justify-center">
                                 <span className="text-white text-sm">🏃‍♂️</span>
                             </div>
-                            <p className="font-bold">Pursuit</p>
+                            <h2 className="font-bold">Pursuit</h2>
                         </div>
                         <div className="flex flex-col md:flex-row gap-6 items-stretch">
                             <img 
                                 src="/projects/pursuit.png" 
                                 alt="Pursuit scavenger hunt" 
                                 className="w-full md:w-48 rounded-lg solid-black-border object-cover"
+                                loading="lazy"
+                                decoding="async"
                             />
                             <div className="flex-1 space-y-2">
                                 <p className="text-lg font-normal leading-loose">
@@ -45,13 +47,15 @@ const ProjectTab: React.FC<any> = ({isMobile=false}:
                             <div className="w-8 h-8 bg-rainbow-yellow rounded-full flex items-center justify-center">
                                 <span className="text-white text-sm">🥐</span>
                             </div>
-                            <p className="font-bold">Finefood.institute</p>
+                            <h2 className="font-bold">Finefood.institute</h2>
                         </div>
                         <div className="flex flex-col md:flex-row gap-6 items-stretch">
                             <img 
                                 src="/projects/croissant.jpg" 
                                 alt="Croissant ranking study" 
                                 className="w-full md:w-48 rounded-lg solid-black-border object-cover"
+                                loading="lazy"
+                                decoding="async"
                             />
                             <div className="flex-1 space-y-2">
                                 <p className="text-lg font-normal leading-loose">
@@ -70,13 +74,15 @@ const ProjectTab: React.FC<any> = ({isMobile=false}:
                             <div className="w-8 h-8 bg-rainbow-purple rounded-full flex items-center justify-center">
                                 <span className="text-white text-sm">🐭</span>
                             </div>
-                            <p className="font-bold">Ratatouille IRL</p>
+                            <h2 className="font-bold">Ratatouille IRL</h2>
                         </div>
                         <div className="flex flex-col md:flex-row gap-6 items-stretch">
                             <img 
                                 src="/projects/ratatouille.jpeg" 
                                 alt="Ratatouille animatronic project" 
                                 className="w-full md:w-48 rounded-lg solid-black-border object-cover"
+                                loading="lazy"
+                                decoding="async"
                             />
                             <div className="flex-1 space-y-2">
                                 <p className="text-lg font-normal leading-loose">
@@ -99,13 +105,15 @@ const ProjectTab: React.FC<any> = ({isMobile=false}:
                             <div className="w-8 h-8 bg-muted-orange rounded-full flex items-center justify-center">
                                 <span className="text-white text-sm">☕</span>
                             </div>
-                            <p className="font-bold">Lockin.cafe</p>
+                            <h2 className="font-bold">Lockin.cafe</h2>
                         </div>
                         <div className="flex flex-col md:flex-row gap-6 items-stretch">
                             <img 
                                 src="/projects/lockin-cafe.png" 
                                 alt="Lockin.cafe lofi workspace" 
                                 className="w-full md:w-48 rounded-lg solid-black-border object-cover"
+                                loading="lazy"
+                                decoding="async"
                             />
                             <div className="flex-1 space-y-2">
                                 <p className="text-lg font-normal leading-loose">
@@ -124,13 +132,15 @@ const ProjectTab: React.FC<any> = ({isMobile=false}:
                             <div className="w-8 h-8 bg-muted-dark-green rounded-full flex items-center justify-center">
                                 <span className="text-white text-sm">🧠</span>
                             </div>
-                            <p className="font-bold">Obsidian Space Repetition Plugin</p>
+                            <h2 className="font-bold">Obsidian Space Repetition Plugin</h2>
                         </div>
                         <div className="flex flex-col md:flex-row gap-6 items-stretch">
                             <img 
                                 src="/projects/obsidian.png" 
                                 alt="Obsidian Space Repetition Plugin" 
                                 className="w-full md:w-48 rounded-lg solid-black-border object-cover"
+                                loading="lazy"
+                                decoding="async"
                             />
                             <div className="flex-1 space-y-2">
                                 <p className="text-lg font-normal leading-loose">
@@ -151,13 +161,15 @@ const ProjectTab: React.FC<any> = ({isMobile=false}:
                             <div className="w-8 h-8 bg-muted-blue rounded-full flex items-center justify-center">
                                 <span className="text-white text-sm">🗺️</span>
                             </div>
-                            <p className="font-bold">Field Trip</p>
+                            <h2 className="font-bold">Field Trip</h2>
                         </div>
                         <div className="flex flex-col md:flex-row gap-6 items-stretch">
                             <img 
                                 src="/projects/field-trip.jpeg" 
                                 alt="Field Trip AI walking guides" 
                                 className="w-full md:w-48 rounded-lg solid-black-border object-cover"
+                                loading="lazy"
+                                decoding="async"
                             />
                                                         <div className="flex-1 space-y-2">
                                 <p className="text-lg font-normal leading-loose">
@@ -176,13 +188,15 @@ const ProjectTab: React.FC<any> = ({isMobile=false}:
                             <div className="w-8 h-8 bg-rainbow-green rounded-full flex items-center justify-center">
                                 <span className="text-white text-sm">🤖</span>
                             </div>
-                            <p className="font-bold">Dewy</p>
+                            <h2 className="font-bold">Dewy</h2>
                         </div>
                         <div className="flex flex-col md:flex-row gap-6 items-stretch">
                             <img 
                                 src="/projects/dewey.png" 
                                 alt="Dewy AI assistant" 
                                 className="w-full md:w-48 rounded-lg solid-black-border object-cover"
+                                loading="lazy"
+                                decoding="async"
                             />
                             <div className="flex-1 space-y-2">
                                 <p className="text-lg font-normal leading-loose">
@@ -198,13 +212,15 @@ const ProjectTab: React.FC<any> = ({isMobile=false}:
                             <div className="w-8 h-8 bg-figma-pink rounded-full flex items-center justify-center">
                                 <span className="text-white text-sm">🪞</span>
                             </div>
-                            <p className="font-bold">Mirror of Erised</p>
+                            <h2 className="font-bold">Mirror of Erised</h2>
                         </div>
                         <div className="flex flex-col md:flex-row gap-6 items-stretch">
                             <img 
                                 src="/projects/erised.jpg" 
                                 alt="Mirror of Erised art exhibition" 
                                 className="w-full md:w-48 rounded-lg solid-black-border object-cover"
+                                loading="lazy"
+                                decoding="async"
                             />
                             <div className="flex-1 space-y-2">
                                 <p className="text-lg font-normal leading-loose">
@@ -218,7 +234,7 @@ const ProjectTab: React.FC<any> = ({isMobile=false}:
                 </div>
 
                 <div className='space-y-1 flex flex-col'>
-                    <p>Some stuff from college days:</p>
+                    <h2>Some stuff from college days:</h2>
                     <a href="https://www.youtube.com/watch?v=2WZ-GL2cJlM">
                     <p>Phyzmo: Motion tracking for physics</p>
                 </a>

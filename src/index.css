@@ -98,12 +98,106 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 100vw;
+  min-width: 320px;
+}
+
+/* HTML is readable by default, including when the app bundle fails to load. */
+#root {
+  visibility: hidden;
+  position: fixed;
+  width: 100%;
+  max-height: 100%;
+  top: 0;
+  right: 0;
+}
+
+body.playground-ready {
   height: 100vh;
   overflow-y: hidden;
 }
+
+.playground-ready #root { visibility: visible; }
+.playground-ready #static-site { display: none; }
+
+.desktop-folder,
+.desktop-folder:hover {
+  color: inherit;
+}
+
+.reading-view-link,
+.reading-view-link:hover {
+  color: inherit;
+  font-size: 0.75rem;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.reading-page {
+  min-height: 100vh;
+  background: #e7e5e4;
+  color: #171717;
+  font-family: 'Hanken Grotesk', sans-serif;
+}
+
+.reading-header {
+  padding: 1.25rem max(1.25rem, calc((100vw - 960px) / 2));
+  background: #ffcb2f;
+  border-bottom: 4px solid black;
+}
+
+.reading-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  font-family: 'Fira Code', monospace;
+  font-weight: 600;
+  color: inherit;
+}
+
+.reading-header nav,
+.reading-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+}
+
+.reading-page a { text-decoration: underline; }
+.reading-header a { color: inherit; }
+.reading-header a[aria-current='page'] { font-weight: 700; }
+
+.reading-main,
+.reading-footer {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem;
+}
+
+.reading-main h1 {
+  margin-bottom: 1.5rem;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+}
+
+.reading-intro { margin-bottom: 2rem; font-size: 1.25rem; line-height: 1.75; }
+
+.reading-content {
+  border: 4px solid black;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 6px 6px 0 black;
+}
+
+.reading-content > div {
+  padding: clamp(1.25rem, 5vw, 3rem) !important;
+}
+
+.reading-content h2 { scroll-margin-top: 1rem; }
+.reading-footer { display: grid; gap: 1.25rem; padding-top: 0; }
+
+.dark .reading-page { background: #1e293b; color: #e7e5e4; }
+.dark .reading-header { background: #167ffc; }
+.dark .reading-page a:not(.reading-header a) { color: #93c5fd; }
 
 h1 {
   font-size: 3.2em;

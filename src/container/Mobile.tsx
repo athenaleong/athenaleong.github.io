@@ -8,6 +8,8 @@ import { render } from "react-dom"
 import { id } from "date-fns/locale"
 import MoreTab from "./MoreTab"
 
+const mobileLinks: Record<string, string> = { About: '/about/', Projects: '/projects/', '???': '/story/', More: '/about/#contact' };
+
 type MobileTabs = 'About' | 'Projects' | '???' | 'More'
 
 
@@ -42,6 +44,7 @@ const Mobile = () => {
         <div
             className='w-screen h-screen flex flex-col text-black dark:text-white'
         >
+            <h1 className="sr-only">Athena Leong's Playground</h1>
             <div
                 className='flex flex-row justify-between w-screen h-10 bg-slate-700 solid-black-border font-bold font-code fixed top-0 border-b-0 border-black text-white dark:bg-figma-blue'
             >
@@ -52,6 +55,7 @@ const Mobile = () => {
                     <Clock includeDate={false} />
                 </div>
                 <div className='pr-6 flex flex-row space-x-3 items-center'>
+                <a className="reading-view-link" href="/about/">Read</a>
                 <p>AthenaOS  </p>
                 </div>
              
@@ -68,22 +72,30 @@ const Mobile = () => {
                     const {imageSrc, hoverImageSrc}: any = Tabs[key];
                     const isActiveTab: Boolean = activeTab == key;
                     return (
-                    <div className="flex flex-col">
+                    <div className="flex flex-col" key={key}>
                         <div className="w-16 h-16 relative ">
                             <div 
                                 className="absolute w-14 h-14 flex bg-black rounded-xl"
                                 style={{left: isActiveTab? '0.25rem' : '0.25rem', top: isActiveTab? '0.25rem' : '0.25rem'}}
                             >
                             </div>
-                            <div
+                            <a
                                 className='flex flex-col items-center w-14 h-14 rounded-xl z-10 relative bg-white border-black border-[3px]'
                                 style={{left: isActiveTab? '0.25rem' : '0rem', top: isActiveTab? '0.25rem' : '0rem'}}
-                                onClick= {() => {setActiveTab(key)}}
+                                href={mobileLinks[key]}
+                                aria-label={key === '???' ? 'My story' : key}
+                                aria-current={isActiveTab ? 'page' : undefined}
+                                onClick={(event) => {
+                                    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
+                                    event.preventDefault();
+                                    setActiveTab(key);
+                                }}
                             >
                                 <img 
                                     src={isActiveTab? hoverImageSrc : imageSrc}
+                                    alt=""
                                 />
-                            </div>
+                            </a>
                         </div>
                         <div className="flex text-center items-center justify-center font-bold">{key}</div>
                      </div>
