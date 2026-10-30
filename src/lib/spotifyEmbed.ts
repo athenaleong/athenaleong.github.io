@@ -5,6 +5,8 @@ export type SpotifyPlaybackEvent = {
 export interface SpotifyEmbedController {
     addListener(event: 'ready', callback: () => void): void;
     addListener(event: 'playback_update', callback: (event: SpotifyPlaybackEvent) => void): void;
+    play(): void;
+    togglePlay(): void;
     destroy(): void;
 }
 

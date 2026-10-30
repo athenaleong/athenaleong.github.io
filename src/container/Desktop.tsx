@@ -44,6 +44,9 @@ const Desktop = () => {
     });
 
     const dispatch = useDispatch();
+    const [recordPlayerOpen, setRecordPlayerOpen] = useState(true);
+    const [recordPlayerFront, setRecordPlayerFront] = useState(false);
+    const recordLauncherRef = useRef<HTMLButtonElement | null>(null);
     const { tabs, activeId } = useSelector((state: RootState) => state.tab);
     const workspaceRef = useRef<HTMLDivElement | null>(null);
     const [workspaceSize, setWorkspaceSize] = useState({ width: 0, height: 0 });
@@ -125,6 +128,7 @@ const Desktop = () => {
     }
 
     const folderOnClick = useCallback((tabId: string) => {
+        setRecordPlayerFront(false);
         if (tabId == "garden") {
             window.open("https://garden.athenaleong.com", "_blank")
         }
@@ -137,6 +141,8 @@ const Desktop = () => {
 
     const resetOnClick = useCallback(() => {
         dispatch(clearTab())
+        setRecordPlayerOpen(false);
+        setRecordPlayerFront(false);
     }, [dispatch])
 
 
@@ -190,7 +196,11 @@ const Desktop = () => {
                 </div>
             </div>
             <div ref={node => { workspaceRef.current = node; drop(node); }} className='desktop-workspace w-full flex-1 min-h-0 relative flex flex-col justify-end items-center solid-black-border dark:border-slate-950'>
-                <RecordPlayer />
+                {recordPlayerOpen && <RecordPlayer front={recordPlayerFront} onFocus={() => setRecordPlayerFront(true)} onClose={() => {
+                    setRecordPlayerOpen(false);
+                    setRecordPlayerFront(false);
+                    recordLauncherRef.current?.focus();
+                }} />}
                 {Object.keys(folders).map((key) => {
                     const { right, top, imageSrc, tabId, hoverImageSrc} = folders[key] as {
                         top: number
@@ -216,7 +226,7 @@ const Desktop = () => {
                 {Object.keys(tabs).map((key) => {
                     const { right, top, zIndex, minimized } = tabs[key];
                     return(
-                        <Tab key={key} id={key} label={windowLabels[key]} right={right} top={top} removeTab={removeTab} zIndex={zIndex} active={key === activeId} minimized={minimized} minimizeTab={id => dispatch(minimizeTab({id}))} onFocus={() => dispatch(bringTabToFront({id: key}))} onMove={(right, top) => moveItems(key, right, top, 'tab')} isTouchDevice={isTouchDevice}>
+                        <Tab key={key} id={key} label={windowLabels[key]} right={right} top={top} removeTab={removeTab} zIndex={zIndex} active={key === activeId} minimized={minimized} minimizeTab={id => dispatch(minimizeTab({id}))} onFocus={() => { setRecordPlayerFront(false); dispatch(bringTabToFront({id: key})); }} onMove={(right, top) => moveItems(key, right, top, 'tab')} isTouchDevice={isTouchDevice}>
                             {TabRender(key)}
                         </Tab>
                     )
@@ -243,6 +253,16 @@ const Desktop = () => {
                             <span className="dock-dot" aria-hidden="true" />
                         </a>
                     ))}
+                    <button ref={recordLauncherRef} type="button" className="dock-launcher dock-music" aria-label="Open record player" title="Open record player" data-open={recordPlayerOpen} onClick={() => { setRecordPlayerOpen(true); setRecordPlayerFront(true); }}>
+                        <svg viewBox="0 0 56 56" aria-hidden="true">
+                            <circle cx="28" cy="28" r="25" fill="#222" stroke="black" strokeWidth="3" />
+                            <circle cx="28" cy="28" r="20" fill="none" stroke="#747474" strokeWidth="1.5" />
+                            <circle cx="28" cy="28" r="15" fill="none" stroke="#747474" strokeWidth="1.5" />
+                            <circle cx="28" cy="28" r="10" fill="#ffcb2f" stroke="black" strokeWidth="2" />
+                            <circle cx="28" cy="28" r="3" fill="#f5f1e6" stroke="black" strokeWidth="1.5" />
+                        </svg>
+                        <span className="dock-dot" aria-hidden="true" />
+                    </button>
                     <button type="button" aria-label="Close all windows" title="Close all windows" className="dock-reset" onClick={resetOnClick}>
                         <img src="/clear.png" alt="" />
                     </button>

@@ -7,7 +7,6 @@
     max-width: calc(100% - 48px);
     max-height: calc(100% - 48px);
     overflow-y: auto;
-    padding: 14px;
     border: 4px solid #161616;
     border-radius: 18px;
     background: #167ffc;
@@ -15,40 +14,40 @@
     box-shadow: 6px 7px 0 #161616;
     font-family: 'Fira Code', monospace;
 }
-.record-player-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
-.record-player-heading h2 { font-size: 14px; font-weight: 700; letter-spacing: -.4px; }
-.record-player-light { width: 10px; height: 10px; flex-shrink: 0; border: 2px solid #161616; border-radius: 50%; background: #ffcb2f; }
+.record-player[data-front='true'] { z-index: 15; }
+.record-player-heading { display: flex; align-items: center; gap: 12px; height: 36px; border-bottom: 4px solid #161616; background: #ffcb2f; border-radius: 13px 13px 0 0; overflow: hidden; }
+.record-player-heading h2 { flex: 1; font-size: 13px; font-weight: 700; letter-spacing: -.4px; }
+.record-player-close { align-self: stretch; line-height: 1; }
+.record-player-body { padding: 14px; }
+.record-player-light { width: 10px; height: 10px; flex-shrink: 0; margin-right: 12px; border: 2px solid #161616; border-radius: 50%; background: #f5f1e6; }
 .record-player[data-playing='true'] .record-player-light { background: #b6ed6c; box-shadow: 0 0 0 3px rgb(182 237 108 / 25%); }
-.record-player-deck { border: 3px solid #161616; border-radius: 10px; background: #f5f1e6; }
+.record-player-deck { display: block; width: 100%; padding: 0; color: #161616; border: 3px solid #161616; border-radius: 10px; background: #f5f1e6; }
+.record-player-deck:hover { border-color: #161616; background: #fff9e9; }
+.record-player-deck:disabled { cursor: default; }
+.record-player-deck:focus-visible, .record-player-link:focus-visible, .record-player-retry:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
 .record-player-turntable { display: block; width: 100%; height: auto; }
 .record-player-vinyl { transform-origin: 108px 102px; animation: record-spin 3s linear infinite; animation-play-state: paused; }
 .record-player[data-playing='true'] .record-player-vinyl { animation-play-state: running; }
 .record-player-arm { transform-origin: 239px 48px; transition: transform .6s ease; }
 .record-player[data-playing='true'] .record-player-arm { transform: rotate(25deg); }
-.record-player-strip { display: flex; justify-content: space-between; align-items: center; margin: 9px 0 13px; font-size: 9px; font-weight: 700; }
-.record-player-toggle { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 39px; padding: 6px 12px; border: 2px solid #161616; border-radius: 7px; background: #ffcb2f; color: #161616; font-size: 12px; font-weight: 700; box-shadow: 0 3px 0 #161616; }
-.record-player-toggle:hover, .record-player-retry:hover { background: #ffe17f; border-color: #161616; }
-.record-player-toggle:active { transform: translateY(2px); box-shadow: 0 1px 0 #161616; }
-.record-player-toggle:focus-visible, .record-player-link:focus-visible, .record-player-retry:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
-.record-player-toggle > span { font-size: 18px; line-height: 1; }
-.record-player-empty { margin: 0; padding: 10px 14px; border: 2px solid #161616; border-radius: 7px; background: #ffcb2f; font-size: 11px; line-height: 1.6; text-align: center; }
-.record-player-panel { margin-top: 16px; }
-.record-player-status { margin-bottom: 8px; font-size: 10px; }
+.record-player-retry:hover { background: #ffe17f; border-color: #161616; }
+.record-player-panel { margin-top: 12px; }
 .record-player-embed { margin-inline: -8px; }
 .record-player-embed:empty { display: none; }
 .record-player-embed iframe { display: block; width: 100%; height: 80px; border: 0; border-radius: 12px; }
 .record-player-link, .record-player-link:hover { display: block; width: fit-content; margin-top: 10px; color: #161616; text-decoration: underline; font-size: 10px; font-weight: 600; }
 .record-player-retry { padding: 6px 12px; border: 2px solid #161616; background: #ffcb2f; color: #161616; font-size: 11px; }
 .dark .record-player { background: #8bbcff; }
+.dark .record-player-heading { background: #167ffc; }
+.dock-music { padding: 0; border: 0; border-radius: 0; background: transparent; }
+.dock-music svg { width: 56px; height: 56px; }
 @keyframes record-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) {
     .record-player-vinyl { animation: none; }
     .record-player-arm { transition: none; }
 }
 @media (max-height: 720px) and (min-width: 768px) {
-    .record-player { top: 16px; left: 16px; padding: 10px; }
-    .record-player-heading { margin-bottom: 8px; }
+    .record-player { top: 16px; left: 16px; }
+    .record-player-body { padding: 10px; }
     .record-player-deck { width: 232px; margin: 0 auto; }
-    .record-player-strip { margin: 6px 0 9px; }
-    .record-player-panel { margin-top: 12px; }
 }
