@@ -11,6 +11,8 @@ import Clock from '../component/Clock';
 import ConnectTheDots from '../component/ConnectTheDot';
 import ThemeToggle from '../component/ThemeToggle';
 import RecordPlayer from '../component/RecordPlayer';
+import RecordPlayerIcon from '../component/RecordPlayerIcon';
+import { music } from '../content/music';
 import { tabLinks } from '../site';
 import { clampWindowPosition, initialWindowPosition } from '../windowGeometry';
 
@@ -44,7 +46,7 @@ const Desktop = () => {
     });
 
     const dispatch = useDispatch();
-    const [recordPlayerOpen, setRecordPlayerOpen] = useState(true);
+    const [recordPlayerOpen, setRecordPlayerOpen] = useState(false);
     const [recordPlayerFront, setRecordPlayerFront] = useState(false);
     const recordLauncherRef = useRef<HTMLButtonElement | null>(null);
     const { tabs, activeId } = useSelector((state: RootState) => state.tab);
@@ -196,6 +198,14 @@ const Desktop = () => {
                 </div>
             </div>
             <div ref={node => { workspaceRef.current = node; drop(node); }} className='desktop-workspace w-full flex-1 min-h-0 relative flex flex-col justify-end items-center solid-black-border dark:border-slate-950'>
+                <button className="record-desktop-launcher" type="button" aria-label={`Open ${music.title}`} onClick={event => {
+                    recordLauncherRef.current = event.currentTarget;
+                    setRecordPlayerOpen(true);
+                    setRecordPlayerFront(true);
+                }}>
+                    <RecordPlayerIcon />
+                    <span>{music.title}</span>
+                </button>
                 {recordPlayerOpen && <RecordPlayer front={recordPlayerFront} onFocus={() => setRecordPlayerFront(true)} onClose={() => {
                     setRecordPlayerOpen(false);
                     setRecordPlayerFront(false);
@@ -253,14 +263,12 @@ const Desktop = () => {
                             <span className="dock-dot" aria-hidden="true" />
                         </a>
                     ))}
-                    <button ref={recordLauncherRef} type="button" className="dock-launcher dock-music" aria-label="Open record player" title="Open record player" data-open={recordPlayerOpen} onClick={() => { setRecordPlayerOpen(true); setRecordPlayerFront(true); }}>
-                        <svg viewBox="0 0 56 56" aria-hidden="true">
-                            <circle cx="28" cy="28" r="25" fill="#222" stroke="black" strokeWidth="3" />
-                            <circle cx="28" cy="28" r="20" fill="none" stroke="#747474" strokeWidth="1.5" />
-                            <circle cx="28" cy="28" r="15" fill="none" stroke="#747474" strokeWidth="1.5" />
-                            <circle cx="28" cy="28" r="10" fill="#ffcb2f" stroke="black" strokeWidth="2" />
-                            <circle cx="28" cy="28" r="3" fill="#f5f1e6" stroke="black" strokeWidth="1.5" />
-                        </svg>
+                    <button type="button" className="dock-launcher dock-music" aria-label={`Open ${music.title}`} title={music.title} data-open={recordPlayerOpen} onClick={event => {
+                        recordLauncherRef.current = event.currentTarget;
+                        setRecordPlayerOpen(true);
+                        setRecordPlayerFront(true);
+                    }}>
+                        <RecordPlayerIcon />
                         <span className="dock-dot" aria-hidden="true" />
                     </button>
                     <button type="button" aria-label="Close all windows" title="Close all windows" className="dock-reset" onClick={resetOnClick}>

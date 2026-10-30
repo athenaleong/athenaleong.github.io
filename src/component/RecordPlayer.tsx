@@ -54,7 +54,8 @@ export default function RecordPlayer({ onClose, onFocus, front }: { onClose: () 
                     }
                 });
                 embed.addListener('playback_update', event => {
-                    if (!cancelled) setPlaying(!event.data.isPaused && !event.data.isBuffering);
+                    // Keep the arm in place during buffering between tracks.
+                    if (!cancelled && !event.data.isBuffering) setPlaying(!event.data.isPaused);
                 });
             });
         }).catch(fail);
@@ -100,14 +101,16 @@ export default function RecordPlayer({ onClose, onFocus, front }: { onClose: () 
                         <path d="M 88 86 Q 108 76 128 86 M 92 120 Q 108 127 124 120" fill="none" stroke="#161616" strokeWidth="2" />
                     </g>
                     <circle cx="108" cy="102" r="5" fill="#eeeae0" stroke="#161616" strokeWidth="2" />
-                    <rect x="232" y="72" width="14" height="59" rx="5" fill="#c9c7bd" stroke="#161616" strokeWidth="2" />
-                    <g className="record-player-arm">
-                        <rect x="229" y="17" width="20" height="27" rx="4" fill="#777" stroke="#161616" strokeWidth="3" />
-                        <path d="M 239 48 L 239 132 L 223 153" fill="none" stroke="#161616" strokeWidth="13" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M 239 48 L 239 132 L 223 153" fill="none" stroke="#f8f5e9" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M 218 143 L 231 152 L 218 172 L 205 163 Z" fill="#fd675e" stroke="#161616" strokeWidth="3" strokeLinejoin="round" />
-                        <circle cx="239" cy="48" r="13" fill="#f8f5e9" stroke="#161616" strokeWidth="3" />
-                        <circle cx="239" cy="48" r="4" fill="#161616" />
+                    <rect x="231" y="111" width="16" height="9" rx="3" fill="#c9c7bd" stroke="#161616" strokeWidth="2" />
+                    <g transform="translate(239 48)">
+                        <g className="record-player-arm">
+                            <rect x="-10" y="-31" width="20" height="27" rx="4" fill="#777" stroke="#161616" strokeWidth="3" />
+                            <path d="M 0 0 L 0 84 L -16 105" fill="none" stroke="#161616" strokeWidth="13" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M 0 0 L 0 84 L -16 105" fill="none" stroke="#f8f5e9" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M -21 95 L -8 104 L -21 124 L -34 115 Z" fill="#fd675e" stroke="#161616" strokeWidth="3" strokeLinejoin="round" />
+                        </g>
+                        <circle r="13" fill="#f8f5e9" stroke="#161616" strokeWidth="3" />
+                        <circle r="4" fill="#161616" />
                     </g>
                     <circle cx="250" cy="166" r="14" fill="#ffcb2f" stroke="#161616" strokeWidth="2" />
                     {playing ? (

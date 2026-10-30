@@ -14,14 +14,16 @@ farther). **×** closes one window; the reset icon closes all windows.
 The folder and dock icons remain real links to the static pages, including for
 Command/Ctrl-click and opening in a new browser tab.
 
-The desktop has a record player in the upper-left corner; it is absent from the
-phone view. Set the public Spotify playlist URL in `src/content/music.ts`.
+The desktop has an **On rotation** record-player icon in the upper-left corner
+and a larger matching dock icon. The player starts closed; either icon opens it.
+It is absent from the phone view. Set the public Spotify playlist URL in `src/content/music.ts`.
 An empty URL shows the turntable without loading Spotify. Clicking the record
 loads the official 80px single-item embed and requests playback through Spotify's
 iFrame API. Click the record again to pause or resume. Browser playback rules
 still apply; Spotify's native controls remain available. Playback events move the
 tonearm and spin the record. **×** closes the player and stops playback; the record
-icon in the dock reopens it. Reduced-motion preferences disable spinning. Spotify keeps
+icon in the dock reopens it. Buffering keeps the tonearm in place; it pivots only
+when playback changes. Reduced-motion preferences disable spinning. Spotify keeps
 its own controls and playback rules; the embed API does not expose shuffle.
 The **Open playlist in Spotify** link provides access to Spotify's full player.
 The embed retains Spotify's encrypted-media permission. Spotify decides whether
