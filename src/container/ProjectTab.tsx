@@ -1,4 +1,6 @@
-import React, { Component, useState, useCallback } from 'react';
+import React from 'react';
+import ProjectPress from '../component/ProjectPress';
+import { pursuitPress, ratatouillePress } from '../content/press';
 
 const ProjectTab: React.FC<any> = ({isMobile=false}:
     {
@@ -24,7 +26,7 @@ const ProjectTab: React.FC<any> = ({isMobile=false}:
                             <img 
                                 src="/projects/pursuit.png" 
                                 alt="Pursuit scavenger hunt" 
-                                className="w-full md:w-48 rounded-lg solid-black-border object-cover"
+                                className="w-full md:w-48 self-start rounded-lg solid-black-border object-cover"
                                 loading="lazy"
                                 decoding="async"
                             />
@@ -34,9 +36,8 @@ const ProjectTab: React.FC<any> = ({isMobile=false}:
                                 </p>
                                 <div className="text-lg">
                                     <a href="https://www.sfpursuit.org" target="_blank" className="text-figma-blue hover:underline">sfpursuit.org</a>
-                                    &nbsp;|&nbsp;
-                                    <a href="https://www.cbsnews.com/sanfrancisco/news/san-francisco-pursuit-scavenger-hunt/" target="_blank" className="text-figma-blue hover:underline">CBS coverage</a>
                                 </div>
+                                <ProjectPress project="Pursuit" links={pursuitPress} />
                             </div>
                         </div>
                     </div>
@@ -80,7 +81,7 @@ const ProjectTab: React.FC<any> = ({isMobile=false}:
                             <img 
                                 src="/projects/ratatouille.jpeg" 
                                 alt="Ratatouille animatronic project" 
-                                className="w-full md:w-48 rounded-lg solid-black-border object-cover"
+                                className="w-full md:w-48 self-start rounded-lg solid-black-border object-cover"
                                 loading="lazy"
                                 decoding="async"
                             />
@@ -91,10 +92,9 @@ const ProjectTab: React.FC<any> = ({isMobile=false}:
                                 <div className="text-lg">
                                     <a href="https://www.tiktok.com/@athena.makes/video/7425750355796921630" target="_blank" className="text-figma-blue hover:underline">demo</a>
                                     &nbsp;|&nbsp;
-                                    <a href="https://nypost.com/video/woman-makes-animatronic-ratatouille-rat-that-can-move-her-muscles/" target="_blank" className="text-figma-blue hover:underline">NYPost</a>
-                                    &nbsp;|&nbsp;
                                     <a href="https://youtu.be/Y0HBiyo3W48?si=2MYcK-P-ToaqMS30&t=1226" target="_blank" className="text-figma-blue hover:underline">Internet Archive talk</a>
                                 </div>
+                                <ProjectPress project="Ratatouille IRL" links={ratatouillePress} />
                             </div>
                         </div>
                     </div>

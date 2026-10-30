@@ -25,6 +25,8 @@ npm run preview
 
 The build renders the existing `AboutTab`, `ProjectTab`, and `WhatTab` components
 to static HTML. Edit those components to update both views; do not edit `dist/`.
+Project press links live in `src/content/press.ts`, with the publication, year,
+article title, and original URL. They appear in both versions of the projects page.
 The homepage also contains a readable bio and navigation before JavaScript loads.
 It switches to AthenaOS when the app is ready. Reading pages never need the app
 bundle. All visitors receive the same HTML, without user-agent detection.
