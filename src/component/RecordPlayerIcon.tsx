@@ -2,7 +2,6 @@ export default function RecordPlayerIcon() {
     return (
         <svg className="record-player-icon" viewBox="0 0 96 96" aria-hidden="true">
             <g transform="rotate(-6 48 48)" stroke="#161616" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="13" y="22" width="76" height="65" rx="12" fill="#161616" strokeWidth="3" />
                 <rect x="8" y="16" width="76" height="65" rx="12" fill="#167ffc" strokeWidth="4" />
                 <rect x="14" y="22" width="64" height="49" rx="8" fill="#fff4d7" strokeWidth="3" />
                 <circle cx="38" cy="46" r="20" fill="#282828" strokeWidth="3" />

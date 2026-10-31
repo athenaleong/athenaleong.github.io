@@ -28,8 +28,8 @@
 .record-player-turntable { display: block; width: 100%; height: auto; }
 .record-player-vinyl { transform-box: view-box; transform-origin: 108px 102px; animation: record-spin 3s linear infinite; animation-play-state: paused; }
 .record-player[data-playing='true'] .record-player-vinyl { animation-play-state: running; }
-.record-player-arm { transform-box: view-box; transform-origin: 0 0; transform: rotate(0deg); transition: transform .65s cubic-bezier(.4, 0, .2, 1); }
-.record-player[data-playing='true'] .record-player-arm { transform: rotate(25deg); }
+.record-player-arm { transform-box: view-box; transform-origin: 0 0; transform: rotate(0deg); transition: transform .4s ease-out; }
+.record-player[data-engaged='true'] .record-player-arm { transform: rotate(25deg); }
 .record-player-retry:hover { background: #ffe17f; border-color: #161616; }
 .record-player-panel { margin-top: 12px; }
 .record-player-embed { margin-inline: -8px; }
@@ -43,8 +43,7 @@
 .record-desktop-launcher .record-player-icon { display: block; width: 96px; height: 96px; }
 .record-desktop-launcher:hover .record-player-icon { transform: translateY(-3px); }
 .record-desktop-launcher:focus-visible { outline: 3px solid #167ffc; outline-offset: 4px; }
-.desktop-dock .dock-music { width: 72px; height: 72px; flex: 0 0 72px; padding: 0; border: 0; border-radius: 0; background: transparent; }
-.desktop-dock .dock-music .record-player-icon { display: block; width: 72px; height: 72px; max-width: none; flex-shrink: 0; }
+.desktop-dock .dock-music { padding: 0; border: 0; border-radius: 0; background: transparent; }
 @keyframes record-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) {
     .record-player-vinyl { animation: none; }

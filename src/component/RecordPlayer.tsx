@@ -7,6 +7,7 @@ export default function RecordPlayer({ onClose, onFocus, front }: { onClose: () 
     const [open, setOpen] = useState(false);
     const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
     const [playing, setPlaying] = useState(false);
+    const [playbackIntent, setPlaybackIntent] = useState<boolean | null>(null);
     const [attempt, setAttempt] = useState(0);
     const host = useRef<HTMLDivElement>(null);
     const controllerRef = useRef<SpotifyEmbedController | null>(null);
@@ -14,6 +15,14 @@ export default function RecordPlayer({ onClose, onFocus, front }: { onClose: () 
     const headingId = useId();
     const playlist = spotifyPlaylist(music.playlistUrl);
     const uri = playlist?.uri;
+    const engaged = playbackIntent ?? playing;
+
+    useEffect(() => {
+        if (status !== 'ready' || playbackIntent === null) return;
+        // Fall back to Spotify's actual state if playback is blocked or stalls.
+        const timeout = window.setTimeout(() => setPlaybackIntent(null), 8000);
+        return () => window.clearTimeout(timeout);
+    }, [playbackIntent, status]);
 
     useEffect(() => {
         if (!open || !uri || !host.current) return;
@@ -31,6 +40,7 @@ export default function RecordPlayer({ onClose, onFocus, front }: { onClose: () 
             playWhenReady.current = false;
             container.replaceChildren();
             setPlaying(false);
+            setPlaybackIntent(null);
             setStatus('error');
         };
         const timeout = window.setTimeout(fail, 18000);
@@ -54,8 +64,11 @@ export default function RecordPlayer({ onClose, onFocus, front }: { onClose: () 
                     }
                 });
                 embed.addListener('playback_update', event => {
-                    // Keep the arm in place during buffering between tracks.
-                    if (!cancelled && !event.data.isBuffering) setPlaying(!event.data.isPaused);
+                    if (cancelled || event.data.isBuffering) return;
+                    const isPlaying = !event.data.isPaused;
+                    setPlaying(isPlaying);
+                    // Ignore stale startup events until Spotify acknowledges the click.
+                    setPlaybackIntent(intent => intent === isPlaying ? null : intent);
                 });
             });
         }).catch(fail);
@@ -69,24 +82,27 @@ export default function RecordPlayer({ onClose, onFocus, front }: { onClose: () 
     }, [open, uri, attempt]);
 
     const togglePlayback = () => {
+        const nextPlaying = !engaged;
+        setPlaybackIntent(nextPlaying);
         if (open && status === 'ready' && controllerRef.current) {
-            controllerRef.current.togglePlay();
+            if (nextPlaying) controllerRef.current.resume();
+            else controllerRef.current.pause();
         } else {
-            playWhenReady.current = true;
+            playWhenReady.current = nextPlaying;
             if (status === 'error') setAttempt(value => value + 1);
             setOpen(true);
         }
     };
 
     return (
-        <aside id="record-player" className="record-player" aria-labelledby={headingId} data-playing={playing} data-front={front} onPointerDownCapture={onFocus} onFocusCapture={onFocus}>
+        <aside id="record-player" className="record-player" aria-labelledby={headingId} data-playing={playing} data-engaged={engaged} data-front={front} onPointerDownCapture={onFocus} onFocusCapture={onFocus}>
             <div className="record-player-heading">
                 <button className="record-player-close window-control window-close" type="button" aria-label="Close record player" onClick={onClose}>×</button>
                 <h2 id={headingId}>{music.title}</h2>
                 <span className="record-player-light" aria-hidden="true" />
             </div>
             <div className="record-player-body">
-            <button className="record-player-deck" type="button" aria-label={playing ? 'Pause music' : 'Play music'} title={playing ? 'Pause music' : 'Play music'} disabled={!playlist} onClick={togglePlayback} aria-busy={open && status === 'loading'}>
+            <button className="record-player-deck" type="button" aria-label={engaged ? 'Pause music' : 'Play music'} title={engaged ? 'Pause music' : 'Play music'} disabled={!playlist} onClick={togglePlayback} aria-busy={open && status === 'loading'}>
                 <svg viewBox="0 0 288 200" className="record-player-turntable" aria-hidden="true">
                     <circle cx="16" cy="16" r="3" fill="currentColor" />
                     <circle cx="272" cy="16" r="3" fill="currentColor" />
@@ -113,7 +129,7 @@ export default function RecordPlayer({ onClose, onFocus, front }: { onClose: () 
                         <circle r="4" fill="#161616" />
                     </g>
                     <circle cx="250" cy="166" r="14" fill="#ffcb2f" stroke="#161616" strokeWidth="2" />
-                    {playing ? (
+                    {engaged ? (
                         <path d="M 245 160 V 172 M 254 160 V 172" stroke="#161616" strokeWidth="4" />
                     ) : (
                         <path d="M 246 158 L 257 166 L 246 174 Z" fill="#161616" />
