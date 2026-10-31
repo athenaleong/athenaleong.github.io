@@ -43,7 +43,11 @@ test('every indexable URL ships content, links, and unique metadata without runn
 
 test('the bio, projects, and story survive without the interactive app', () => {
   assert.match(documents[1], /UC Berkeley/);
-  assert.match(documents[1], /Machine Learning @ Berkeley/);
+  for (const html of documents.slice(0, 2)) {
+    assert.match(html, /href="https:\/\/www\.outernetexplorer\.com\/"/);
+    assert.match(html, /education apps for 2M\+ kids/);
+    assert.doesNotMatch(html, /7\.7 billion|Machine Learning @ Berkeley/);
+  }
   for (const project of ['Pursuit', 'Finefood.institute', 'Ratatouille IRL', 'Wikiposter', 'Obsidian Spaced Repetition', 'Field Trip', 'Mirror of Erised', 'Phyzmo', 'Amigu']) {
     assert.ok(documents[2].includes(project), `Missing project: ${project}`);
   }

@@ -3,7 +3,7 @@ export const site = {
   url: 'https://www.athenaleong.com',
   name: "Athena's Playground",
   author: 'Athena Leong',
-  description: 'Athena Leong creates playful experiences with technology. Explore her projects, experiments, and adventures in San Francisco and beyond.',
+  description: 'Athena Leong creates magical experiences with technology and is building Outernet for everyday adventures. Explore her projects and playground.',
   image: '/slide-thick-square.png',
   social: [
     { label: 'GitHub', url: 'https://github.com/athenaleong' },
@@ -23,7 +23,7 @@ export const pages = {
   '/about/': {
     title: "About Athena Leong | Athena's Playground",
     heading: 'About Athena Leong',
-    description: 'Meet Athena Leong: a maker of playful experiences with technology, with a background in computer science and child development at UC Berkeley.',
+    description: 'Meet Athena Leong, building Outernet after creating education apps for 2M+ kids. She studied computer science and child development at UC Berkeley.',
   },
   '/projects/': {
     title: "Projects by Athena Leong | Athena's Playground",
