@@ -22,7 +22,7 @@ export default function AboutTab({ isMobile = false }: { isMobile?: boolean }) {
                 <a href="https://www.tiktok.com/@athena.makes" target="_blank" rel="noopener noreferrer">Tiktok</a>.
             </p>
             <p className="mb-6 leading-loose">
-                I love collaborating on projects and going down rabbit holes with friends. If you think we should be friends, please reach out. About 117 billion people have ever lived. How cool is it that we found each other!
+                I love collaborating on projects and going down rabbit holes with curious people. If you think we should be friends, please reach out. About 117 billion people have ever lived. How cool is it that we found each other!
             </p>
             <p className="mb-6 leading-loose">
                 I built this playground just for adventurers like you! Go forth, I hope you have lots of fun here!

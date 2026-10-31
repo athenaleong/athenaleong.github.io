@@ -126,14 +126,6 @@ body.playground-ready {
   color: inherit;
 }
 
-.reading-view-link,
-.reading-view-link:hover {
-  color: inherit;
-  font-size: 0.75rem;
-  text-decoration: underline;
-  white-space: nowrap;
-}
-
 .reading-page {
   min-height: 100vh;
   background: #e7e5e4;

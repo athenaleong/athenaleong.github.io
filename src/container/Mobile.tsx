@@ -46,17 +46,17 @@ const Mobile = () => {
         >
             <h1 className="sr-only">Athena Leong's Playground</h1>
             <div
-                className='flex flex-row justify-between w-screen h-10 bg-slate-700 solid-black-border font-bold font-code fixed top-0 border-b-0 border-black text-white dark:bg-figma-blue'
+                className='flex flex-row justify-between items-center gap-2 px-3 w-screen h-10 bg-slate-700 solid-black-border font-bold font-code text-sm fixed top-0 border-b-0 border-black text-white dark:bg-figma-blue'
             >
                 <div
-                    className='flex flex-row items-center justify-center space-x-3 pl-6'
+                    className='flex flex-row items-center gap-2 whitespace-nowrap'
                 >
-                    <img src='/slide-thick.png' className='w-10 h-auto'/>
-                    <Clock includeDate={false} />
+                    <img src='/slide-thick.png' className='w-8 h-auto' alt=""/>
+                    <p>AthenaOS</p>
                 </div>
-                <div className='pr-6 flex flex-row space-x-3 items-center'>
-                <a className="reading-view-link" href="/about/">Read</a>
-                <p>AthenaOS  </p>
+                <div className='flex flex-row gap-2 items-center whitespace-nowrap'>
+                    <span>SF, CA</span>
+                    <Clock includeDate={false} />
                 </div>
              
             </div>

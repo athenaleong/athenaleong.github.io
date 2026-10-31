@@ -15,13 +15,19 @@ const WhatTab: React.FC<any> = ({isMobile = false}: {
         I strive to live with everlasting exuberance.
     </p>
     <p className="mb-6 leading-loose">
-        I love skipping down the streets; when I'm happy, I dance with abandon. I find our universe deeply fascinating - how cool is it that billions of years of happenings have led to life as we know it. I bathe in this wonder. I learn by making, and I hope to share my wonder through the projects I work on!
+        I love skipping down the streets; when I'm happy, I dance with abandon. I find our universe deeply fascinating. How cool is it that the top of Everest was once seafloor, and we've gone from counting with stones to fitting billions of transistors on a chip! I bathe in the wonder of this beautiful world, and I hope to share this wonder through the projects I work on!
     </p>
     <p className="mb-6 leading-loose">
-        I had a rather unconventional childhood. I started boarding school when I was 6 and grew up fiercely independent. I fell in love with science and coding when I was 13. I spent all of my teen wrangling the Singapore education system so I could do more of what I love. This resulted in many breaks spent hacking in the restroom and holidays spent in the science lab. 
+        I had a rather unconventional childhood. I started boarding school when I was 6 and grew up fiercely independent. I fell in love with science and coding when I was 13. I spent my teenage years wrestling with the Singapore education system so I could work on my own projects instead of doing homework. This resulted in many breaks spent hacking in the restroom and holidays spent in the science lab.
     </p>
     <p className="mb-6 leading-loose">
-        For the last 3 years, I have devoted my craft to building digital experiences for children. It brings me immense joy and fulfillment, and I have loved nothing else more. I have an insatiable thirst to understand things deeply and use those insights to create meaningful work that makes a difference. This yearn for knowledge has led me down many fascinating rabbit holes - I have spent a lot of my free time observing in schools and recently came back from a 3-month trip where I shadowed educators around Scandinavia.
+        For the last 7 years, I have devoted my craft to building magical experiences with technology. It brings me immense joy and fulfillment, and I have loved nothing else more.
+    </p>
+    <p className="mb-6 leading-loose">
+        As a technologist, I care about understanding things deeply and creating meaningful work. I also believe strongly in balancing that with experimenting rapidly and learning from failure.
+    </p>
+    <p className="mb-6 leading-loose">
+        I believe exceptional craft can carry across fields. I look up to people like James Cameron, who makes films and explores the deep sea; Hank Green, who teaches science, writes novels and builds businesses; and Kathleen Martínez, who went from practicing law to searching for Cleopatra’s tomb.
     </p>
     <div className='mb-10 flex justify-center'>
         <img src={'/experiences.png'} className='w-[70%]' alt="A collage of Athena's experiences" loading="lazy"/>

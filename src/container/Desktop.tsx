@@ -174,8 +174,6 @@ const Desktop = () => {
                     </div> */}
                 </div>
                 <div className='pr-6 flex flex-row space-x-4 items-center'>
-                    <a className="reading-view-link" href="/about/">Reading view</a>
-
                     <a href="mailto:athenaleong619&#64;gmail&#46;com">
                     <img src={'/mail.png'} className='w-5 h-5'/>
                     </a>
