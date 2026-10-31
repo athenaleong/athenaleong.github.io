@@ -12,7 +12,7 @@ export default function ProjectTab({ isMobile = false }: { isMobile?: boolean })
             <div className="projects-list">
                 {projects.map(project => (
                     <article className="project-item" key={project.id} aria-labelledby={`project-${project.id}`}>
-                        <div className="project-image" data-fit={project.imageFit} style={{ backgroundColor: project.imageBackground }}>
+                        <div className="project-image" data-fit={project.imageFit} style={{ backgroundColor: project.imageBackground, aspectRatio: project.imageAspectRatio }}>
                             <img src={project.image} alt={project.imageAlt} width="320" height="320" loading="lazy" decoding="async" />
                         </div>
                         <div className="project-summary">

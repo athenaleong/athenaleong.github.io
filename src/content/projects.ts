@@ -1,4 +1,4 @@
-import { pursuitPress, ratatouillePress, type PressLink } from './press';
+import { guinnessPress, pursuitPress, ratatouillePress, type PressLink } from './press';
 
 type ProjectLink = { label: string; href: string };
 type Project = {
@@ -8,6 +8,7 @@ type Project = {
     image: string;
     imageAlt: string;
     imageFit?: 'contain';
+    imageAspectRatio?: string;
     imageBackground?: string;
     links?: ProjectLink[];
     press?: PressLink[];
@@ -23,6 +24,15 @@ export const projects: Project[] = [
         imageFit: 'contain',
         links: [{ label: 'sfpursuit.org', href: 'https://www.sfpursuit.org' }],
         press: pursuitPress,
+    },
+    {
+        id: 'guinness-world-record',
+        title: 'Guinness World Record',
+        description: 'My friend Sevy and I went on a side quest and set a Guinness World Record for the fastest two-person build of the LEGO World Map, the largest LEGO set by piece count.',
+        image: '/projects/guinness-world-record.jpg',
+        imageAlt: 'Sevy Swift and Athena Leong holding their Guinness World Records certificates beneath their completed LEGO World Map',
+        imageAspectRatio: '3 / 4',
+        press: guinnessPress,
     },
     {
         id: 'finefood',

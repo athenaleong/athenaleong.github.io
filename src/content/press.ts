@@ -71,3 +71,18 @@ export const ratatouillePress: PressLink[] = [
         href: 'https://nypost.com/video/woman-makes-animatronic-ratatouille-rat-that-can-move-her-muscles/',
     },
 ];
+
+export const guinnessPress: PressLink[] = [
+    {
+        outlet: 'Guinness World Records',
+        year: 2026,
+        title: 'Two friends in California unite their “inner kids” to conquer LEGO World Map speed record',
+        href: 'https://www.guinnessworldrecords.com/news/2026/9/two-friends-in-california-unite-their-inner-kids-to-conquer-lego-world-map-speed-record',
+    },
+    {
+        outlet: 'The Pioneer',
+        year: 2026,
+        title: 'Bay Area LEGO Fans Build World Record, Piece by Piece',
+        href: 'https://thepioneeronline.com/49968/features/bay-area-lego-fans-build-world-record-piece-by-piece/',
+    },
+];
