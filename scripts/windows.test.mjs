@@ -16,7 +16,8 @@ function loadTypeScript(path) {
 }
 
 const { default: reducer, addTab, bringTabToFront, minimizeTab, popTab, updateTab, clearTab } = loadTypeScript('../src/slices/tab.ts');
-const { clampWindowPosition, initialWindowPosition } = loadTypeScript('../src/windowGeometry.ts');
+const { clampWindowPosition, initialWindowPosition, clampFloatingWindowPosition } = loadTypeScript('../src/windowGeometry.ts');
+const { formatSanFranciscoTime } = loadTypeScript('../src/lib/clock.ts');
 const open = (state, id, right = 200, top = 40) => reducer(state, addTab({ id, props: { right, top } }));
 
 test('three windows stay open while switching and reopening preserves their positions', () => {
@@ -75,4 +76,29 @@ test('opening cascades windows and dragging or resizing keeps controls on screen
       assert.ok(position.top >= 16 && position.top + windowHeight <= height - 96);
     }
   }
+});
+
+test('the record player stays on screen and above the dock as its size changes', () => {
+  for (const [width, height, playerHeight] of [[1280, 720, 264], [1024, 640, 390], [760, 300, 188]]) {
+    for (const [left, top] of [[-500, -200], [3000, 2000], [160, 24]]) {
+      const position = clampFloatingWindowPosition(left, top, width, height, 320, playerHeight);
+      assert.ok(position.left >= 16 && position.left + 320 <= width - 16);
+      assert.ok(position.top >= 16 && position.top + playerHeight <= height - 96);
+    }
+  }
+  const expanded = clampFloatingWindowPosition(600, 280, 1024, 640, 320, 390);
+  assert.deepEqual(expanded, { left: 600, top: 154 });
+});
+
+test('the clock uses San Francisco dates and handles both daylight saving transitions', () => {
+  for (const [utc, expected] of [
+    ['2026-01-15T20:05:00Z', 'Jan 15 12:05PM'],
+    ['2026-07-15T19:05:00Z', 'Jul 15 12:05PM'],
+    ['2026-07-15T06:30:00Z', 'Jul 14 11:30PM'],
+    ['2026-03-08T09:59:00Z', 'Mar 08 1:59AM'],
+    ['2026-03-08T10:00:00Z', 'Mar 08 3:00AM'],
+    ['2026-11-01T08:59:00Z', 'Nov 01 1:59AM'],
+    ['2026-11-01T09:00:00Z', 'Nov 01 1:00AM'],
+  ]) assert.equal(formatSanFranciscoTime(new Date(utc)), expected);
+  assert.equal(formatSanFranciscoTime(new Date('2026-07-15T06:30:00Z'), false), '11:30PM');
 });

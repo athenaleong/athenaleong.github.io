@@ -1,6 +1,8 @@
-import { useEffect, useId, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { music } from '../content/music';
 import { loadSpotifyEmbed, spotifyPlaylist, SpotifyEmbedController } from '../lib/spotifyEmbed';
+import useWindowDrag from '../lib/useWindowDrag';
+import { clampFloatingWindowPosition } from '../windowGeometry';
 import './RecordPlayer.css';
 
 export default function RecordPlayer({ onClose, onFocus, front }: { onClose: () => void; onFocus: () => void; front: boolean }) {
@@ -9,6 +11,8 @@ export default function RecordPlayer({ onClose, onFocus, front }: { onClose: () 
     const [playing, setPlaying] = useState(false);
     const [playbackIntent, setPlaybackIntent] = useState<boolean | null>(null);
     const [attempt, setAttempt] = useState(0);
+    const [position, setPosition] = useState({ left: 160, top: 24 });
+    const playerRef = useRef<HTMLElement>(null);
     const host = useRef<HTMLDivElement>(null);
     const controllerRef = useRef<SpotifyEmbedController | null>(null);
     const playWhenReady = useRef(false);
@@ -16,6 +20,29 @@ export default function RecordPlayer({ onClose, onFocus, front }: { onClose: () 
     const playlist = spotifyPlaylist(music.playlistUrl);
     const uri = playlist?.uri;
     const engaged = playbackIntent ?? playing;
+
+    const constrainPosition = useCallback((current: { left: number; top: number }) => {
+        const player = playerRef.current;
+        const workspace = player?.parentElement;
+        if (!player || !workspace) return current;
+        const next = clampFloatingWindowPosition(current.left, current.top, workspace.clientWidth, workspace.clientHeight, player.offsetWidth, player.offsetHeight);
+        return next.left === current.left && next.top === current.top ? current : next;
+    }, []);
+    const { dragging, dragHandlers } = useWindowDrag(position.left, position.top, (left, top) => {
+        setPosition(constrainPosition({ left, top }));
+    });
+
+    useLayoutEffect(() => {
+        const player = playerRef.current;
+        const workspace = player?.parentElement;
+        if (!player || !workspace) return;
+        // Keep the whole player above the dock, including when Spotify opens.
+        const observer = new ResizeObserver(() => setPosition(constrainPosition));
+        observer.observe(player);
+        observer.observe(workspace);
+        setPosition(constrainPosition);
+        return () => observer.disconnect();
+    }, [constrainPosition]);
 
     useEffect(() => {
         if (status !== 'ready' || playbackIntent === null) return;
@@ -95,10 +122,12 @@ export default function RecordPlayer({ onClose, onFocus, front }: { onClose: () 
     };
 
     return (
-        <aside id="record-player" className="record-player" aria-labelledby={headingId} data-playing={playing} data-engaged={engaged} data-front={front} onPointerDownCapture={onFocus} onFocusCapture={onFocus}>
+        <aside ref={playerRef} id="record-player" className="record-player" style={position} aria-labelledby={headingId} data-playing={playing} data-engaged={engaged} data-front={front} data-dragging={dragging} onPointerDownCapture={onFocus} onFocusCapture={onFocus}>
             <div className="record-player-heading">
                 <button className="record-player-close window-control window-close" type="button" aria-label="Close record player" onClick={onClose}>×</button>
-                <h2 id={headingId}>{music.title}</h2>
+                <h2 id={headingId} aria-label={music.title}>
+                    <button className="record-player-title window-title" type="button" aria-label={`Move ${music.title} window`} aria-describedby="window-move-help" {...dragHandlers}>{music.title}</button>
+                </h2>
                 <span className="record-player-light" aria-hidden="true" />
             </div>
             <div className="record-player-body">

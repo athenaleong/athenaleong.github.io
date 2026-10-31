@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { format } from 'date-fns';
+import { formatSanFranciscoTime } from '../lib/clock';
 
 const Clock = ({includeDate = true} : {
     includeDate?: boolean;
@@ -7,21 +7,16 @@ const Clock = ({includeDate = true} : {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      const now = new Date();
-      const seconds = now.getSeconds();
-      const delay = (60 - seconds) * 1000 - now.getMilliseconds();
-      setTimeout(() => {
-        setCurrentTime(new Date());
-      }, delay);
-    }, 60000);
-    return () => clearInterval(intervalId);
+    let timeout: ReturnType<typeof setTimeout>;
+    const tick = () => {
+      setCurrentTime(new Date());
+      timeout = setTimeout(tick, 60000 - Date.now() % 60000);
+    };
+    tick();
+    return () => clearTimeout(timeout);
   }, []);
 
-  const formattedTime = includeDate ? 
-                        format(currentTime, 'MMM dd h:mma') : 
-                        format(currentTime, 'h:mma');
-  return <div>{formattedTime}</div>;
+  return <div>{formatSanFranciscoTime(currentTime, includeDate)}</div>;
 };
 
 export default Clock;

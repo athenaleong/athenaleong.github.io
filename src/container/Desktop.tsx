@@ -20,7 +20,7 @@ import { clampWindowPosition, initialWindowPosition } from '../windowGeometry';
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../slices';
-import { popTab, addTab, updateTab, bringTabToFront, clearTab, minimizeTab } from '../slices/tab';
+import { popTab, addTab, updateTab, bringTabToFront, clearTab } from '../slices/tab';
 
 const windowLabels: Record<string, string> = { about: 'About', projects: 'Projects', '???': 'My story' };
 const windowIcons: Record<string, string> = { about: '/about.png', projects: '/project.png', '???': '/anglerfish.png' };
@@ -235,7 +235,7 @@ const Desktop = () => {
                 {Object.keys(tabs).map((key) => {
                     const { right, top, zIndex, minimized } = tabs[key];
                     return(
-                        <Tab key={key} id={key} label={windowLabels[key]} right={right} top={top} removeTab={removeTab} zIndex={zIndex} active={key === activeId} minimized={minimized} minimizeTab={id => dispatch(minimizeTab({id}))} onFocus={() => { setRecordPlayerFront(false); dispatch(bringTabToFront({id: key})); }} onMove={(right, top) => moveItems(key, right, top, 'tab')}>
+                        <Tab key={key} id={key} label={windowLabels[key]} right={right} top={top} removeTab={removeTab} zIndex={zIndex} active={key === activeId} minimized={minimized} onFocus={() => { setRecordPlayerFront(false); dispatch(bringTabToFront({id: key})); }} onMove={(right, top) => moveItems(key, right, top, 'tab')}>
                             {TabRender(key)}
                         </Tab>
                     )

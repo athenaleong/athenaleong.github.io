@@ -12,3 +12,10 @@ export function initialWindowPosition(index: number, width: number, height: numb
     const windowWidth = Math.min(800, width - 32);
     return clampWindowPosition(width - windowWidth - 32 - index * 32, 32 + index * 32, width, height);
 }
+
+export function clampFloatingWindowPosition(left: number, top: number, width: number, height: number, windowWidth: number, windowHeight: number) {
+    return {
+        left: Math.max(16, Math.min(left, width - windowWidth - 16)),
+        top: Math.max(16, Math.min(top, height - windowHeight - 96)),
+    };
+}
