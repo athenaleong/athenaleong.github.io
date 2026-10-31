@@ -26,6 +26,18 @@ export const projects: Project[] = [
         press: pursuitPress,
     },
     {
+        id: 'ratatouille',
+        title: 'Ratatouille IRL',
+        description: 'An animatronic Remy that improves your culinary skills through electric shocks.',
+        image: '/projects/ratatouille.jpeg',
+        imageAlt: 'Athena wearing her animatronic Remy',
+        links: [
+            { label: 'Demo', href: 'https://www.tiktok.com/@athena.makes/video/7425750355796921630' },
+            { label: 'Internet Archive talk', href: 'https://youtu.be/Y0HBiyo3W48?si=2MYcK-P-ToaqMS30&t=1226' },
+        ],
+        press: ratatouillePress,
+    },
+    {
         id: 'guinness-world-record',
         title: 'Guinness World Record',
         description: 'My friend Sevy and I went on a side quest and set a Guinness World Record for the fastest two-person build of the LEGO World Map, the largest LEGO set by piece count.',
@@ -41,18 +53,6 @@ export const projects: Project[] = [
         image: '/projects/croissant.jpg',
         imageAlt: 'Croissant ranking study',
         links: [{ label: 'finefood.institute', href: 'https://www.finefood.institute' }],
-    },
-    {
-        id: 'ratatouille',
-        title: 'Ratatouille IRL',
-        description: 'An animatronic Remy that improves your culinary skills through electric shocks.',
-        image: '/projects/ratatouille.jpeg',
-        imageAlt: 'Athena wearing her animatronic Remy',
-        links: [
-            { label: 'Demo', href: 'https://www.tiktok.com/@athena.makes/video/7425750355796921630' },
-            { label: 'Internet Archive talk', href: 'https://youtu.be/Y0HBiyo3W48?si=2MYcK-P-ToaqMS30&t=1226' },
-        ],
-        press: ratatouillePress,
     },
     {
         id: 'wikiposter',
