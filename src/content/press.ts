@@ -8,6 +8,12 @@ export type PressLink = {
 // Verified against the original publications on October 30, 2026.
 export const pursuitPress: PressLink[] = [
     {
+        outlet: 'WIRED',
+        year: 2025,
+        title: 'The Wild, Citywide Scavenger Hunt That Ate San Francisco',
+        href: 'https://www.wired.com/story/pursuit-scavenger-hunt-san-francisco/',
+    },
+    {
         outlet: 'SF Chronicle',
         year: 2026,
         title: 'An elaborate, monthlong scavenger hunt has swept S.F. Here’s what has puzzle fans hooked',
@@ -24,12 +30,6 @@ export const pursuitPress: PressLink[] = [
         year: 2026,
         title: 'Massive San Francisco scavenger hunt, responsible for several tattoos, returns',
         href: 'https://www.sfgate.com/sf-culture/article/massive-sf-scavenger-hunt-22340656.php',
-    },
-    {
-        outlet: 'WIRED',
-        year: 2025,
-        title: 'The Wild, Citywide Scavenger Hunt That Ate San Francisco',
-        href: 'https://www.wired.com/story/pursuit-scavenger-hunt-san-francisco/',
     },
     {
         outlet: 'Axios',
