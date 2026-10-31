@@ -17,7 +17,7 @@
 
 .projects-intro { margin: 0 0 30px; color: var(--project-muted); }
 .projects-intro > span { display: block; margin-bottom: 8px; color: var(--project-ink); font-size: 20px; font-weight: 700; line-height: 1.7; }
-.project-item { display: grid; grid-template-columns: 156px minmax(0, 1fr); gap: 26px; align-items: start; padding: 28px 0; border-top: 1px solid var(--project-rule); }
+.project-item { display: grid; grid-template-columns: 224px minmax(0, 1fr); gap: 26px; align-items: start; padding: 28px 0; border-top: 1px solid var(--project-rule); }
 .project-image { aspect-ratio: 1; overflow: hidden; border: 4px solid var(--project-border); border-radius: 8px; background: white; }
 .project-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .project-image[data-fit='contain'] img { object-fit: contain; }

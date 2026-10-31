@@ -8,7 +8,6 @@ import AboutTab from './AboutTab';
 import ProjectTab from './ProjectTab';
 import WhatTab from './WhatTab';
 import Clock from '../component/Clock';
-import ConnectTheDots from '../component/ConnectTheDot';
 import ThemeToggle from '../component/ThemeToggle';
 import RecordPlayer from '../component/RecordPlayer';
 import RecordPlayerIcon from '../component/RecordPlayerIcon';
@@ -242,7 +241,6 @@ const Desktop = () => {
                     )
                 })}
                 </div>
-                <ConnectTheDots/>
                 <nav aria-label="Desktop dock" className="desktop-dock bg-figma-blue solid-black-border rounded-xl dark:bg-figma-yellow dark:border-slate-950">
                     {Object.keys(windowLabels).map(id => (
                         <a

@@ -242,7 +242,17 @@ button:focus-visible {
 
 
 /* Desktop windows live in their own stack, below the always-reachable dock. */
-.desktop-workspace { isolation: isolate; }
+.desktop-workspace {
+  --desktop-dot: rgb(107 114 128 / 45%);
+  isolation: isolate;
+  background-color: #e7e5e4;
+  background-image:
+    radial-gradient(circle at 2px 2px, var(--desktop-dot) 1.5px, transparent 2px),
+    radial-gradient(circle at 2px 2px, var(--desktop-dot) 1.5px, transparent 2px);
+  background-size: 36px 72px;
+  background-position: 0 0, 18px 36px;
+}
+.dark .desktop-workspace { --desktop-dot: rgb(148 163 184 / 40%); background-color: #1e293b; }
 .desktop-windows { position: absolute; inset: 0; z-index: 10; pointer-events: none; }
 .desktop-window {
   position: absolute;
