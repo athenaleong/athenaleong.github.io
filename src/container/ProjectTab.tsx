@@ -182,30 +182,6 @@ const ProjectTab: React.FC<any> = ({isMobile=false}:
                         </div>
                     </div>
 
-                    {/* Dewy */}
-                    <div className="space-y-4">
-                        <div className="flex items-center space-x-4">
-                            <div className="w-8 h-8 bg-rainbow-green rounded-full flex items-center justify-center">
-                                <span className="text-white text-sm">🤖</span>
-                            </div>
-                            <h2 className="font-bold">Dewy</h2>
-                        </div>
-                        <div className="flex flex-col md:flex-row gap-6 items-stretch">
-                            <img 
-                                src="/projects/dewey.png" 
-                                alt="Dewy AI assistant" 
-                                className="w-full md:w-48 rounded-lg solid-black-border object-cover"
-                                loading="lazy"
-                                decoding="async"
-                            />
-                            <div className="flex-1 space-y-2">
-                                <p className="text-lg font-normal leading-loose">
-                                    My personal AI assistant that messages my friends to schedule hangouts in my calendar.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
                     {/* Mirror of Erised */}
                     <div className="space-y-4">
                         <div className="flex items-center space-x-4">

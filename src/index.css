@@ -277,6 +277,8 @@ button:focus-visible {
 .window-close { background: #fd3d39; border-right: 4px solid black; color: black; }
 .window-minimize { border-left: 4px solid black; }
 .window-title { flex: 1; cursor: move; touch-action: none; font-weight: 700; }
+.desktop-window[data-dragging='true'] { user-select: none; }
+.desktop-window[data-dragging='true'] .window-title { cursor: grabbing; }
 .window-control:hover { background: #fe9526; border-color: black; }
 .window-title:focus-visible, .window-control:focus-visible { outline: 3px solid currentColor; outline-offset: -4px; }
 .desktop-dock {

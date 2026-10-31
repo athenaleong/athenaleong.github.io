@@ -98,7 +98,7 @@ const Desktop = () => {
 
     const [, drop] = useDrop(
         () => ({
-            accept: ['folder', 'tab'],
+            accept: ['folder'],
             drop(item: any, monitor: any) {
                 const delta = monitor.getDifferenceFromInitialOffset() as { x: number; y: number }
                 if (!delta) return;
@@ -236,7 +236,7 @@ const Desktop = () => {
                 {Object.keys(tabs).map((key) => {
                     const { right, top, zIndex, minimized } = tabs[key];
                     return(
-                        <Tab key={key} id={key} label={windowLabels[key]} right={right} top={top} removeTab={removeTab} zIndex={zIndex} active={key === activeId} minimized={minimized} minimizeTab={id => dispatch(minimizeTab({id}))} onFocus={() => { setRecordPlayerFront(false); dispatch(bringTabToFront({id: key})); }} onMove={(right, top) => moveItems(key, right, top, 'tab')} isTouchDevice={isTouchDevice}>
+                        <Tab key={key} id={key} label={windowLabels[key]} right={right} top={top} removeTab={removeTab} zIndex={zIndex} active={key === activeId} minimized={minimized} minimizeTab={id => dispatch(minimizeTab({id}))} onFocus={() => { setRecordPlayerFront(false); dispatch(bringTabToFront({id: key})); }} onMove={(right, top) => moveItems(key, right, top, 'tab')}>
                             {TabRender(key)}
                         </Tab>
                     )
