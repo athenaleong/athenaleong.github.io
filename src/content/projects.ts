@@ -38,6 +38,18 @@ export const projects: Project[] = [
         press: ratatouillePress,
     },
     {
+        id: 'outernet',
+        title: 'Outernet',
+        description: 'My startup. I spend a lot of my time building this.',
+        image: '/projects/outernet.png',
+        imageAlt: 'Outernet’s smiling globe mascot in red boots',
+        imageFit: 'contain',
+        links: [
+            { label: 'Website', href: 'https://www.outernetexplorer.com/' },
+            { label: 'TechCrunch', href: 'https://techcrunch.com/2026/08/03/outernet-turns-your-saved-posts-into-real-world-adventures/' },
+        ],
+    },
+    {
         id: 'guinness-world-record',
         title: 'Guinness World Record',
         description: 'My friend Sevy and I went on a side quest and set a Guinness World Record for the fastest two-person build of the LEGO World Map, the largest LEGO set by piece count.',
