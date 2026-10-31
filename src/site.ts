@@ -28,7 +28,7 @@ export const pages = {
   '/projects/': {
     title: "Projects by Athena Leong | Athena's Playground",
     heading: 'Projects by Athena Leong',
-    description: 'Explore Athena Leong’s projects: Pursuit, Finefood.institute, Ratatouille IRL, Lockin.cafe, Field Trip, creative technology, and playful experiments.',
+    description: 'Explore Athena Leong’s projects: Pursuit, Finefood.institute, Ratatouille IRL, Wikiposter, Field Trip, creative technology, and playful experiments.',
   },
   '/story/': {
     title: "Curiosity, Play & My Story | Athena Leong",

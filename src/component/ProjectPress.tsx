@@ -2,9 +2,9 @@ import type { PressLink } from '../content/press';
 
 export default function ProjectPress({ project, links }: { project: string; links: PressLink[] }) {
     return (
-        <div className="space-y-1 text-base">
+        <div className="project-press">
             <p>In the press</p>
-            <ul aria-label={`${project} press coverage`} className="flex flex-wrap gap-x-4 gap-y-1 font-normal leading-relaxed">
+            <ul aria-label={`${project} press coverage`}>
                 {links.map(({ outlet, year, title, href }) => (
                     <li key={href}>
                         <a
@@ -13,7 +13,6 @@ export default function ProjectPress({ project, links }: { project: string; link
                             rel="noopener noreferrer"
                             title={title}
                             aria-label={`${outlet} (${year}): ${title}`}
-                            className="text-figma-blue hover:underline"
                         >
                             {outlet} ({year})
                         </a>

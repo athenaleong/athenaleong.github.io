@@ -1,246 +1,51 @@
-import React from 'react';
 import ProjectPress from '../component/ProjectPress';
-import { pursuitPress, ratatouillePress } from '../content/press';
+import { collegeProjects, projects } from '../content/projects';
 
-const ProjectTab: React.FC<any> = ({isMobile=false}:
-    {
-        isMobile: boolean;
-    }) => {
+export default function ProjectTab({ isMobile = false }: { isMobile?: boolean }) {
     return (
-        <div 
-        className="font-bold space-y-7 px-10 h-fit text-xl bg-gray-200 flex flex-col items-center pt-[64px] pb-[96px] font-hanken  dark:bg-gray-800"
-        style = {{paddingLeft : isMobile ? '2.5rem' : '6rem', paddingRight: isMobile ? '2.5rem' : '6rem', borderRadius: isMobile ? '0rem' : '0.5rem'}}
-        >
-            <p className='text-center'>I hack a lot and love tinkering with different ideas. <br/> There are way too many to list, <br/> but here are some adventures.</p>
-            <div className="w-[100%] flex flex-col space-y-7">
-                <div className='space-y-7 flex flex-col'>
-                    {/* Pursuit */}
-                    <div className="space-y-4">
-                        <div className="flex items-center space-x-4">
-                            <div className="w-8 h-8 bg-rainbow-blue rounded-full flex items-center justify-center">
-                                <span className="text-white text-sm">🏃‍♂️</span>
-                            </div>
-                            <h2 className="font-bold">Pursuit</h2>
-                        </div>
-                        <div className="flex flex-col md:flex-row gap-6 items-stretch">
-                            <img 
-                                src="/projects/pursuit.png" 
-                                alt="Pursuit scavenger hunt" 
-                                className="w-full md:w-48 self-start rounded-lg solid-black-border object-cover"
-                                loading="lazy"
-                                decoding="async"
-                            />
-                            <div className="flex-1 space-y-2">
-                                <p className="text-lg font-normal leading-loose">
-                                    A month-long city-wide scavenger hunt around San Francisco! 1.5% of SF's population in on the fun.
-                                </p>
-                                <div className="text-lg">
-                                    <a href="https://www.sfpursuit.org" target="_blank" className="text-figma-blue hover:underline">sfpursuit.org</a>
-                                </div>
-                                <ProjectPress project="Pursuit" links={pursuitPress} />
-                            </div>
-                        </div>
-                    </div>
+        <div className="projects-page" data-mobile={isMobile}>
+            <p className="projects-intro">
+                <span>I love building things and tinkering with different ideas.</span>{' '}
+                There are way too many to list, but here are a few.
+            </p>
 
-                    {/* Croissant Study */}
-                    <div className="space-y-4">
-                        <div className="flex items-center space-x-4">
-                            <div className="w-8 h-8 bg-rainbow-yellow rounded-full flex items-center justify-center">
-                                <span className="text-white text-sm">🥐</span>
-                            </div>
-                            <h2 className="font-bold">Finefood.institute</h2>
+            <div className="projects-list">
+                {projects.map(project => (
+                    <article className="project-item" key={project.id} aria-labelledby={`project-${project.id}`}>
+                        <div className="project-image" data-fit={project.imageFit} style={{ backgroundColor: project.imageBackground }}>
+                            <img src={project.image} alt={project.imageAlt} width="320" height="320" loading="lazy" decoding="async" />
                         </div>
-                        <div className="flex flex-col md:flex-row gap-6 items-stretch">
-                            <img 
-                                src="/projects/croissant.jpg" 
-                                alt="Croissant ranking study" 
-                                className="w-full md:w-48 rounded-lg solid-black-border object-cover"
-                                loading="lazy"
-                                decoding="async"
-                            />
-                            <div className="flex-1 space-y-2">
-                                <p className="text-lg font-normal leading-loose">
-                                    I roped in 20 friends to scientifically rank ALL the croissants in San Francisco. Double blind.
-                                </p>
-                                <div className="text-lg">
-                                    <a href="https://www.finefood.institute" target="_blank" className="text-figma-blue hover:underline">finefood.institute</a>
-                                </div>
-                            </div>
+                        <div className="project-summary">
+                            <h2 className="project-title" id={`project-${project.id}`}>{project.title}</h2>
+                            <p className="project-description">{project.description}</p>
+                            {project.links && <ul className="project-links" aria-label={`${project.title} links`}>
+                                {project.links.map(link => (
+                                    <li key={link.href}>
+                                        <a href={link.href} target="_blank" rel="noopener noreferrer">
+                                            {link.label}<span aria-hidden="true"> ↗</span>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>}
+                            {project.press && <ProjectPress project={project.title} links={project.press} />}
                         </div>
-                    </div>
-
-                    {/* Ratatouille IRL */}
-                    <div className="space-y-4">
-                        <div className="flex items-center space-x-4">
-                            <div className="w-8 h-8 bg-rainbow-purple rounded-full flex items-center justify-center">
-                                <span className="text-white text-sm">🐭</span>
-                            </div>
-                            <h2 className="font-bold">Ratatouille IRL</h2>
-                        </div>
-                        <div className="flex flex-col md:flex-row gap-6 items-stretch">
-                            <img 
-                                src="/projects/ratatouille.jpeg" 
-                                alt="Ratatouille animatronic project" 
-                                className="w-full md:w-48 self-start rounded-lg solid-black-border object-cover"
-                                loading="lazy"
-                                decoding="async"
-                            />
-                            <div className="flex-1 space-y-2">
-                                <p className="text-lg font-normal leading-loose">
-                                    An animatronic Remy that improves your culinary skills through electric shocks.
-                                </p>
-                                <div className="text-lg">
-                                    <a href="https://www.tiktok.com/@athena.makes/video/7425750355796921630" target="_blank" className="text-figma-blue hover:underline">demo</a>
-                                    &nbsp;|&nbsp;
-                                    <a href="https://youtu.be/Y0HBiyo3W48?si=2MYcK-P-ToaqMS30&t=1226" target="_blank" className="text-figma-blue hover:underline">Internet Archive talk</a>
-                                </div>
-                                <ProjectPress project="Ratatouille IRL" links={ratatouillePress} />
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Lockin.cafe */}
-                    <div className="space-y-4">
-                        <div className="flex items-center space-x-4">
-                            <div className="w-8 h-8 bg-muted-orange rounded-full flex items-center justify-center">
-                                <span className="text-white text-sm">☕</span>
-                            </div>
-                            <h2 className="font-bold">Lockin.cafe</h2>
-                        </div>
-                        <div className="flex flex-col md:flex-row gap-6 items-stretch">
-                            <img 
-                                src="/projects/lockin-cafe.png" 
-                                alt="Lockin.cafe lofi workspace" 
-                                className="w-full md:w-48 rounded-lg solid-black-border object-cover"
-                                loading="lazy"
-                                decoding="async"
-                            />
-                            <div className="flex-1 space-y-2">
-                                <p className="text-lg font-normal leading-loose">
-                                    Lofi cafe on the internet.
-                                </p>
-                                <div className="text-lg">
-                                    <a href="https://www.lockin.cafe" target="_blank" className="text-figma-blue hover:underline">lockin.cafe</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Obsidian Space Repetition Plugin */}
-                    <div className="space-y-4">
-                        <div className="flex items-center space-x-4">
-                            <div className="w-8 h-8 bg-muted-dark-green rounded-full flex items-center justify-center">
-                                <span className="text-white text-sm">🧠</span>
-                            </div>
-                            <h2 className="font-bold">Obsidian Space Repetition Plugin</h2>
-                        </div>
-                        <div className="flex flex-col md:flex-row gap-6 items-stretch">
-                            <img 
-                                src="/projects/obsidian.png" 
-                                alt="Obsidian Space Repetition Plugin" 
-                                className="w-full md:w-48 rounded-lg solid-black-border object-cover"
-                                loading="lazy"
-                                decoding="async"
-                            />
-                            <div className="flex-1 space-y-2">
-                                <p className="text-lg font-normal leading-loose">
-                                    Plugin that enables flashcards with Anki-like spaced repetition in Obsidian.
-                                </p>
-                                <div className="text-lg">
-                                    <a href="https://obsidian.md/plugins?id=spaced-repetition-ai" target="_blank" className="text-figma-blue hover:underline">Obsidian plugin</a>
-                                    &nbsp;|&nbsp;
-                                    <a href="https://x.com/athenamakes/status/1881219693736042872" target="_blank" className="text-figma-blue hover:underline">demo</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Sidequest */}
-                    <div className="space-y-4">
-                        <div className="flex items-center space-x-4">
-                            <div className="w-8 h-8 bg-muted-blue rounded-full flex items-center justify-center">
-                                <span className="text-white text-sm">🗺️</span>
-                            </div>
-                            <h2 className="font-bold">Field Trip</h2>
-                        </div>
-                        <div className="flex flex-col md:flex-row gap-6 items-stretch">
-                            <img 
-                                src="/projects/field-trip.jpeg" 
-                                alt="Field Trip AI walking guides" 
-                                className="w-full md:w-48 rounded-lg solid-black-border object-cover"
-                                loading="lazy"
-                                decoding="async"
-                            />
-                                                        <div className="flex-1 space-y-2">
-                                <p className="text-lg font-normal leading-loose">
-                                    AI walking guides that pull fascinating stories from whatever's around you. Turn every walk into an adventure!
-                                </p>
-                                <div className="text-lg">
-                                    <a href="https://x.com/athenamakes/status/1600990306056687617" target="_blank" className="text-figma-blue hover:underline">Twitter</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Mirror of Erised */}
-                    <div className="space-y-4">
-                        <div className="flex items-center space-x-4">
-                            <div className="w-8 h-8 bg-figma-pink rounded-full flex items-center justify-center">
-                                <span className="text-white text-sm">🪞</span>
-                            </div>
-                            <h2 className="font-bold">Mirror of Erised</h2>
-                        </div>
-                        <div className="flex flex-col md:flex-row gap-6 items-stretch">
-                            <img 
-                                src="/projects/erised.jpg" 
-                                alt="Mirror of Erised art exhibition" 
-                                className="w-full md:w-48 rounded-lg solid-black-border object-cover"
-                                loading="lazy"
-                                decoding="async"
-                            />
-                            <div className="flex-1 space-y-2">
-                                <p className="text-lg font-normal leading-loose">
-                                    An interactive art exhibition that makes your dreams feel real. Exhibited at Fidget Camp 2025.
-                                </p>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div className='space-y-1 flex flex-col'>
-                    <h2>Some stuff from college days:</h2>
-                    <a href="https://www.youtube.com/watch?v=2WZ-GL2cJlM">
-                    <p>Phyzmo: Motion tracking for physics</p>
-                </a>
-                <a href="https://amigu.webflow.io/">
-                    <p>Amigu: Tamagotchi for building parent-child relationship </p>
-                </a>
-                <a href="https://devpost.com/software/wherefi">
-                    <p>Wherefi: Geiger counter for wifi signal</p>
-                </a>
-                <a href="https://aorticpump.athenaleong.com/">
-                    <p>Aortic Pump: Sentence sophiscator </p>
-                </a>
-                <a href="https://emojicannon.webflow.io/">
-                    <p>Emoji cannon: Blast your screen with emojis </p>
-                </a>
-                <a href="https://a-colorful-thing.vercel.app/">
-                    <p>A Colorful Thing: Simple collaborative pixel painting web app</p>
-                </a>
-                <a href="https://www.youtube.com/watch?v=O3tr3pSMPho&ab_channel=AthenaLeong">
-                    <p>Motifs & Pattern: Animations built with processing</p>
-                </a>
-                <a href="https://www.youtube.com/watch?v=EBlkpBf28S8&ab_channel=JiHyunLee">
-                    <p>Berkeleyland</p>
-                </a>
-                <a href="https://athenaleong.notion.site/athenaleong/Doodles-e6b6f3cde2d64de5a3fa9382972c6ff0">
-                    <p>Doodles</p>
-                </a>
-                </div>
+                    </article>
+                ))}
             </div>
+
+            <section className="college-projects" aria-labelledby="college-projects-title">
+                <h2 id="college-projects-title">From my college days</h2>
+                <ul>
+                    {collegeProjects.map(project => (
+                        <li key={project.href}>
+                            <a href={project.href} target="_blank" rel="noopener noreferrer">
+                                <span className="college-project-name">{project.title}<span aria-hidden="true"> ↗</span></span>
+                                {project.description && <span className="college-project-description">{project.description}</span>}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </section>
         </div>
-    )
+    );
 }
-export default ProjectTab;
