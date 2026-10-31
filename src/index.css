@@ -104,6 +104,27 @@ body {
 }
 
 /* HTML is readable by default, including when the app bundle fails to load. */
+#playground-loading { display: none; }
+.playground-booting #playground-loading { display: block; }
+.playground-booting #static-site { display: none; }
+.playground-pacman { position: relative; width: 50px; height: 50px; }
+.playground-pacman::before,
+.playground-pacman::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 25px solid #ffcb2f;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: playground-chomp 0.8s ease-in-out infinite alternate;
+}
+.playground-pacman::before { border-bottom-color: transparent; }
+.playground-pacman::after { border-top-color: transparent; animation-direction: alternate-reverse; }
+@keyframes playground-chomp { to { transform: rotate(44deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .playground-pacman::before, .playground-pacman::after { animation: none; }
+}
+
 #root {
   visibility: hidden;
   position: fixed;

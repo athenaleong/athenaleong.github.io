@@ -4,6 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--seo-head-->
+    <script id="playground-boot">
+      (() => {
+        const html = document.documentElement;
+        const restoreReadingView = () => {
+          html.classList.remove('playground-booting');
+          window.clearTimeout(timeout);
+          window.removeEventListener('error', handleScriptError, true);
+        };
+        const handleScriptError = (event) => {
+          if (event.target instanceof HTMLScriptElement) restoreReadingView();
+        };
+        // Run before the body can paint. Failed or blocked bundles still get
+        // the readable HTML, and browsers without JavaScript never hide it.
+        const timeout = window.setTimeout(restoreReadingView, 8000);
+        document.addEventListener('playground-ready', restoreReadingView, { once: true });
+        window.addEventListener('error', handleScriptError, true);
+        html.classList.add('playground-booting');
+      })();
+    </script>
     <meta name="theme-color" content="#FFCB2F" />
     <link rel="icon" href="/slide-thick.png" />
     <link rel="stylesheet" href="/src/index.css" />
@@ -20,6 +39,7 @@
     </script>
   </head>
   <body>
+    <!--playground-loading-->
     <div id="static-site"><!--static-content--></div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

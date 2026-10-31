@@ -1,9 +1,7 @@
-import {PacmanLoader} from 'react-spinners'   
-
 const Loading = () => {
     return (
-        <div className="w-screen h-screen bg-black flex flex-col justify-center items-center">
-            <PacmanLoader color="#FFCB2F" />
+        <div className="w-screen h-screen bg-gray-200 dark:bg-gray-800 flex flex-col justify-center items-center">
+            <span className="playground-pacman" aria-hidden="true" />
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile, access } from 'node:fs/promises';
 import test from 'node:test';
+import { runInNewContext } from 'node:vm';
 
 const origin = 'https://www.athenaleong.com';
 const paths = ['/', '/about/', '/projects/', '/story/'];
@@ -84,4 +85,47 @@ test('robots and sitemap advertise exactly the generated canonical pages', async
   const sitemap = await read('sitemap.xml');
   assert.match(sitemap, /xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9"/);
   assert.deepEqual([...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]), paths.map(path => `${origin}${path}`));
+});
+
+test('only the interactive homepage suppresses the reading view during startup', () => {
+  const html = documents[0];
+  const boot = html.indexOf('<script id="playground-boot">');
+  assert.ok(boot > 0 && boot < html.indexOf('</head>'), 'startup guard must run before the body can paint');
+  assert.match(html, /id="playground-loading" role="status"/);
+  assert.match(html, /id="static-site"><div class="reading-page"/);
+  for (const page of documents.slice(1)) assert.doesNotMatch(page, /playground-boot|playground-loading/);
+});
+
+test('startup reveals readable HTML on failure and cancels fallback after a successful mount', () => {
+  const code = documents[0].match(/<script id="playground-boot">([\s\S]*?)<\/script>/)?.[1];
+  assert.ok(code);
+  function boot() {
+    const classes = new Set();
+    const timers = new Map();
+    const document = new EventTarget();
+    document.documentElement = { classList: { add: name => classes.add(name), remove: name => classes.delete(name) } };
+    const window = new EventTarget();
+    window.setTimeout = callback => { timers.set(1, callback); return 1; };
+    window.clearTimeout = id => timers.delete(id);
+    class HTMLScriptElement {}
+    runInNewContext(code, { document, window, HTMLScriptElement });
+    return { classes, timers, document, window, HTMLScriptElement };
+  }
+
+  const success = boot();
+  assert.ok(success.classes.has('playground-booting'));
+  success.document.dispatchEvent(new Event('playground-ready'));
+  assert.equal(success.classes.size, 0);
+  assert.equal(success.timers.size, 0, 'completed startup must not revert later');
+
+  const stalled = boot();
+  stalled.timers.get(1)();
+  assert.equal(stalled.classes.size, 0, 'a blocked bundle must not leave the site hidden');
+
+  const failed = boot();
+  const error = new Event('error');
+  Object.defineProperty(error, 'target', { value: new failed.HTMLScriptElement() });
+  failed.window.dispatchEvent(error);
+  assert.equal(failed.classes.size, 0, 'a failed bundle must restore the HTML immediately');
+  assert.equal(failed.timers.size, 0);
 });

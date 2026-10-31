@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import AboutTab from './container/AboutTab';
 import ProjectTab from './container/ProjectTab';
 import WhatTab from './container/WhatTab';
+import Loading from './container/Loading';
 import { pages, PagePath, site } from './site';
 
 export { pages, site };
@@ -119,10 +120,14 @@ export function renderDocument(template: string, path: PagePath) {
   }
   let html = template
     .replace('<!--seo-head-->', renderToStaticMarkup(<Metadata path={path} />))
+    .replace('<!--playground-loading-->', path === '/' ? renderToStaticMarkup(
+      <div id="playground-loading" role="status" aria-label="Loading playground"><Loading /></div>,
+    ) : '')
     .replace('<!--static-content-->', renderToStaticMarkup(<ReadingPage path={path} />));
 
   if (path !== '/') {
     html = html
+      .replace(/<script\b[^>]*\bid="playground-boot"[^>]*>[\s\S]*?<\/script>/g, '')
       .replace(/<script\b[^>]*\btype="module"[^>]*>[\s\S]*?<\/script>/g, '')
       .replace(/<link\b[^>]*\brel="modulepreload"[^>]*>/g, '')
       .replace('<div id="root"></div>', '');
