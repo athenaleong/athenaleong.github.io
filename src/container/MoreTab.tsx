@@ -23,7 +23,7 @@ const MoreTab = () => {
                 <a 
                 className="flex flex-row justify-start items-center w-full space-x-8"
                 href="https://garden.athenaleong.com" target="_blank">
-                        <img src='/garden.png' className='w-10 h-10 bg-white p-2 rounded-xl'/>
+                        <img src='/optimized/garden.webp' className='w-10 h-10 bg-white p-2 rounded-xl'/>
                         <p>I have a digital garden!</p>
                 </a>
             </div>
@@ -33,7 +33,7 @@ const MoreTab = () => {
                 <a 
                 className="flex flex-row justify-start items-center w-full space-x-8"
                 href="https://github.com/athenaleong" target="_blank">
-                        <img src='/github.png' className='w-10 h-10 bg-white p-2 rounded-xl'/>
+                        <img src='/optimized/github.webp' className='w-10 h-10 bg-white p-2 rounded-xl'/>
                         <p>@athenaleong</p>
                 </a>
             </div>

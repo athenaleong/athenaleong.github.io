@@ -23,7 +23,7 @@ import { RootState } from '../slices';
 import { popTab, addTab, updateTab, bringTabToFront, clearTab } from '../slices/tab';
 
 const windowLabels: Record<string, string> = { about: 'About', projects: 'Projects', '???': 'My story' };
-const windowIcons: Record<string, string> = { about: '/about.png', projects: '/project.png', '???': '/anglerfish.png' };
+const windowIcons: Record<string, string> = { about: '/optimized/about.webp', projects: '/optimized/project.webp', '???': '/optimized/anglerfish.webp' };
 
 
 const Desktop = () => {
@@ -37,10 +37,10 @@ const Desktop = () => {
             hoverImageSrc?: string;
         }
     }>({
-        'About': {imageSrc: '/about.png', hoverImageSrc: '/about-hover.png', right: 25, top: 25, tabId: 'about'},
-        'Projects' : {imageSrc: '/project.png', hoverImageSrc: '/project-hover.png', right: 150, top: 25, tabId: 'projects'},
-        '???' : {imageSrc: '/anglerfish.png', hoverImageSrc: '/anglerfish-hover.png', right: 25, top: 150, tabId: '???' },
-        'Thought Garden' : {imageSrc: '/garden.png', hoverImageSrc: '/garden-hover.png', right: 25, top: 275, tabId: 'garden' },
+        'About': {imageSrc: '/optimized/about.webp', hoverImageSrc: '/optimized/about-hover.webp', right: 25, top: 25, tabId: 'about'},
+        'Projects' : {imageSrc: '/optimized/project.webp', hoverImageSrc: '/optimized/project-hover.webp', right: 150, top: 25, tabId: 'projects'},
+        '???' : {imageSrc: '/optimized/anglerfish.webp', hoverImageSrc: '/optimized/anglerfish-hover.webp', right: 25, top: 150, tabId: '???' },
+        'Thought Garden' : {imageSrc: '/optimized/garden.webp', hoverImageSrc: '/optimized/garden-hover.webp', right: 25, top: 275, tabId: 'garden' },
 
     });
 
@@ -165,7 +165,7 @@ const Desktop = () => {
             {/* livvic vs hanken */}
             <div className='w-screen h-10 shrink-0 bg-figma-yellow flex flex-row justify-between border-black border-[4px] border-b-0 items-center text-lg font-bold font-code dark:bg-figma-blue dark:border-slate-950'>
                 <div className='flex flex-row space-x-4 pl-6 items-center'>
-                    <img src={'/slide-thick.png'} className='w-10'/>
+                    <img src={'/optimized/slide-thick.webp'} className='w-10'/>
                     <p>AthenaOS  </p>
 
 
@@ -178,7 +178,7 @@ const Desktop = () => {
                     <img src={'/mail.png'} className='w-5 h-5'/>
                     </a>
                     <a href="https://github.com/athenaleong" target="_blank">
-                        <img src={'/github.png'} className='w-5 h-5'/>
+                        <img src={'/optimized/github.webp'} className='w-5 h-5'/>
                     </a>
                     <a href="https://x.com/athenamakes" target="_blank">
                         <img src={'/twitter.png'} className='w-5 h-5'/>
@@ -268,7 +268,7 @@ const Desktop = () => {
                         <span className="dock-dot" aria-hidden="true" />
                     </button>
                     <button type="button" aria-label="Close all windows" title="Close all windows" className="dock-reset" onClick={resetOnClick}>
-                        <img src="/clear.png" alt="" />
+                        <img src="/optimized/clear.webp" alt="" />
                     </button>
                 </nav>
             </div>

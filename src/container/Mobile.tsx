@@ -33,12 +33,12 @@ const Mobile = () => {
     }, [activeTab])
     const Tabs: MobileTabDict = {
         'About': {
-            imageSrc:'/about.png',
-            hoverImageSrc: '/about-hover.png'
+            imageSrc:'/optimized/about.webp',
+            hoverImageSrc: '/optimized/about-hover.webp'
         },
-        'Projects' : {imageSrc: '/project.png', hoverImageSrc: '/project-hover.png'},
-        '???' : {imageSrc: '/anglerfish.png', hoverImageSrc: '/anglerfish-hover.png'},
-        'More' : {imageSrc: '/more.png', hoverImageSrc: '/more.png'}
+        'Projects' : {imageSrc: '/optimized/project.webp', hoverImageSrc: '/optimized/project-hover.webp'},
+        '???' : {imageSrc: '/optimized/anglerfish.webp', hoverImageSrc: '/optimized/anglerfish-hover.webp'},
+        'More' : {imageSrc: '/optimized/more.webp', hoverImageSrc: '/optimized/more.webp'}
     }
     return (
         <div
@@ -51,7 +51,7 @@ const Mobile = () => {
                 <div
                     className='flex flex-row items-center gap-2 whitespace-nowrap'
                 >
-                    <img src='/slide-thick.png' className='w-8 h-auto' alt=""/>
+                    <img src='/optimized/slide-thick.webp' className='w-8 h-auto' alt=""/>
                     <p>AthenaOS</p>
                 </div>
                 <div className='flex flex-row gap-2 items-center whitespace-nowrap'>

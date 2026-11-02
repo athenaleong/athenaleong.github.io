@@ -81,7 +81,7 @@ function ReadingPage({ path }: { path: PagePath }) {
   return <div className="reading-page">
     <header className="reading-header">
       <a className="reading-brand" href="/">
-        <img src="/slide-thick.png" width="40" height="40" alt="" />
+        <img src="/optimized/slide-thick.webp" width="40" height="40" alt="" />
         <span>Athena's Playground</span>
       </a>
       <nav aria-label="Site navigation">

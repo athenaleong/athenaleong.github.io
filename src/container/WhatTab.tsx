@@ -10,7 +10,7 @@ const WhatTab: React.FC<any> = ({isMobile = false}: {
 
     >
     
-    <img src={'/play.png'} className='w-[70%] mb-10' alt="An illustration of play and exploration"/>
+    <img src={'/optimized/play.webp'} className='w-[70%] mb-10' alt="An illustration of play and exploration"/>
     <p className="mb-6 leading-loose w-[100%] font-bold">
         I strive to live with everlasting exuberance.
     </p>
@@ -30,7 +30,7 @@ const WhatTab: React.FC<any> = ({isMobile = false}: {
         I believe exceptional craft can carry across fields. I look up to people like James Cameron, who makes films and explores the deep sea; Hank Green, who teaches science, writes novels and builds businesses; and Kathleen Martínez, who went from practicing law to searching for Cleopatra’s tomb.
     </p>
     <div className='mb-10 flex justify-center'>
-        <img src={'/experiences.png'} className='w-[70%]' alt="A collage of Athena's experiences" loading="lazy"/>
+        <img src={'/optimized/experiences.webp'} className='w-[70%]' alt="A collage of Athena's experiences" loading="lazy"/>
     </div>
     <p className="mb-6 leading-loose">
         I care deeply about the journey and I am most grateful for my friends who traverse this journey with me. Their authentic presence and zest for life inspire me every day. They are like anglerfish! They show me everlasting exuberance in moments of darkness. I want to this journey to be true to myself and my values, with an abundance of joy, wide-eyed curiosity, thoughtfulness and anglerfish!
