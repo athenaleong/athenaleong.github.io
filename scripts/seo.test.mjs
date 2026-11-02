@@ -26,7 +26,7 @@ test('every indexable URL ships content, links, and unique metadata without runn
     assert.ok(html.includes(`<link rel="canonical" href="${origin}${path}"`));
     assert.ok(html.includes(`<meta property="og:url" content="${origin}${path}"`));
     assert.match(html, /<meta property="og:image" content="https:\/\/www\.athenaleong\.com\//);
-    assert.match(html, /<meta name="twitter:card" content="summary"/);
+    assert.match(html, /<meta name="twitter:card" content="summary_large_image"/);
     assert.doesNotMatch(html, /noindex|<!--seo-head-->|<!--static-content-->/);
     const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1];
     assert.ok(main && main.replace(/<[^>]*>/g, '').length > 700, `${path} must contain real body text`);

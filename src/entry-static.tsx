@@ -52,6 +52,7 @@ function StructuredData({ path }: { path: PagePath }) {
 
 function Metadata({ path }: { path: PagePath }) {
   const page = pages[path];
+  const shareTitle = path === '/' ? site.shareTitle : page.title;
   return <>
     <title>{page.title}</title>
     <meta name="description" content={page.description} />
@@ -60,19 +61,20 @@ function Metadata({ path }: { path: PagePath }) {
     <link rel="canonical" href={absoluteUrl(path)} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
-    <meta property="og:title" content={page.title} />
+    <meta property="og:title" content={shareTitle} />
     <meta property="og:description" content={page.description} />
     <meta property="og:url" content={absoluteUrl(path)} />
     <meta property="og:image" content={absoluteUrl(site.image)} />
-    <meta property="og:image:width" content="1653" />
-    <meta property="og:image:height" content="1652" />
-    <meta property="og:image:alt" content="The playground slide from AthenaOS" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={site.imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@athenamakes" />
-    <meta name="twitter:title" content={page.title} />
+    <meta name="twitter:title" content={shareTitle} />
     <meta name="twitter:description" content={page.description} />
     <meta name="twitter:image" content={absoluteUrl(site.image)} />
-    <meta name="twitter:image:alt" content="The playground slide from AthenaOS" />
+    <meta name="twitter:image:alt" content={site.imageAlt} />
     <StructuredData path={path} />
   </>;
 }

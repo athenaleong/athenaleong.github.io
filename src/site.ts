@@ -4,7 +4,9 @@ export const site = {
   name: "Athena's Playground",
   author: 'Athena Leong',
   description: 'Athena Leong creates magical experiences with technology and is building Outernet for everyday adventures. Explore her projects and playground.',
-  image: '/slide-thick-square.png',
+  shareTitle: "Athena's Personal Website",
+  image: '/social-card.jpg',
+  imageAlt: 'Athena’s Personal Website, illustrated as an AthenaOS window with her About, Projects, story, and Thought Garden icons.',
   social: [
     { label: 'GitHub', url: 'https://github.com/athenaleong' },
     { label: 'X / Twitter', url: 'https://x.com/athenamakes' },

@@ -1,0 +1,64 @@
+<!doctype html>
+<!-- Preview with Vite at /scripts/social-card.html; export a 1200 × 630 PNG. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex" />
+  <title>Athena's Personal Website — social card artwork</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Hanken+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+    body {
+      color: #111; background-color: #e4e4e3;
+      background-image: radial-gradient(circle, #9ca3af 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+      font-family: 'Hanken Grotesk', sans-serif;
+    }
+    .window {
+      position: absolute; inset: 42px 58px 50px;
+      border: 5px solid #111; border-radius: 19px;
+      overflow: hidden; background: #f4f4f0;
+      box-shadow: 9px 10px 0 #111;
+    }
+    .titlebar {
+      height: 64px; display: flex; align-items: center; gap: 20px;
+      padding: 0 26px; background: #ffca28; border-bottom: 5px solid #111;
+      font: 600 26px 'Fira Code', monospace;
+    }
+    .logo { width: 49px; height: auto; }
+    .close {
+      position: absolute; right: 0; top: 0; width: 65px; height: 59px;
+      display: grid; place-items: center; border-left: 5px solid #111;
+      background: #ff4040; font-size: 38px; line-height: 1;
+    }
+    main { display: grid; grid-template-columns: 1fr 326px; height: calc(100% - 64px); padding: 39px 42px 32px; gap: 20px; }
+    .intro { align-self: center; padding-bottom: 5px; }
+    h1 { margin: 0; font-size: 78px; font-weight: 700; line-height: 1.02; letter-spacing: -3px; }
+    .address { display: inline-block; margin: 28px 0 0; padding: 8px 16px 10px; border: 3px solid #111; border-radius: 7px; background: #167ffc; color: white; font: 600 22px 'Fira Code', monospace; }
+    .icons { display: grid; grid-template-columns: 1fr 1fr; align-content: center; gap: 15px 18px; }
+    .icon { margin: 0; display: flex; flex-direction: column; align-items: center; }
+    .icon img { display: block; width: 138px; height: 138px; object-fit: contain; }
+    figcaption { margin-top: 1px; font: 600 18px 'Fira Code', monospace; }
+  </style>
+</head>
+<body>
+  <div class="window">
+    <header class="titlebar"><img class="logo" src="/optimized/slide-thick.webp" alt="" />AthenaOS<span class="close" aria-hidden="true">×</span></header>
+    <main>
+      <div class="intro">
+        <h1>Athena’s<br />Personal Website</h1>
+        <p class="address">athenaleong.com ↗</p>
+      </div>
+      <div class="icons">
+        <figure class="icon"><img src="/optimized/about.webp" alt="" /><figcaption>About</figcaption></figure>
+        <figure class="icon"><img src="/optimized/project.webp" alt="" /><figcaption>Projects</figcaption></figure>
+        <figure class="icon"><img src="/optimized/anglerfish.webp" alt="" /><figcaption>???</figcaption></figure>
+        <figure class="icon"><img src="/optimized/garden.webp" alt="" /><figcaption>Thought Garden</figcaption></figure>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
