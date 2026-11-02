@@ -1,4 +1,4 @@
-import { guinnessPress, pursuitPress, ratatouillePress, type PressLink } from './press';
+import { guinnessPress, outernetPress, pursuitPress, ratatouillePress, type PressLink } from './press';
 
 type ProjectLink = { label: string; href: string };
 type Project = {
@@ -44,10 +44,8 @@ export const projects: Project[] = [
         image: '/projects/outernet.png',
         imageAlt: 'Outernet’s smiling globe mascot in red boots',
         imageFit: 'contain',
-        links: [
-            { label: 'Website', href: 'https://www.outernetexplorer.com/' },
-            { label: 'TechCrunch', href: 'https://techcrunch.com/2026/08/03/outernet-turns-your-saved-posts-into-real-world-adventures/' },
-        ],
+        links: [{ label: 'Website', href: 'https://www.outernetexplorer.com/' }],
+        press: outernetPress,
     },
     {
         id: 'guinness-world-record',

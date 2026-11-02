@@ -72,6 +72,15 @@ export const ratatouillePress: PressLink[] = [
     },
 ];
 
+export const outernetPress: PressLink[] = [
+    {
+        outlet: 'TechCrunch',
+        year: 2026,
+        title: 'Outernet turns your saved posts into real-world adventures',
+        href: 'https://techcrunch.com/2026/08/03/outernet-turns-your-saved-posts-into-real-world-adventures/',
+    },
+];
+
 export const guinnessPress: PressLink[] = [
     {
         outlet: 'Guinness World Records',
