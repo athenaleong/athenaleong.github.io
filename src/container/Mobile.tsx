@@ -1,5 +1,5 @@
 import Clock from "../component/Clock"
-import { useCallback, useState } from "react"
+import { useCallback, useLayoutEffect, useRef, useState } from "react"
 import { MobileTabDict } from "../type/tab"
 import AboutTab from "./AboutTab"
 import ProjectTab from "./ProjectTab"
@@ -16,6 +16,12 @@ type MobileTabs = 'About' | 'Projects' | '???' | 'More'
 const Mobile = () => {
 
     const [activeTab, setActiveTab] = useState<string>('About')
+    const contentRef = useRef<HTMLDivElement>(null)
+
+    useLayoutEffect(() => {
+        // The tabs share this scroll container; start each new tab at the top.
+        contentRef.current?.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    }, [activeTab])
 
     const renderView = useCallback(() => {
         switch (activeTab) {
@@ -61,6 +67,7 @@ const Mobile = () => {
              
             </div>
             <div
+                ref={contentRef}
                 className='w-screen h-[100%] mt-10 mb-[6rem] border-[4px] border-black border-t-0 border-b-0 overflow-scroll'
             >
                 { renderView()}
